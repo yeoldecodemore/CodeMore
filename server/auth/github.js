@@ -1,7 +1,7 @@
 const passport = require('passport')
 const router = require('express').Router()
 const GitHubStrategy = require('passport-github').Strategy
-const {User} = require('../db/models')
+const {User, Github} = require('../db/models')
 module.exports = router
 
 if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
@@ -18,22 +18,44 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   const strategy = new GitHubStrategy(
     githubConfig,
     (token, refreshToken, profile, done) => {
-      console.log('--------', profile)
-      const githubId = profile.id
-      const name = profile.displayName
-      const space = profile.displayName.indexOf(' ')
-      const firstName = profile.displayName.slice(0, space - 1)
-      const lastName = profile.displayName.slice(
-        space + 1,
-        profile.displayName.length
-      )
-      console.log('***********', name, firstName, lastName)
-      // const email = profile.emails[0].value || null;
-      //DDH -- added  || null to make this work
+      console.log(profile)
+      const {
+        profileUrl,
+        username,
+        _json: {
+          id,
+          name,
+          avatar_url,
+          type,
+          site_admin,
+          public_repos,
+          public_gists,
+          followers,
+          following,
+          created_at
+        }
+      } = profile
+
+      const githubId = id
+      const space = name.indexOf(' ')
+      const firstName = name.slice(0, space)
+      const lastName = name.slice(space + 1, name.length)
 
       User.findOrCreate({
         where: {githubId},
-        defaults: {name}
+        defaults: {
+          firstName,
+          lastName,
+          profileUrl,
+          type,
+          imageUrl: avatar_url,
+          site_admin,
+          public_repos,
+          public_gists,
+          followers,
+          following,
+          git_created_at: created_at
+        }
       })
         .then(([user]) => done(null, user))
         .catch(done)

@@ -30,6 +30,7 @@ export default withRouter(
         ) : (
           <Switch>
             <Route exact path="/" component={LandingPage} />
+            <Route component={LandingPage} />
           </Switch>
         )
       }
