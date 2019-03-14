@@ -21,11 +21,12 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
       console.log('--------', profile)
       const githubId = profile.id
       const name = profile.displayName
-      const email = profile.emails[0].value
+      // const email = profile.emails[0].value || null;
+      //DDH -- added  || null to make this work
 
       User.findOrCreate({
         where: {githubId},
-        defaults: {name, email}
+        defaults: {name}
       })
         .then(([user]) => done(null, user))
         .catch(done)
