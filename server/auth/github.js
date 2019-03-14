@@ -21,6 +21,13 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
       console.log('--------', profile)
       const githubId = profile.id
       const name = profile.displayName
+      const space = profile.displayName.indexOf(' ')
+      const firstName = profile.displayName.slice(0, space - 1)
+      const lastName = profile.displayName.slice(
+        space + 1,
+        profile.displayName.length
+      )
+      console.log('***********', name, firstName, lastName)
       // const email = profile.emails[0].value || null;
       //DDH -- added  || null to make this work
 
@@ -39,7 +46,7 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
 
   router.get(
     '/callback',
-    passport.authenticate('github', {failureRedirect: '/login'}),
+    passport.authenticate('github', {failureRedirect: '/'}),
     function(req, res) {
       // Successful authentication, redirect home.
       res.redirect('/home')

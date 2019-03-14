@@ -3,11 +3,31 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-  // email: {
-  //   type: Sequelize.STRING,
-  //   unique: true,
-  //   //DDH -- took out     "allowNull: false" to make this work
-  // },
+  githubId: {
+    type: Sequelize.STRING,
+    unique: true
+  },
+  firstName: {
+    type: Sequelize.STRING
+  },
+  lastName: {
+    type: Sequelize.STRING
+  },
+  codewars: {
+    type: Sequelize.STRING
+  },
+  medium: {
+    type: Sequelize.STRING
+  },
+  stackoverflow: {
+    type: Sequelize.STRING
+  },
+  email: {
+    type: Sequelize.STRING,
+    validate: {
+      isEmail: true
+    }
+  },
   password: {
     type: Sequelize.STRING,
     // Making `.password` act like a func hides it when serializing to JSON.
@@ -23,11 +43,6 @@ const User = db.define('user', {
     get() {
       return () => this.getDataValue('salt')
     }
-  },
-  githubId: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
   }
 })
 
