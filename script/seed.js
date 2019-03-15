@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Problem} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +12,31 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  const problems = await Promise.all([
+    Problem.create({
+      problemSlug: 'backwards_array',
+      problemName: 'Backwards Array',
+      problemDescription:
+        'Create an array which contains the values 1 through 10, backwards. Example: backwardsArray(4) returns [4,3,2,1]',
+      problemFunctionCall: 'backwardsArray(10)',
+      problemTemplate: 'const backwardsArray = (n) => {\n\n}',
+      expectedResult: '[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]',
+      solved: false
+    }),
+    Problem.create({
+      problemSlug: 'count_vowels',
+      problemName: 'Count Vowels',
+      problemDescription:
+        'Return the number of vowels that are within a string. Example: countVowels("Learning code is fun") returns 7',
+      problemFunctionCall: 'countVowels("This Is Quik Code")',
+      problemTemplate: 'const countVowels = (str) => {\n\n}',
+      expectedResult: '6',
+      solved: false
+    })
+  ])
+
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${problems.length} problems`)
   console.log(`seeded successfully`)
 }
 

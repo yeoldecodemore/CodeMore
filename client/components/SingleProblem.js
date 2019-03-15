@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
-
 import ls from 'local-storage'
 
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
+
+import {fetchSingleProblem} from '../store/'
 
 class Editor extends Component {
   constructor(props) {
@@ -18,17 +19,25 @@ class Editor extends Component {
   }
 
   //local storage id will be github userId _ problem name
-  componentDidMount() {
-    if (ls.get('1') === null) {
-      ls.set('1', 'problemtemplate{\n\n}')
+  async componentDidMount() {
+    const problemName = this.props.match.params.problemName
+    await this.props.fetchSingleProblem(problemName)
+
+    if (ls.get(`${this.props.singleProblem.problemName}`) === null) {
+      ls.set(
+        `${this.props.singleProblem.problemName}`,
+        `${this.props.singleProblem.problemTemplate}`
+      )
     }
-    this.setState({usersCode: ls.get('1')})
+    this.setState({
+      usersCode: ls.get(`${this.props.singleProblem.problemName}`)
+    })
   }
   onChange = newValue => {
     this.setState({
       usersCode: newValue
     })
-    ls.set('1', newValue) //|| 'problem template')
+    ls.set(`${this.props.singleProblem.problemName}`, newValue)
   }
 
   runCode = () => {}
@@ -43,17 +52,20 @@ class Editor extends Component {
   render() {
     return (
       <div>
+        <div>{this.props.singleProblem.problemDescription}</div>
+
         <AceEditor
           mode="javascript"
           theme="monokai"
           onChange={this.onChange}
           name="editor"
           className="editor"
-          value={this.state.usersCode} //|| ls.get('1')}
+          value={this.state.usersCode}
           fontSize={16}
           editorProps={{$blockScrolling: Infinity}}
           style={{width: '50vw', height: '50vh'}}
         />
+
         <button type="button" onClick={this.runCode}>
           Run Code
         </button>
@@ -62,7 +74,12 @@ class Editor extends Component {
   }
 }
 
-const mapStateToProps = state => ({})
-const mapDispatchToProps = dispatch => ({})
+const mapStateToProps = state => ({
+  singleProblem: state.problem.singleProblem
+})
 
-export const CodeEditor = connect(mapStateToProps, mapDispatchToProps)(Editor)
+const mapDispatchToProps = dispatch => ({
+  fetchSingleProblem: problemName => dispatch(fetchSingleProblem(problemName))
+})
+
+export const Problem = connect(mapStateToProps, mapDispatchToProps)(Editor)
