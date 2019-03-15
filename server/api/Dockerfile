@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM node:11-slim
 
 COPY script.sh .
 

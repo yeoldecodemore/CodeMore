@@ -1,10 +1,18 @@
 const router = require('express').Router()
 const {NodeVM} = require('vm2')
+const {exec} = require('child_process')
+
 module.exports = router
 
 router.post('/', (req, res, next) => {
   console.log(req.body.code)
-  res.send('okay!')
+  exec(
+    `docker run --stop-timeout 5 --rm -e CODE="${req.body.code}" test1`,
+    (err, stdout, stderr) => {
+      console.log('err', err, '\n\n\nstdout', stdout, '\n\n\nstderr', stderr)
+      res.send(stdout)
+    }
+  )
 })
 
 // router.get('/', async (req, res, next) => {
