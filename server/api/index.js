@@ -3,6 +3,8 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/docker', require('./docker'))
+router.use('/codewars', require('./codewars'))
+
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
