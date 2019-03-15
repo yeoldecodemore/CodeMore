@@ -4,7 +4,7 @@ import React from 'react'
 export default () => (
   <div>
     <a id="enterCodemore" href="/auth/github">
-      Enter Codemore with Github
+      <img src="http://bestanimations.com/Fantasy/Dragons/dragon-animated-gif-48-2.gif" />
     </a>
   </div>
 )

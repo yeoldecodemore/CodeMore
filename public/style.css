@@ -20,16 +20,19 @@ nav a {
   margin: 1em;
 }
 
-#enterCodemore {
-  background-color: #fff;
-}
 .navbar h1 {
   color: #000;
   text-align: center;
   margin-top: 0px;
   margin-bottom: 0px;
   font-family: cursive;
-  font-size: 5em;
+}
+
+.loggedinNavhead {
+  font-size: 4em;
+}
+.loggedoutNavhead {
+  font-size: 6em;
 }
 .LandingPage {
   background-image: url(images/medievallandscape.png);

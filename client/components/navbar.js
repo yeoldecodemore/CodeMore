@@ -13,7 +13,9 @@ const mapDispatch = dispatch => ({
 
 export default connect(mapState, mapDispatch)(({handleClick, isLoggedIn}) => (
   <div className="navbar">
-    <h1>Codemore</h1>
+    <h1 className={isLoggedIn ? 'loggedinNavhead' : 'loggedoutNavhead'}>
+      Codemore
+    </h1>
     {isLoggedIn ? (
       <nav>
         <Link to="/home">Home</Link>
