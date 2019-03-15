@@ -8,78 +8,72 @@ import 'brace/theme/monokai'
 
 import {fetchSingleProblem} from '../store/'
 
-class Editor extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
+const mapStateToProps = ({problem}) => ({
+  singleProblem: problem.singleProblem
+})
+
+// const mapDispatchToProps = dispatch => ({
+//   fetchSingleProblem: problemName => dispatch(fetchSingleProblem(problemName))
+// })
+
+export default connect(mapStateToProps, {fetchSingleProblem})(
+  class Editor extends Component {
+    state = {
       usersCode: ''
     }
-    this.onChange = this.onChange.bind(this)
-    this.runCode = this.runCode.bind(this)
-  }
 
-  //local storage id will be github userId _ problem name
-  async componentDidMount() {
-    const problemName = this.props.match.params.problemName
-    await this.props.fetchSingleProblem(problemName)
+    //local storage id will be github userId _ problem name
+    async componentDidMount() {
+      const probName = this.props.match.params.problemName
+      await this.props.fetchSingleProblem(probName)
 
-    if (ls.get(`${this.props.singleProblem.problemName}`) === null) {
-      ls.set(
-        `${this.props.singleProblem.problemName}`,
-        `${this.props.singleProblem.problemTemplate}`
-      )
+      const {problemSlug, problemTemplate} = this.props.singleProblem
+
+      if (ls.get(`${problemSlug}`) === null) {
+        ls.set(`${problemSlug}`, `${problemTemplate}`)
+      }
+      this.setState({
+        usersCode: ls.get(`${problemSlug}`)
+      })
     }
-    this.setState({
-      usersCode: ls.get(`${this.props.singleProblem.problemName}`)
-    })
-  }
-  onChange = newValue => {
-    this.setState({
-      usersCode: newValue
-    })
-    ls.set(`${this.props.singleProblem.problemName}`, newValue)
-  }
+    onChange = newValue => {
+      this.setState({
+        usersCode: newValue
+      })
+      ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
+    }
 
-  runCode = () => {}
-  //send to docker like:
-  /*
+    runCode = () => {}
+    //send to docker like:
+    /*
 
   {
     code : 'usercode'
   }
   */
 
-  render() {
-    return (
-      <div>
-        <div>{this.props.singleProblem.problemDescription}</div>
+    render() {
+      return (
+        <div>
+          <div>{this.props.singleProblem.problemDescription}</div>
 
-        <AceEditor
-          mode="javascript"
-          theme="monokai"
-          onChange={this.onChange}
-          name="editor"
-          className="editor"
-          value={this.state.usersCode}
-          fontSize={16}
-          editorProps={{$blockScrolling: Infinity}}
-          style={{width: '50vw', height: '50vh'}}
-        />
+          <AceEditor
+            mode="javascript"
+            theme="monokai"
+            onChange={this.onChange}
+            name="editor"
+            className="editor"
+            value={this.state.usersCode}
+            fontSize={16}
+            editorProps={{$blockScrolling: Infinity}}
+            style={{width: '50vw', height: '50vh'}}
+          />
 
-        <button type="button" onClick={this.runCode}>
-          Run Code
-        </button>
-      </div>
-    )
+          <button type="button" onClick={this.runCode}>
+            Run Code
+          </button>
+        </div>
+      )
+    }
   }
-}
-
-const mapStateToProps = state => ({
-  singleProblem: state.problem.singleProblem
-})
-
-const mapDispatchToProps = dispatch => ({
-  fetchSingleProblem: problemName => dispatch(fetchSingleProblem(problemName))
-})
-
-export const Problem = connect(mapStateToProps, mapDispatchToProps)(Editor)
+)
