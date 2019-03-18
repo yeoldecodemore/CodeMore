@@ -1,45 +1,30 @@
 const router = require('express').Router()
-const {NodeVM} = require('vm2')
 const {exec} = require('child_process')
+const {testCase} = require('./testcases')
 
 module.exports = router
 
-router.post('/', (req, res, next) => {
-  console.log(req.body.code)
-  exec(
-    `docker run --stop-timeout 5 --rm -e CODE="${req.body.code}" test1`,
-    (err, stdout, stderr) => {
-      console.log('err', err, '\n\n\nstdout', stdout, '\n\n\nstderr', stderr)
-      res.send(stdout)
+router.post('/:problem', (req, res, next) => {
+  try {
+    const problem = req.params.problem
+    if (testCase[problem]) {
+      const solutionTest = testCase[problem]
+      const {code} = req.body
+      const fullCode = code.concat(solutionTest)
+      exec(
+        `docker run --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker`,
+        (err, stdout, stderr) => {
+          if (err) {
+            throw err
+          } else {
+            res.send(stdout || stderr)
+          }
+        }
+      )
+    } else {
+      throw new Error('that problem does not exist')
     }
-  )
+  } catch (error) {
+    console.log(error)
+  }
 })
-
-// router.get('/', async (req, res, next) => {
-// 	try {
-// 		const { code } = req.body;
-// 		const vm = new NodeVM({
-// 			require: {
-// 				timeout: 1000,
-// 				external: true,
-// 				mock: {
-// 					fs: {
-// 						readFileSync() {
-// 							return 'Nice try!';
-// 						}
-// 					}
-// 				}
-// 			}
-// 		});
-
-// 		const answerOne = vm.run(`${code} module.exports =isPalindrome("mom")`);
-// 		const answerTwo = vm.run(`${code} module.exports =isPalindrome("ew")`);
-// 		const obj = {
-// 			answerOne: answerOne,
-// 			answerTwo: answerTwo
-// 		};
-// 		res.json(obj);
-// 	} catch (error) {
-// 		next(error);
-// 	}
-// });
