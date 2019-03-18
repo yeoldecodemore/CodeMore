@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
 import ls from 'local-storage'
+import axios from 'axios'
 
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
@@ -43,11 +44,26 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
 
-    runCode = () => {}
+    runCode = async () => {
+      try {
+        const {id, slug} = this.props.singleProblem
+        console.log(this.props.singleProblem)
+        const userProblem = {
+          id,
+          slug,
+          code: this.state.usersCode
+        }
+        await axios.post(`/api/docker/${slug}`, userProblem)
+      } catch (error) {
+        console.log(error)
+      }
+    }
     //send to docker like:
     /*
 
   {
+    slug:
+    id:
     code : 'usercode'
   }
   */
