@@ -1,6 +1,6 @@
 const testCase = {
   isPalindrome:
-    "console.log(isPalindrome('mom')); console.log(isPalindrome('mad'))"
+    "it('test1', function(){let value = isPalindrome('straw warts'); chai.expect(value).to.equal(true)})"
 }
 
 module.exports = {
