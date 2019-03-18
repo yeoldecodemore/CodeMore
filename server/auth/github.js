@@ -18,7 +18,6 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
   const strategy = new GitHubStrategy(
     githubConfig,
     (token, refreshToken, profile, done) => {
-      console.log(profile)
       const {
         profileUrl,
         username,

@@ -2,7 +2,22 @@ body {
   font-family: sans-serif;
   margin: 0px;
 }
+.dragon {
+  top: 250px;
+  left: -30%;
+  position: absolute;
+  animation: move 11s linear 1s infinite;
+  width: 150px;
+}
 
+@-webkit-keyframes move {
+  from {
+    left: -30%;
+  }
+  to {
+    left: 100%;
+  }
+}
 a {
   text-decoration: none;
 }

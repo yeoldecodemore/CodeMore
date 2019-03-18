@@ -46,8 +46,13 @@ router.get('/:id/:username', async (req, res, next) => {
       const {id} = codewarInstance.get({
         plain: true
       })
-      CodewarsLanguages.bulkCreate(_codeWarsLanguageReducer(languages, id))
-      CodewarsQuestions.bulkCreate(_codeWarsQuestionsReducer(data, id))
+      CodewarsLanguages.bulkCreate(_codeWarsLanguageReducer(languages, id), {
+        returning: true
+      })
+      CodewarsQuestions.bulkCreate(_codeWarsQuestionsReducer(data, id), {
+        returning: true
+      })
+      //need to eagerload this stuff before returning
       res.json(codewarInstance)
     })
   } catch (err) {
