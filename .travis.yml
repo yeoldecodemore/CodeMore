@@ -16,7 +16,7 @@ install:
 before_script:
   - psql -c 'create database "codemore-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
 
 before_deploy:
@@ -26,4 +26,4 @@ deploy:
   provider: heroku
   app: codemore # see README
   api_key:
-    secure: "VCbykCdCysKRmM5X7Na5oGv+BEwPhf7lkSxNO48b1oHOMBJoHVidLuQLPprtNRLLAB3tui1C6MX0xdDsA1tDmXQIc3abunvrJgNdzFIkYWAtXKjiifCvIFyZPODlXh8zotrL5A2DzhTG8oq/AUypJSTzkxPBHZezXBGym0znwwS9hitpiEYuncpf/WOu6zCEiF1fKPc1nYBIhI6L1+emfO3S/QT4eWx40sxuBgpFTgcx8NojP6sGw2oqRko3gk3miIkEwF8q4zLrFKOj/IrEwimr3Rq7w5PSXh/MnUeva0d0fcBI9J9mDwWEO64wM1J7t2BZtAeyG92ikwWSs6R/tBz4tmtQWEmiF9LBcw+hr5EUUlwzWjr0jgWkzvrMIeeJ3ENk7lstK8atbIJFpi8nKUOxXmV4E/lwrejGIUJ5OHV7nlE3ItVWTtHaIZlttbuZ4oPlHIF64TFQdJ0+co8zPSptr12RU6cjKcLPhhvw0WcyCApTo6umlWa+H6aQzq2SsG2WsR8ocTPjFJpp8PnoASE4fNZJVJSIsczivf1SK5IItnNbasnH+orRiYUEHHeqTh6uG47KJfghss8mk4VfwbCq6k+STBnEdlSkU41uO9I+HxMYSGHqTEUSs0Av+81f6QKbQRTkI9vHvw4YyybWH4J/iCwSV34bgC2BDoiPfeU="
+    secure: 'AMitvhy4LxNiM/MG92epERvdbhnfS13OmnUhCrP/CgoizpjsjKGPtK6xXqwFQD9sv82ShyrxWIpGsxna8bz22uVD6+WEBcRMno6io/vEw2UL1FhhTP/GPA8JPI4FQb0OEZ1tT8Pdd49CiEmPvT338hDSdgeJ38JatMT6en/LgftoLAqQLGPjkN03OU/3eXiSW7MOEVaHNj51HuKAv8USG4cjwUZ65fR8XhFPCeIrnGlzeCVFWKpU9e7MPcOgDcSPckRoqKPCuPzqh6cuYBNn4Z/7N04WPEM0fgXovusklpdUDp3Kh7SQqRiyMjQcB7cLeAzfsxE95XFDISbQ6cOK7x14o68k1KXHaF9Obrt4C7XwwLH3QGpWLFSbKD6uadr6rGvwEjtoxqSXlk8LF0aBdGioZowjs3nNO7jL8MxJGM+44OXhejC9CKgQa3tjifCN0s2evZMLEFgP73wkJGOfr0C+Q2jC6EJkanD6r7uO+g5TCZI0GxJ6WcdbFzmzcKVTG1tiwz9mKh3F/Vm6u04yt2H6rHEujJfYiNukxeSgYy7hG7e8k4keDitn8fgADWwiFPFl3jg/rM7/IectckdDOE6BuFwEBB3t1nalrdNne3YZU2xy0HQY/WdVucnnlUkLu9Bhre3e3xFM8KqikTfPxX9k9UcTN6XSictB7RpvEl4='
