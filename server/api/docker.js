@@ -5,9 +5,11 @@ const {exec} = require('child_process')
 module.exports = router
 
 router.post('/', (req, res, next) => {
-  console.log('req body code:', req.body.code)
+  // console.log('req body code:', req.body.code)
   exec(
-    `docker run --stop-timeout 5 --rm -e CODE="${req.body.code}" test1`,
+    `docker run --name test2 -d --stop-timeout 5 --rm -e CODE="${
+      req.body.code
+    }" test1 && docker logs -f test2`,
     (err, stdout, stderr) => {
       console.log('err', err, '\n\n\nstdout', stdout, '\n\n\nstderr', stderr)
       res.send(stdout)
