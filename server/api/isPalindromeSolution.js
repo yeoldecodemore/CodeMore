@@ -9,6 +9,7 @@ function isPalindrome(string) {
     return false
   }
 }
+isPalindrome('mom')
 
 const {expect} = require('chai')
 
