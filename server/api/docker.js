@@ -16,6 +16,7 @@ router.post('/:problem', (req, res, next) => {
       const test = testCase[problem]
       const {code} = req.body
       const fullCode = concatCode(test, code)
+      console.log(fullCode)
       exec(
         `docker run --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker`,
         (err, stdout, stderr) => {
