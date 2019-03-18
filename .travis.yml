@@ -1,29 +1,28 @@
 language: node_js
 node_js:
-  - node # uses most recent stable node version
+- node
 services:
-  - postgresql # starts up postgres
+- postgresql
 addons:
-  postgresql: '9.6' # highest available postgres version on Travis
-dist: trusty # uses trusty environment
-sudo: false # when on trusty, uses Docker containers for speed
+  postgresql: '9.6'
+dist: trusty
+sudo: false
 notifications:
   email:
-    on_success: change # default: change (only when going from broken to fixed)
-    on_failure: always # default: always (which is annoying, as it should be)
+    on_success: change
+    on_failure: always
 install:
-  - npm ci # faster, goes only from package-lock
+- npm ci
 before_script:
-  - psql -c 'create database "codemore-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+- psql -c 'create database "codemore-test";' -U postgres
 script:
-  - npm test             # test the code
-  - npm run build-client # make the bundle
-
+- npm test
+- npm run build-client
 before_deploy:
-  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+- rm -rf node_modules
 deploy:
-  skip_cleanup: true # prevents travis from deleting the build
+  skip_cleanup: true
   provider: heroku
-  app: codemore # see README
+  app: codemore
   api_key:
-    secure: "VCbykCdCysKRmM5X7Na5oGv+BEwPhf7lkSxNO48b1oHOMBJoHVidLuQLPprtNRLLAB3tui1C6MX0xdDsA1tDmXQIc3abunvrJgNdzFIkYWAtXKjiifCvIFyZPODlXh8zotrL5A2DzhTG8oq/AUypJSTzkxPBHZezXBGym0znwwS9hitpiEYuncpf/WOu6zCEiF1fKPc1nYBIhI6L1+emfO3S/QT4eWx40sxuBgpFTgcx8NojP6sGw2oqRko3gk3miIkEwF8q4zLrFKOj/IrEwimr3Rq7w5PSXh/MnUeva0d0fcBI9J9mDwWEO64wM1J7t2BZtAeyG92ikwWSs6R/tBz4tmtQWEmiF9LBcw+hr5EUUlwzWjr0jgWkzvrMIeeJ3ENk7lstK8atbIJFpi8nKUOxXmV4E/lwrejGIUJ5OHV7nlE3ItVWTtHaIZlttbuZ4oPlHIF64TFQdJ0+co8zPSptr12RU6cjKcLPhhvw0WcyCApTo6umlWa+H6aQzq2SsG2WsR8ocTPjFJpp8PnoASE4fNZJVJSIsczivf1SK5IItnNbasnH+orRiYUEHHeqTh6uG47KJfghss8mk4VfwbCq6k+STBnEdlSkU41uO9I+HxMYSGHqTEUSs0Av+81f6QKbQRTkI9vHvw4YyybWH4J/iCwSV34bgC2BDoiPfeU="
+    secure: VWEEaWMQ/RCpTwwrigKCm3tnjSWTTI+gfqSQDN4r/wq7Vzys1FqAfSSbPvCu79H1IkePd69UvejmNW80dKrK5RlFziL3raGQf1OxMV7PtzKC3uRqZkAQwdSPP5B5uTllHu+wCwGk3nTy9G2hQORcrAST3gcSw2J/YHFXM2BKCWGZda5YGT7rEajxoCslYNcuBXGG6ilKQRqnrq/+ZucxWzKcPCLT5oyf4LCWu54oFngl7vtSKNA5dWEIv5nc/i+Q1x/6wPL4d0sSEQaz62QiQ7EuYHV2pbB1v6KAchKsPODGrZzqleBcAbdYdpP/gQn9yCMYxydxcqCgRkVNC6AdZVvU9LPb+uMZXc8SKxVNpZwwMR4ihrmOwtH8yXqJjP9d6UHyZcD+DTiDs4faU2Bbi/9txgPdSzbkMaM5gPt8R1iXwAggGtZ6YJETsP4kmcAR6CGauFLuJiExFjNpYuZ9LXQ0EWZAEihGxpeqGhvN4iTL53NIPDxA0WduBvnFA5YNBV+T0NWyoTbIQsthfzBRQA4WKtVoDzaVj/tsVluLBs36xAtJXvDEZhXPzlkIXesfCisR+TjANlXRrtDA6TRzHMOp9NRFcrfzGaeafRpwhxcERvdGZDz+W5bAsbX1wdElipFQ+AzFZnnyZzYmsHTuipcT5wRUQTa4uiZvno6a1ak=
