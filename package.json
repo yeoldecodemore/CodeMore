@@ -63,7 +63,8 @@
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "sequelize": "^4.38.0",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "vm2": "^3.6.10"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.55",
