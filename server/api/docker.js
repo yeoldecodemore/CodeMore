@@ -14,11 +14,11 @@ router.post('/:problem', (req, res, next) => {
     const problem = req.params.problem
     if (testCase[problem]) {
       const test = testCase[problem]
-      const {code} = req.body
+      const {code, id} = req.body
       const fullCode = concatCode(test, code)
       console.log(fullCode)
       exec(
-        `docker run --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker`,
+        `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
           if (err) {
             throw err
