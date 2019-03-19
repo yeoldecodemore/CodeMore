@@ -1,6 +1,6 @@
 const User = require('./user')
 const Problem = require('./problems')
-const Solutions = require('./solutions')
+const Test = require('./test')
 const Codewars = require('./codewars')
 const CodewarsLanguages = require('./codewarslanguages')
 const CodewarsQuestions = require('./codewarsquestions')
@@ -17,6 +17,9 @@ Codewars.belongsTo(User)
 User.hasOne(HackerNoon)
 HackerNoon.belongsTo(User)
 
+Problem.hasMany(Test)
+Test.belongsTo(Problem)
+
 module.exports = {
   User,
   Codewars,
@@ -24,5 +27,5 @@ module.exports = {
   CodewarsQuestions,
   HackerNoon,
   Problem,
-  Solutions
+  Test
 }

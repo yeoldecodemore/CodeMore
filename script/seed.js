@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Problem} = require('../server/db/models')
+const {User, Problem, Test} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -46,11 +46,87 @@ async function seed() {
       problemTemplate: 'const countVowels = (str) => {\n\n}',
       expectedResult: '6',
       solved: false
+    }),
+    Problem.create({
+      problemSlug: 'is_palindrome',
+      problemName: 'Is Palindrome',
+      problemDescription:
+        'Return true or false if the string is a Palindrome. Example: isPalindrome("dad") returns true',
+      problemFunctionCall: 'isPalindrome("dad")',
+      problemTemplate: 'const isPalindrome = (str) => {\n\n}',
+      expectedResult: 'true',
+      solved: false
+    })
+  ])
+
+  const backwardsArrayTest = await Promise.all([
+    Test.create({
+      testCaseNumber: 1,
+      testTemplate:
+        "it('test1', function(){let value = backwardsArray(3); chai.expect(value).to.equal([3,2,1])});",
+      problemId: 1
+    }),
+    Test.create({
+      testCaseNumber: 2,
+      testTemplate:
+        "it('test2', function(){let value = backwardsArray(1); chai.expect(value).to.equal([1])});",
+      problemId: 1
+    }),
+    Test.create({
+      testCaseNumber: 3,
+      testTemplate:
+        "it('test3', function(){let value = backwardsArray(8); chai.expect(value).to.equal([8,7,6,5,4,3,2,1])});",
+      problemId: 1
+    })
+  ])
+
+  const countVowelsTest = await Promise.all([
+    Test.create({
+      testCaseNumber: 1,
+      testTemplate:
+        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5",
+      problemId: 2
+    }),
+    Test.create({
+      testCaseNumber: 2,
+      testTemplate:
+        "it('test2', function(){let value = countVowels('what'); chai.expect(value).to.equal(1)};",
+      problemId: 2
+    }),
+    Test.create({
+      testCaseNumber: 3,
+      testTemplate:
+        "it('test3', function(){let value = countVowels('hello'); chai.expect(value).to.equal(2)};",
+      problemId: 2
+    })
+  ])
+
+  const isPalindromeTest = await Promise.all([
+    Test.create({
+      testCaseNumber: 1,
+      testTemplate:
+        "it('test1', function(){let value = isPalindrome('straw warts'); chai.expect(value).to.equal(true)})",
+      problemId: 3
+    }),
+    Test.create({
+      testCaseNumber: 2,
+      testTemplate:
+        "it('test2', function(){let value = isPalindrome('warts'); chai.expect(value).to.equal(false)})",
+      problemId: 3
+    }),
+    Test.create({
+      testCaseNumber: 3,
+      testTemplate:
+        "it('test3', function(){let value = isPalindrome('warts'); chai.expect(value).to.equal(false)})",
+      problemId: 3
     })
   ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${problems.length} problems`)
+  console.log(`seeded ${backwardsArrayTest.length} backwardsArraytest `)
+  console.log(`seeded ${countVowelsTest.length} countVowelsTest `)
+  console.log(`seeded ${isPalindromeTest.length} isPalindromeTest`)
   console.log(`seeded successfully`)
 }
 
