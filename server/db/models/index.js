@@ -1,5 +1,5 @@
 const User = require('./user')
-const Problem = require('./problems')
+const Problem = require('./problem')
 const Solutions = require('./solutions')
 const Codewars = require('./codewars')
 const CodewarsLanguages = require('./codewarslanguages')
