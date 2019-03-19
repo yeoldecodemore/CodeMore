@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-const mapState = state => ({
-  isLoggedIn: !!state.user.id
+const mapState = ({userReducer}) => ({
+  isLoggedIn: !!userReducer.id
 })
 
 const mapDispatch = dispatch => ({

@@ -9,8 +9,8 @@ import 'brace/theme/monokai'
 
 import {fetchSingleProblem} from '../store/'
 
-const mapStateToProps = ({problem}) => ({
-  singleProblem: problem.singleProblem
+const mapStateToProps = ({problemReducer}) => ({
+  singleProblem: problemReducer.singleProblem
 })
 
 export default connect(mapStateToProps, {fetchSingleProblem})(

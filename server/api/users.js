@@ -15,3 +15,11 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.put('/:id', (req, res, next) => {
+  const id = req.params.id
+  console.log('here')
+  User.update(req.body, {where: {id}, returning: true})
+    .then(([numRow, [user]]) => res.json(user))
+    .catch(next)
+})

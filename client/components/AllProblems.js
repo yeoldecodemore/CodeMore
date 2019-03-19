@@ -3,31 +3,8 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchAllProblems} from '../store/'
 
-class AllProblems extends Component {
-  componentDidMount() {
-    this.props.fetchAllProblems()
-  }
-  render() {
-    return (
-      <div>
-        {this.props.allProblems.map(problem => {
-          return (
-            <Link
-              to={`problems/${problem.problemSlug}`}
-              key={`${problem.problemSlug}`}
-            >
-              {`${problem.problemName}`}
-              <br />
-            </Link>
-          )
-        })}
-      </div>
-    )
-  }
-}
-
-const mapStateToProps = state => ({
-  allProblems: state.problem.allProblems
+const mapStateToProps = ({problemReducer}) => ({
+  allProblems: problemReducer.allProblems
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -35,5 +12,26 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export const ProblemMap = connect(mapStateToProps, mapDispatchToProps)(
-  AllProblems
+  class AllProblems extends Component {
+    componentDidMount() {
+      this.props.fetchAllProblems()
+    }
+    render() {
+      return (
+        <div>
+          {this.props.allProblems.map(problem => {
+            return (
+              <Link
+                to={`problems/${problem.problemSlug}`}
+                key={`${problem.problemSlug}`}
+              >
+                {`${problem.problemName}`}
+                <br />
+              </Link>
+            )
+          })}
+        </div>
+      )
+    }
+  }
 )
