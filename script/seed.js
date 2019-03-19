@@ -56,6 +56,26 @@ async function seed() {
       problemTemplate: 'const isPalindrome = (str) => {\n\n}',
       expectedResult: 'true',
       solved: false
+    }),
+    Problem.create({
+      problemSlug: 'alphabet_position',
+      problemName: 'Alphabet Position',
+      problemDescription:
+        'Given a string, replace every letter with its position in the alphabet. If anything in the text is not a letter, ignore it and do not return it. Example: alphabetPosition("The sunset sets at twelve") returns "20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5"',
+      problemFunctionCall: 'alphabetPosition("The sunset sets at twelve")',
+      problemTemplate: 'const alphabetPosition = (str) => {\n\n}',
+      expectedResult: '20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5',
+      solved: false
+    }),
+    Problem.create({
+      problemSlug: 'two_number_sum',
+      problemName: 'Two Number Sum',
+      problemDescription:
+        'Write a function that takes a non-empty array of distinct integers and an integer representing a target sum. If any two numbers in the input array sum to the target sum, the function should return them in an array in sorted order. Example twoNumberSum([4,6], 10) returns [4,6]',
+      problemFunctionCall: 'twoNumberSum([4,6],10)',
+      problemTemplate: 'const twoNumberSum = (str) => {\n\n}',
+      expectedResult: '[4,6]',
+      solved: false
     })
   ])
 
@@ -122,11 +142,54 @@ async function seed() {
     })
   ])
 
+  const alphabetPositionTest = await Promise.all([
+    Test.create({
+      testCaseNumber: 1,
+      testTemplate:
+        "it('test1', function(){let value = alphabetPosition('abc'); chai.expect(value).to.equal('1 2 3')})",
+      problemId: 4
+    }),
+    Test.create({
+      testCaseNumber: 2,
+      testTemplate:
+        "it('test2', function(){let value = alphabetPosition('The sunset sets at twelve'); chai.expect(value).to.equal('20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5')})",
+      problemId: 4
+    }),
+    Test.create({
+      testCaseNumber: 3,
+      testTemplate:
+        "it('test3', function(){let value = alphabetPosition('The narwhal bacons at midnight'); chai.expect(value).to.equal( '20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20'))})",
+      problemId: 4
+    })
+  ])
+
+  const alphabetPositionTest = await Promise.all([
+    Test.create({
+      testCaseNumber: 1,
+      testTemplate:
+        "it('test1', function(){let value = twoNumberSum([4,6],10); chai.expect(value).to.equal([4,6])})",
+      problemId: 5
+    }),
+    Test.create({
+      testCaseNumber: 2,
+      testTemplate:
+        "it('test2', function(){let value = twoNumberSum([4,6,1,-3],3); chai.expect(value).to.equal([-3,6])})",
+      problemId: 5
+    }),
+    Test.create({
+      testCaseNumber: 3,
+      testTemplate:
+        "it('test3', function(){let value = twoNumberSum([1,2,3,4,5,6,7,8,9],17); chai.expect(value).to.equal([8,9])})",
+      problemId: 5
+    })
+  ])
+
   console.log(`seeded ${users.length} users`)
   console.log(`seeded ${problems.length} problems`)
   console.log(`seeded ${backwardsArrayTest.length} backwardsArraytest `)
   console.log(`seeded ${countVowelsTest.length} countVowelsTest `)
   console.log(`seeded ${isPalindromeTest.length} isPalindromeTest`)
+  console.log(`seeded ${alphabetPositionTest.length} alphabetPositionTest`)
   console.log(`seeded successfully`)
 }
 
