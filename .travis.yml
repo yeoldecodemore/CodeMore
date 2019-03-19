@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - node
+- node
 services:
-  - postgresql
+- postgresql
 addons:
   postgresql: '9.6'
 dist: trusty
@@ -12,18 +12,18 @@ notifications:
     on_success: change
     on_failure: always
 install:
-  - npm ci
+- npm ci
 before_script:
-  - psql -c 'create database "codemore-test";' -U postgres
+- psql -c 'create database "codemore-test";' -U postgres
 script:
-  - npm test
-  - npm run build-client
+- npm test
+- npm run build-client
 before_deploy:
-  - rm -rf node_modules
+- rm -rf node_modules
 deploy:
   provider: heroku
   api_key:
-    secure: Rl8s+JWyHPaL4pmQnTV1RvOg1uds4oLzs8SNLefUaHsHSZYzxRVr18q2HHo3q5RM5xYYT7pa3CvFCjvxVlGVYdnVIgI76v46ptxNAeeIyY4vdac0u4rwJ+5yfAYQnuceIr2rqR9O4P/XMCuhzj5T6fqsZP6N1M3zukbvGjfxlu4X4M/4o9df4nXK2wrX1BBp2c2SEyeQyLtHf0BkEcBlivDp3NCU/K8VevF/kd1rZwB2FSDaeImkV2m8k6Mr/nBZqL3EjVKTDjf+ysSnK5oCP1j2WETBtCIgHdJ+Wtx1gSnDp1yVgUwHco09PaH+Bs2tVdY1OFQbzevldDAkyn2d+dOY+0yG5GU/2WjI4wWM2EnsOQ+hDUSAvpJJAIlywGV8KL0shC3Z2hJlaYvdQQ+zeIsH0prCrblXA5m0J1mMXRbeJHbuJCk4eBesC/k00QcKiMnVFa6LBD6S78uuIUxBBLrn+QnqkKTOBNZw9lQeYDNwjRqLAddjidejYOHhSYpAafHUJQ9Yljdz52LcuCavOdhb28oq96zbtb0Gy3PkAadR9tANjZiMXm1gLdsmtNGm4ebxb0OVCP0Mm8Zktdkasy355nzL1VfejZLtvzcu36/fMNMlbJwVVm2E5mAlDGMIq2OhwSJfZKQkoaMmHRHGgzuwC3pQyXDB45iU50EITzY=
+    secure: Z3G2mvEhVA2qUaESTBYCA52IWRhpp7eEEELRk+GgYYvoWdob4ByTCft7C+HVj/ie6+C+J+BEOvlwUu1Ba+7aNxWYfEwzEoEVm27EaGgAMvrhImNB2vWofYgNzGtK3zEkRfl8C0mKBA2Xtp/6xukW/EjfS7H7Z1mVYtZHgTD6xcvQQ4uNBZnp8sp2WT6GXxA1BvRIIz+MkCLdGukKLnKkH/2BjCwK10Y0uHhjqANi5iw7R8p5ZHyOppk/Nlmd/FcCAIqXflCo3x3IIWFOfnfRhx1P44okBzJNIhLYwCXXq+muAA60M5bXJXWXFbjGEkVbZSJtgEiWhU0nZHEN0eh93Le3zANocx1J+CrvbO4WnxCCnVz7TR4u9gdkZE2xD3wh0y4125VIaMIxv47lfRMuJysQxI3/PHOHMLIYnUe7AfcN/F4E7Fg6yYyhIJ1yI0FPHr3YhNgr5pRedxc+yV20X7P65gk1uV1Amvcfkas7imbYu3R8AMaoK8DHKQko679GrlWWk2gJp1O4HmmuBNSE1EAmYvYI3C9+P7k4+nzTN4ZvRBLcGgjatgPEjo0LoCmOj+XI6Jhs+plKTE/uaTtYFNhqMZ3BNp/aNIeoDXqkuTEEe09CD8qLxyzcGBj+qam2rZRgfMD1Lqfhdqa6DB4rLwSvVtnxvCvZbbRFDSFaVQc=
   app: codemore
   on:
     repo: yeoldecodemore/CodeMore

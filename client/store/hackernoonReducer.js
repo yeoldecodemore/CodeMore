@@ -7,22 +7,17 @@ const initialState = {
   codewarsQuestions: []
 }
 
-const GET_CODEWAR = 'GET_CODEWAR'
-const getCodewars = codewarData => ({type: GET_CODEWAR, codewarData})
+const GET_HACKERNOON = 'GET_HACKERNOON'
+const getHackernoon = hackernoonData => ({type: GET_HACKERNOON, hackernoonData})
 
-export const fetchInitialCodewars = (userId, codewars) => async dispatch => {
+export const fetchInitialCodewar = (userId, hackernoon) => async dispatch => {
   console.log('inside thunk')
-  const {data} = await axios.get(`/api/codewars/${userId}/${codewars}`)
-  return dispatch(getCodewars(data))
+  const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
+  return dispatch(getHackernoon(data))
 }
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_CODEWAR:
-      const {
-        generalCodewars,
-        codewarsLanguages,
-        codewarsQuestions
-      } = action.codewarData
+    case GET_HACKERNOON:
       return {
         ...state,
         generalCodewars,

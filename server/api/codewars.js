@@ -6,10 +6,11 @@ const {
   _codeWarsQuestionsReducer
 } = require('../helperfuncs')
 
+//this is to get the initial data
 router.get('/:id/:username', async (req, res, next) => {
+  const userId = req.params.id
+  //to get majority of the data
   try {
-    const userId = req.params.id
-    //removed name from general data
     const {
       data: {
         username,
@@ -23,13 +24,15 @@ router.get('/:id/:username', async (req, res, next) => {
     } = await axios.get(
       `https://www.codewars.com/api/v1/users/${req.params.username}`
     )
+
+    //to get the questions
     const {data: {data}} = await axios.get(
       `https://www.codewars.com/api/v1/users/${
         req.params.username
       }/code-challenges/completed?page=0`
     )
 
-    Codewars.create({
+    const generalCodewars = await Codewars.create({
       userId,
       username,
       honor,
@@ -42,21 +45,23 @@ router.get('/:id/:username', async (req, res, next) => {
       overallRankScore: score,
       totalAuthored,
       totalCompleted
-    }).then(codewarInstance => {
-      const {id} = codewarInstance.get({
-        plain: true
-      })
-      CodewarsLanguages.bulkCreate(_codeWarsLanguageReducer(languages, id), {
-        returning: true
-      })
-      CodewarsQuestions.bulkCreate(_codeWarsQuestionsReducer(data, id), {
-        returning: true
-      })
-      //need to eagerload this stuff before returning
-      res.json(codewarInstance)
     })
-  } catch (err) {
-    next(err)
+
+    const {id} = generalCodewars.get({plain: true})
+
+    const codewarsLanguages = await CodewarsLanguages.bulkCreate(
+      _codeWarsLanguageReducer(languages, id),
+      {returning: true}
+    )
+
+    const codewarsQuestions = await CodewarsQuestions.bulkCreate(
+      _codeWarsQuestionsReducer(data, id),
+      {returning: true}
+    )
+
+    res.json({generalCodewars, codewarsLanguages, codewarsQuestions})
+  } catch (error) {
+    console.log(error)
   }
 })
 

@@ -4,8 +4,8 @@ import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import {LandingPage, UserHome, ProblemMap, Problem} from './components'
 import {me} from './store'
 
-const mapState = state => ({
-  isLoggedIn: !!state.user.id
+const mapState = ({userReducer}) => ({
+  isLoggedIn: !!userReducer.id
 })
 
 const mapDispatch = dispatch => ({

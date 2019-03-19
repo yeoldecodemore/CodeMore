@@ -5,6 +5,7 @@ const $ = require('cheerio')
 const hackerNoonSpecificPost = require('./hackerNoonSpecificPost')
 
 const _getHackerNoonData = username => {
+  console.log(username)
   return rp(`https://hackernoon.com/@${username}`)
     .then(function(html) {
       const claps = []
