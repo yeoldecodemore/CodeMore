@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-- node
+  - node
 services:
-- postgresql
+  - postgresql
 addons:
   postgresql: '9.6'
 dist: trusty
@@ -12,18 +12,18 @@ notifications:
     on_success: change
     on_failure: always
 install:
-- npm ci
+  - npm ci
 before_script:
-- psql -c 'create database "codemore-test";' -U postgres
+  - psql -c 'create database "codemore-test";' -U postgres
 script:
-- npm test
-- npm run build-client
+  - npm test
+  - npm run build-client
 before_deploy:
-- rm -rf node_modules
+  - rm -rf node_modules
 deploy:
   provider: heroku
   api_key:
-    secure: i+hlw8XnJhBI5tiEo/KNT/Y8a8HdCcUgL0rPJ1DQg8qB8qUI58aUPjw9ucwzKBh2IIrnLiCF1HsxeScJxoHVXOB7vqZcjWSre3crEnLNjzcFWoiP+UWnzXtctzTOdlEQ9Wu2knXbazXlbKBx0Phi5fyLQb89VYE7Y+RdbbrTyJLPBWiU7SW/4P9QFRpTG0sUzavDkVW8h1fepG2aw1kpC+WXYGonIdqcMNNcXcqTL8cOVuDWECGW5WATV6yZuOL1n4ynzHHhzFZub2WgR64zrFsmNjzmHhUlTiSjvIvJhOMk3iVOLrXO6mQoUGFHhsbnRmv0b9UJsQs/zOB+S4P4OWqDAaksFdE9xlOvOiBL8l9fJuU6wHONnKgLYKrygTC1m4oaGb+V0c7lLGstFN5QjL3/wJ5mm9emTT/fAdps5UG78zD8rAtRvD+KlA3kIJ9+Jj6LCbp7I5hDNDwI5uBWS1Czwe6XfPEQ5KpS9qjbmdQR+lg61SUJoaMiJTFueksN5ocUmp1GLu1ePZCXayq1h6K7Uu6QGLiXSshzsxpZw801/UB/QksvNWHITUcmvrEgCTKscdlsLf7F3wXPA+CcXlZc6bI1lkuQYmIuVasq051XhciDXyCEqg9zNAOORKEaQX1iFo4rHH06LQ9mMiorCei9A9aeYo4E9+qpFBipP2E=
-  app: CodeMore
+    secure: Rl8s+JWyHPaL4pmQnTV1RvOg1uds4oLzs8SNLefUaHsHSZYzxRVr18q2HHo3q5RM5xYYT7pa3CvFCjvxVlGVYdnVIgI76v46ptxNAeeIyY4vdac0u4rwJ+5yfAYQnuceIr2rqR9O4P/XMCuhzj5T6fqsZP6N1M3zukbvGjfxlu4X4M/4o9df4nXK2wrX1BBp2c2SEyeQyLtHf0BkEcBlivDp3NCU/K8VevF/kd1rZwB2FSDaeImkV2m8k6Mr/nBZqL3EjVKTDjf+ysSnK5oCP1j2WETBtCIgHdJ+Wtx1gSnDp1yVgUwHco09PaH+Bs2tVdY1OFQbzevldDAkyn2d+dOY+0yG5GU/2WjI4wWM2EnsOQ+hDUSAvpJJAIlywGV8KL0shC3Z2hJlaYvdQQ+zeIsH0prCrblXA5m0J1mMXRbeJHbuJCk4eBesC/k00QcKiMnVFa6LBD6S78uuIUxBBLrn+QnqkKTOBNZw9lQeYDNwjRqLAddjidejYOHhSYpAafHUJQ9Yljdz52LcuCavOdhb28oq96zbtb0Gy3PkAadR9tANjZiMXm1gLdsmtNGm4ebxb0OVCP0Mm8Zktdkasy355nzL1VfejZLtvzcu36/fMNMlbJwVVm2E5mAlDGMIq2OhwSJfZKQkoaMmHRHGgzuwC3pQyXDB45iU50EITzY=
+  app: codemore
   on:
     repo: yeoldecodemore/CodeMore
