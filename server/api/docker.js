@@ -15,7 +15,7 @@ const concatCode = (testspecs, userCode) => {
 
 router.post('/:problem', async (req, res, next) => {
   try {
-    const {code, id, problemId} = req.body
+    const {code, problemId, id} = req.body
     const problem = req.params.problem
     const allTests = await Test.findAll({
       where: {

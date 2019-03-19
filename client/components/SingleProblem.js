@@ -54,6 +54,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
 
         const userProblem = {
           id: `${problemSlug}_${id}`,
+          problemId: id,
           slug: problemSlug,
           code: code //this.state.usersCode
         }
