@@ -31,6 +31,6 @@ router.post('/:problem', async (req, res, next) => {
       throw new Error('that problem does not exist')
     }
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 })
