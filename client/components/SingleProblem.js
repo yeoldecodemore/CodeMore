@@ -13,17 +13,13 @@ const mapStateToProps = ({problem}) => ({
   singleProblem: problem.singleProblem
 })
 
-// const mapDispatchToProps = dispatch => ({
-//   fetchSingleProblem: problemName => dispatch(fetchSingleProblem(problemName))
-// })
-
 export default connect(mapStateToProps, {fetchSingleProblem})(
   class Editor extends Component {
     state = {
-      usersCode: ''
+      usersCode: '',
+      testResults: []
     }
 
-    //local storage id will be github userId _ problem name
     async componentDidMount() {
       const probName = this.props.match.params.problemName
       await this.props.fetchSingleProblem(probName)
@@ -37,6 +33,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
         usersCode: ls.get(`${problemSlug}`)
       })
     }
+
     onChange = newValue => {
       this.setState({
         usersCode: newValue
@@ -44,30 +41,32 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
 
-    runCode = async () => {
+    sanitize = newValue => {
+      if (!newValue.endsWith(';')) newValue += ';'
+      return newValue
+    }
+
+    runCode = async e => {
       try {
+        let code = this.sanitize(e.target.value)
+
         const {id, problemSlug} = this.props.singleProblem
-        console.log(this.props.singleProblem)
 
         const userProblem = {
-          id,
+          id: `${problemSlug}_${id}`,
           slug: problemSlug,
-          code: this.state.usersCode
+          code: code //this.state.usersCode
         }
-        await axios.post(`/api/docker/${problemSlug}`, userProblem)
+        let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
+        console.log(data)
+        let results = []
+        results.push(data.split(' ').filter(item => item))
+        console.log(results)
+        this.setState({testResults: data})
       } catch (error) {
         console.log(error)
       }
     }
-    //send to docker like:
-    /*
-
-  {
-    slug:
-    id:
-    code : 'usercode'
-  }
-  */
 
     render() {
       return (
@@ -85,8 +84,13 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
             editorProps={{$blockScrolling: Infinity}}
             style={{width: '50vw', height: '50vh'}}
           />
+          <p>{this.state.testResults}</p>
 
-          <button type="button" onClick={this.runCode}>
+          <button
+            type="button"
+            onClick={this.runCode}
+            value={this.state.usersCode}
+          >
             Run Code
           </button>
         </div>

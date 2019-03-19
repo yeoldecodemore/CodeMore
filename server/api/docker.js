@@ -16,21 +16,19 @@ router.post('/:problem', (req, res, next) => {
       const test = testCase[problem]
       const {code, id} = req.body
       const fullCode = concatCode(test, code)
-      console.log(fullCode)
       exec(
         `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
-          if (err) {
-            throw err
-          } else {
-            res.send(stdout || stderr)
-          }
+          console.log('@@@@@', stdout)
+          console.log('######', stderr)
+          console.log('&&&&&&', err)
+          res.send(stdout || stderr || err)
         }
       )
     } else {
       throw new Error('that problem does not exist')
     }
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 })
