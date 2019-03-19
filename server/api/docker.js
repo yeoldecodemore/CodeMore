@@ -1,12 +1,16 @@
 const router = require('express').Router()
 const {exec} = require('child_process')
-const {Test} = require('../db/models/test')
+const {Test} = require('../db/models')
 
 module.exports = router
 
-const concatCode = (testspec, userCode) => {
+const concatCode = (testspecs, userCode) => {
   const chai = "const chai = require('chai');"
-  return chai.concat(userCode, testspec)
+  const tests = testspecs.reduce(
+    (acc, curr) => (acc += `${curr.testTemplate};`),
+    ''
+  )
+  return chai.concat(userCode, tests)
 }
 
 router.post('/:problem', async (req, res, next) => {
@@ -20,9 +24,9 @@ router.post('/:problem', async (req, res, next) => {
     })
 
     if (allTests.length) {
-      const fullCode = concatCode(code, allTests)
+      const script = concatCode(allTests, code)
       exec(
-        `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker && docker logs -f ${id}`,
+        `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
           res.send(stdout || stderr || err)
         }
