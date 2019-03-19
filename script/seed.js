@@ -98,16 +98,6 @@ async function seed() {
       solved: false
     }),
     Problem.create({
-      problemSlug: 'min_number_of_jumps',
-      problemName: 'Minimum Number of Jumps',
-      problemDescription:
-        'Given a non-empty array of integers with each element representing the maximum number of steps you can take forward, write a function that returns the minimum number of jumps needed to reach the final index. Example minNumberOfJumps([2,1,2,2,1,1,1]) returns 4',
-      problemFunctionCall: 'minNumberOfJumps([2,1,2,2,1,1,1])',
-      problemTemplate: 'const minNumberOfJumps = (str) => {\n\n}',
-      expectedResult: '4',
-      solved: false
-    }),
-    Problem.create({
       problemSlug: 'water_area',
       problemName: 'Water Area',
       problemDescription:
