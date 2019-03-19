@@ -48,6 +48,9 @@ const User = db.define('user', {
   codewars: {
     type: Sequelize.STRING
   },
+  hackernoon: {
+    type: Sequelize.STRING
+  },
   medium: {
     type: Sequelize.STRING
   },
@@ -55,10 +58,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   email: {
-    type: Sequelize.STRING,
-    validate: {
-      isEmail: true
-    }
+    type: Sequelize.STRING
   }
 })
 

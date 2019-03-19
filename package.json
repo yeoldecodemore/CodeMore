@@ -20,6 +20,7 @@
     "seed": "node script/seed.js",
     "start": "node server",
     "start-dev": "NODE_ENV='development' npm run build-client-watch & NODE_ENV='development' npm run start-server",
+    "seed-dev": "node script/seed.js & npm run start-dev",
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
   },
@@ -43,6 +44,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.16.3",
     "express-session": "^1.15.1",
+    "focus-trap-react": "^6.0.0",
     "history": "^4.6.3",
     "local-storage": "^1.4.2",
     "morgan": "^1.8.1",
@@ -62,6 +64,7 @@
     "redux-thunk": "^2.3.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
+    "semantic-ui-react": "^0.86.0",
     "sequelize": "^4.38.0",
     "socket.io": "^2.1.1",
     "vm2": "^3.6.10"

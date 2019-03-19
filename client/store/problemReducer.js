@@ -1,18 +1,17 @@
 import axios from 'axios'
 
-const GET_ALL_PROBLEMS = 'GET_ALL_PROBLEMS'
-const GET_SINGLE_PROBLEM = 'GET_SINGLE_PROBLEM'
-
 const initialState = {
   allProblems: [],
   singleProblem: {}
 }
 
+const GET_ALL_PROBLEMS = 'GET_ALL_PROBLEMS'
 const getAllProblems = problems => ({
   type: GET_ALL_PROBLEMS,
   payload: problems
 })
 
+const GET_SINGLE_PROBLEM = 'GET_SINGLE_PROBLEM'
 const getSingleProblem = singleProblem => ({
   type: GET_SINGLE_PROBLEM,
   payload: singleProblem
@@ -41,7 +40,8 @@ export default function(state = initialState, action) {
     case GET_SINGLE_PROBLEM:
       return {...state, singleProblem: action.payload}
     case GET_ALL_PROBLEMS:
-      return {...state, allProblems: [...action.payload], singleProblem: {}}
+      return {...state, allProblems: [...action.payload]}
+    //took out singleproblem
     default:
       return state
   }

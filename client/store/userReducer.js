@@ -1,26 +1,20 @@
 import axios from 'axios'
 import history from '../history'
 
-/**
- * ACTION TYPES
- */
-const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
-
-/**
- * INITIAL STATE
- */
 const defaultUser = {}
 
-/**
- * ACTION CREATORS
- */
+const GET_USER = 'GET_USER'
 const getUser = user => ({type: GET_USER, user})
+
+const REMOVE_USER = 'REMOVE_USER'
 const removeUser = () => ({type: REMOVE_USER})
 
-/**
- * THUNK CREATORS
- */
+export const updateUser = (userId, newUserData) => async dispatch => {
+  const {data} = await axios.put(`/api/users/${userId}`, newUserData)
+  console.log('reducer', data)
+  dispatch(getUser(data))
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
