@@ -19,17 +19,13 @@ router.post('/:problem', (req, res, next) => {
       exec(
         `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
-          if (err) {
-            throw err
-          } else {
-            res.send(stdout || stderr)
-          }
+          res.send(stdout || stderr || err)
         }
       )
     } else {
       throw new Error('that problem does not exist')
     }
   } catch (error) {
-    console.log(error)
+    next(error)
   }
 })
