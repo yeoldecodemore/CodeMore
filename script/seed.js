@@ -117,7 +117,7 @@ async function seed() {
     Test.create({
       testCaseNumber: 3,
       testTemplate:
-        "it('test3', function(){let value = isPalindrome('warts'); chai.expect(value).to.equal(false)})",
+        "it('test3', function(){let value = isPalindrome('a'); chai.expect(value).to.equal(true)})",
       problemId: 3
     })
   ])
