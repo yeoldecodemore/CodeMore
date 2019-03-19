@@ -19,9 +19,6 @@ router.post('/:problem', (req, res, next) => {
       exec(
         `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${fullCode}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
-          console.log('@@@@@', stdout)
-          console.log('######', stderr)
-          console.log('&&&&&&', err)
           res.send(stdout || stderr || err)
         }
       )
