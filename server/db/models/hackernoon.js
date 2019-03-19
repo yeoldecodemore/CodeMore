@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const HackerNoon = db.define('hackernoon', {
+const HackerNoon = db.define('hackernoonmodel', {
   url: {
     type: Sequelize.STRING,
     validate: {

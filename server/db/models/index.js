@@ -1,5 +1,5 @@
 const User = require('./user')
-const Problem = require('./problems')
+const Problem = require('./problem')
 const Codewars = require('./codewars')
 const CodewarsLanguages = require('./codewarslanguages')
 const CodewarsQuestions = require('./codewarsquestions')
@@ -22,5 +22,5 @@ module.exports = {
   CodewarsLanguages,
   CodewarsQuestions,
   HackerNoon,
-  Problem,
+  Problem
 }

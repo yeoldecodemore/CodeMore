@@ -45,6 +45,7 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
         defaults: {
           firstName,
           lastName,
+          username,
           profileUrl,
           type,
           imageUrl: avatar_url,
@@ -56,7 +57,9 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
           git_created_at: created_at
         }
       })
-        .then(([user]) => done(null, user))
+        .then(([user]) => {
+          done(null, user)
+        })
         .catch(done)
     }
   )
@@ -69,7 +72,6 @@ if (!process.env.GITHUB_CLIENT_ID || !process.env.GITHUB_CLIENT_SECRET) {
     '/callback',
     passport.authenticate('github', {failureRedirect: '/'}),
     function(req, res) {
-      // Successful authentication, redirect home.
       res.redirect('/home')
     }
   )

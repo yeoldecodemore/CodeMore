@@ -2,15 +2,27 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import createLogger from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import user from './user'
-import problem from './problem'
+import userReducer from './userReducer'
+import problemReducer from './problemReducer'
+import signupReducer from './signupReducer'
+import codewarReducer from './codewarReducer'
+import hackernoonReducer from './hackernoonReducer'
 
-const reducer = combineReducers({user, problem})
+const reducer = combineReducers({
+  userReducer,
+  problemReducer,
+  signupReducer,
+  codewarReducer,
+  hackernoonReducer
+})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
 const store = createStore(reducer, middleware)
 
 export default store
-export * from './user'
-export * from './problem'
+export * from './userReducer'
+export * from './signupReducer'
+export * from './problemReducer'
+export * from './hackernoonReducer'
+export * from './codewarReducer'
