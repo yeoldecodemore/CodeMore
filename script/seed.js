@@ -133,19 +133,19 @@ async function seed() {
     Test.create({
       testCaseNumber: 1,
       testTemplate:
-        "it('test1', function(){let value = backwardsArray(3); chai.expect(value).to.equal([3,2,1])});",
+        "it('test1', function(){let value = backwardsArray(3); chai.expect(value).to.eql([3,2,1])});",
       problemId: 1
     }),
     Test.create({
       testCaseNumber: 2,
       testTemplate:
-        "it('test2', function(){let value = backwardsArray(1); chai.expect(value).to.equal([1])});",
+        "it('test2', function(){let value = backwardsArray(1); chai.expect(value).to.eql([1])});",
       problemId: 1
     }),
     Test.create({
       testCaseNumber: 3,
       testTemplate:
-        "it('test3', function(){let value = backwardsArray(8); chai.expect(value).to.equal([8,7,6,5,4,3,2,1])});",
+        "it('test3', function(){let value = backwardsArray(8); chai.expect(value).to.eql([8,7,6,5,4,3,2,1])});",
       problemId: 1
     })
   ])
@@ -154,7 +154,7 @@ async function seed() {
     Test.create({
       testCaseNumber: 1,
       testTemplate:
-        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5",
+        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5)",
       problemId: 2
     }),
     Test.create({
@@ -217,19 +217,19 @@ async function seed() {
     Test.create({
       testCaseNumber: 1,
       testTemplate:
-        "it('test1', function(){let value = twoNumberSum([4,6],10); chai.expect(value).to.equal([4,6])})",
+        "it('test1', function(){let value = twoNumberSum([4,6],10); chai.expect(value).to.eql([4,6])})",
       problemId: 5
     }),
     Test.create({
       testCaseNumber: 2,
       testTemplate:
-        "it('test2', function(){let value = twoNumberSum([4,6,1,-3],3); chai.expect(value).to.equal([-3,6])})",
+        "it('test2', function(){let value = twoNumberSum([4,6,1,-3],3); chai.expect(value).to.eql([-3,6])})",
       problemId: 5
     }),
     Test.create({
       testCaseNumber: 3,
       testTemplate:
-        "it('test3', function(){let value = twoNumberSum([1,2,3,4,5,6,7,8,9],17); chai.expect(value).to.equal([8,9])})",
+        "it('test3', function(){let value = twoNumberSum([1,2,3,4,5,6,7,8,9],17); chai.expect(value).to.eql([8,9])})",
       problemId: 5
     })
   ])
@@ -322,19 +322,19 @@ async function seed() {
     Test.create({
       testCaseNumber: 1,
       testTemplate:
-        "it('test1', function(){let value = heapSort([1,2]); chai.expect(value).to.equal([1,2])})",
+        "it('test1', function(){let value = heapSort([1,2]); chai.expect(value).to.eql([1,2])})",
       problemId: 10
     }),
     Test.create({
       testCaseNumber: 2,
       testTemplate:
-        "it('test2', function(){let value = heapSort([3,1,2]); chai.expect(value).to.equal([1,2,3])})",
+        "it('test2', function(){let value = heapSort([3,1,2]); chai.expect(value).to.eql([1,2,3])})",
       problemId: 10
     }),
     Test.create({
       testCaseNumber: 3,
       testTemplate:
-        "it('test3', function(){let value = heapSort([-7, 2 , 3, 5, 4, -10]); chai.expect(value).to.equal([-10, -7, 2, 3, 4, 5])})",
+        "it('test3', function(){let value = heapSort([-7, 2 , 3, 5, 4, -10]); chai.expect(value).to.eql([-10, -7, 2, 3, 4, 5])})",
       problemId: 10
     })
   ])
