@@ -13,10 +13,10 @@ export default class Container extends Component {
 
   closeModal = () => this.setState({isShown: false})
 
-  // onClickOutside = event => {
-  //   if (this.modal && this.modal.contains(event.target)) return
-  //   this.closeModal()
-  // }
+  onClickOutside = event => {
+    if (this.modal && this.modal.contains(event.target)) return
+    this.closeModal()
+  }
 
   componentDidMount() {
     this.showModal()
@@ -30,7 +30,7 @@ export default class Container extends Component {
             buttonRef={n => (this.closeButton = n)}
             closeModal={this.closeModal}
             // onKeyDown={this.onKeyDown}
-            // onClickOutside={this.onClickOutside}
+            onClickOutside={this.onClickOutside}
           />
         ) : null}
       </React.Fragment>

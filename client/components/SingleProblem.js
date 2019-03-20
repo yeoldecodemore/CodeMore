@@ -22,6 +22,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
 
     async componentDidMount() {
       const probName = this.props.match.params.problemName
+
       await this.props.fetchSingleProblem(probName)
 
       const {problemSlug, problemTemplate} = this.props.singleProblem

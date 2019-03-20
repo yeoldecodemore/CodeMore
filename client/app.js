@@ -5,8 +5,17 @@ import {withRouter} from 'react-router-dom'
 import {Navbar} from './components'
 import Routes from './routes'
 import {me} from './store'
+import {_isDataMissing} from './helperfuncs'
+
 const mapState = ({userReducer}) => ({
-  isLoggedIn: !!userReducer.id
+  isLoggedIn: !!userReducer.id,
+  formdata: [
+    userReducer.codewars,
+    userReducer.email,
+    userReducer.stackoverflow,
+    userReducer.medium,
+    userReducer.hackernoon
+  ]
 })
 
 const mapDispatch = dispatch => ({
@@ -30,3 +39,16 @@ export default withRouter(
     }
   )
 )
+
+// !this.props.isLoggedIn
+// ? 'LandingPage'
+// : _isDataMissing(this.props.formdata)
+//   ? 'LandingPage'
+//   : 'LoggedPage'
+// if(logged in){
+//   if(data is missing){
+//   landingpage
+//   }
+//   loggedpage
+// }
+// landing page
