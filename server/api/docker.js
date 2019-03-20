@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {exec} = require('child_process')
 const {Test} = require('../db/models')
+var Docker = require('dockerode')
+var docker = new Docker()
 
 module.exports = router
 
@@ -26,7 +28,7 @@ router.post('/:problem', async (req, res, next) => {
     if (allTests.length) {
       const script = concatCode(allTests, code)
       exec(
-        `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
+        `heroku dh:docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
           res.send(stdout || stderr || err)
         }
