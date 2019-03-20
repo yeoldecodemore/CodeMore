@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchAllProblems} from '../store/'
+import history from '../history'
 
 const mapStateToProps = ({problemReducer}) => ({
   allProblems: problemReducer.allProblems
@@ -15,6 +16,7 @@ export const ProblemMap = connect(mapStateToProps, mapDispatchToProps)(
   class AllProblems extends Component {
     componentDidMount() {
       this.props.fetchAllProblems()
+      history.push('/problems')
     }
     render() {
       return (

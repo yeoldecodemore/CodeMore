@@ -15,9 +15,31 @@ const mapState = ({userReducer}) => ({
   ]
 })
 
-export default connect(mapState)(({githubId, formdata}) => (
-  <div>
-    <h3>Welcome, {githubId}</h3>
-    {!_isDataMissing(formdata) ? <Container /> : null}
-  </div>
-))
+export default connect(mapState)(({githubId, formdata, location: {state}}) => {
+  return (
+    <div>
+      <h3>Welcome, {githubId}</h3>
+      {_isDataMissing(formdata) ? null : state &&
+      state.prevPath &&
+      state.prevPath !== '/problems' ? null : (
+        <Container />
+      )}
+    </div>
+  )
+})
+
+// if(data is missing){
+//   if(prev path is problems){
+//     null
+//   }
+//   container
+// }
+// null
+
+// if(!_isDataMissing(formdata)){
+//   if(prevPath && prevPath !== '/problems'){
+//     null
+//   }
+//   <Container />
+// }
+// null

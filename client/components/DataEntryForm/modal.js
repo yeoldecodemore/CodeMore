@@ -11,11 +11,14 @@ import {
   addHackernoon,
   addMedium,
   addStackoverflow,
-  fetchInitialCodewars
+  fetchInitialCodewars,
+  fetchInitialHackernoon,
+  fetchInitialMedium
 } from '../../store'
 
 const mapStateToProps = ({signupReducer, userReducer}) => ({
   userId: userReducer.id,
+  username: userReducer.username,
   codewars: signupReducer.codewars,
   email: signupReducer.email,
   hackernoon: signupReducer.hackernoon,
@@ -32,7 +35,11 @@ const mapDispatchToProps = dispatch => ({
   addMedium: medium => dispatch(addMedium(medium)),
   addStackoverflow: stackoverflow => dispatch(addStackoverflow(stackoverflow)),
   fetchInitialCodewars: (userId, codewars) =>
-    dispatch(fetchInitialCodewars(userId, codewars))
+    dispatch(fetchInitialCodewars(userId, codewars)),
+  fetchInitialHackernoon: (userId, hackernoon) =>
+    dispatch(fetchInitialHackernoon(userId, hackernoon)),
+  fetchInitialMedium: (userId, medium) =>
+    dispatch(fetchInitialMedium(userId, medium))
 })
 //! add a toast here
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -50,6 +57,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         medium,
         updateUser,
         fetchInitialCodewars,
+        fetchInitialHackernoon,
+        fetchInitialMedium,
         closeModal
       } = this.props
 
@@ -60,14 +69,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         stackoverflow,
         medium
       })
-
+      closeModal()
       updateUser(userId, truthyData) //only update user with truthy data (not empty strings)
+      await fetchInitialMedium(userId, medium)
       await fetchInitialCodewars(userId, codewars)
+      await fetchInitialHackernoon(userId, hackernoon)
       //resetting the form data on store
       _sentenceCase(Object.keys(truthyData)).forEach(val =>
         this.props[`add${val}`]('')
       )
-      closeModal()
     }
     render() {
       const {

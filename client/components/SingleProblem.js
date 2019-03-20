@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
 import ls from 'local-storage'
-
+import history from '../history'
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 
@@ -25,6 +25,8 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
     //local storage id will be github userId _ problem name
     async componentDidMount() {
       const probName = this.props.match.params.problemName
+      history.push(`/problems/${probName}`)
+
       await this.props.fetchSingleProblem(probName)
 
       const {problemSlug, problemTemplate} = this.props.singleProblem
