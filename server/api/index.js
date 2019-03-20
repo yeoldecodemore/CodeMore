@@ -6,7 +6,7 @@ router.use('/docker', require('./docker'))
 router.use('/problems', require('./problems'))
 router.use('/codewars', require('./codewars'))
 router.use('/hackernoon', require('./hackernoon'))
-
+router.use('/github', require('./github'))
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')
