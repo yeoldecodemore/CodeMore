@@ -1,9 +1,10 @@
+const _dateWithoutTime = require('./dateWithoutTime')
 const _codeWarsQuestionsReducer = (questions, codewarId) =>
   questions.map(curr => ({
     questionId: curr.id,
     questionName: curr.name,
     questionSlug: curr.slug,
-    questionCompletedAt: curr.completedAt,
+    questionCompletedAt: _dateWithoutTime(curr.completedAt),
     questionLanguages: curr.completedLanguages,
     codewarId
   }))

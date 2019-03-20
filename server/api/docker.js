@@ -26,7 +26,7 @@ router.post('/:problem', async (req, res, next) => {
     if (allTests.length) {
       const script = concatCode(allTests, code)
       exec(
-        `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
+        `heroku dh:docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
           console.log('*****', stdout, '&&&&&&', stderr, '@@@@@@@', err)
           res.send(stdout || stderr || err)
