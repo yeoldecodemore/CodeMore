@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
 import ls from 'local-storage'
-import history from '../history'
+import axios from 'axios'
+
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 
@@ -12,20 +13,15 @@ const mapStateToProps = ({problemReducer}) => ({
   singleProblem: problemReducer.singleProblem
 })
 
-// const mapDispatchToProps = dispatch => ({
-//   fetchSingleProblem: problemName => dispatch(fetchSingleProblem(problemName))
-// })
-
 export default connect(mapStateToProps, {fetchSingleProblem})(
   class Editor extends Component {
     state = {
-      usersCode: ''
+      usersCode: '',
+      testResults: []
     }
 
-    //local storage id will be github userId _ problem name
     async componentDidMount() {
       const probName = this.props.match.params.problemName
-      history.push(`/problems/${probName}`)
 
       await this.props.fetchSingleProblem(probName)
 
@@ -38,6 +34,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
         usersCode: ls.get(`${problemSlug}`)
       })
     }
+
     onChange = newValue => {
       this.setState({
         usersCode: newValue
@@ -45,14 +42,33 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
 
-    runCode = () => {}
-    //send to docker like:
-    /*
+    sanitize = newValue => {
+      if (!newValue.endsWith(';')) newValue += ';'
+      return newValue
+    }
 
-  {
-    code : 'usercode'
-  }
-  */
+    runCode = async e => {
+      try {
+        let code = this.sanitize(e.target.value)
+
+        const {id, problemSlug} = this.props.singleProblem
+
+        const userProblem = {
+          id: `${problemSlug}_${id}`,
+          problemId: id,
+          slug: problemSlug,
+          code: code //this.state.usersCode
+        }
+        let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
+        console.log(data)
+        let results = []
+        results.push(data.split(' ').filter(item => item))
+        console.log(results)
+        this.setState({testResults: data})
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
     render() {
       return (
@@ -70,8 +86,13 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
             editorProps={{$blockScrolling: Infinity}}
             style={{width: '50vw', height: '50vh'}}
           />
+          <p>{this.state.testResults}</p>
 
-          <button type="button" onClick={this.runCode}>
+          <button
+            type="button"
+            onClick={this.runCode}
+            value={this.state.usersCode}
+          >
             Run Code
           </button>
         </div>

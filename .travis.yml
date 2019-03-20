@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-  - node
+- node
 services:
-  - postgresql
+- postgresql
 addons:
   postgresql: '9.6'
 dist: trusty
@@ -12,17 +12,18 @@ notifications:
     on_success: change
     on_failure: always
 install:
-  - npm ci
+- npm ci
 before_script:
-  - psql -c 'create database "codemore-test";' -U postgres
+- psql -c 'create database "codemore-test";' -U postgres
 script:
-  - npm test
-  - npm run build-client
+- npm test
+- npm run build-client
 before_deploy:
-  - rm -rf node_modules
+- rm -rf node_modules
 deploy:
-  skip_cleanup: true
   provider: heroku
-  app: codemore
   api_key:
-    secure: 'gozy29guiV3u2nTrS6Q8L7kCNG+Q+wx5Em9bJEuN/fDCJ1dk7BF/Y+5VHYvebJIJL2LD29Y25qzfxAjm5PoAsf72EyCYVCFjlcr0UYDtCvEMY1Yh9HpB6596/l5w6ycdk3g8+m4WF8k2mj2yQRnA/n5qvUukt8SriViN++6G8pa2Fy6ISc6cp+oL3R+fPJP1hW8VN0uQZYZC3ggnGARImUufuqFev1xnQIyIipIwx0Yu1gkDZzny4Qf7Wp990oCU4gMknZFUOKjmIkPvtwluMMbeJpJptjaIqlYqbQgJ/BQF4idVuktVeE/NtgJjeT7pKekT09zJA+BuQq+olvwAVVc1/EuB6szjcqXD8hguK9pf5tYQoNdfO8gTgHfK0xAzjOn93Bnv0f/4jB0p7PbgkuWt0Lrr8pux4S1uGQYrQTrWwuCFxxHoVKmlXCziey6MrfTDa2mFbvKB8z9imADkgAdR08j9LotcLsV2q00Slx5svoCu459vpbG+xbleEwtspkBJIS/4RQpIawhcIcv1dhYg102s653OAO1HBsd5VGLAeh50b6jNtolBEWwCi9jbRi8GGXElmNQ45BKqfjXoU1IH6Pc1pl82o4BTPgFbONvti5S/4PRs64qmVqxPu9tt1WyCSmcu4hPTZJ1K4JC1N6nIDNPUPyxM3wvtfqRH5LQ='
+    secure: Z3G2mvEhVA2qUaESTBYCA52IWRhpp7eEEELRk+GgYYvoWdob4ByTCft7C+HVj/ie6+C+J+BEOvlwUu1Ba+7aNxWYfEwzEoEVm27EaGgAMvrhImNB2vWofYgNzGtK3zEkRfl8C0mKBA2Xtp/6xukW/EjfS7H7Z1mVYtZHgTD6xcvQQ4uNBZnp8sp2WT6GXxA1BvRIIz+MkCLdGukKLnKkH/2BjCwK10Y0uHhjqANi5iw7R8p5ZHyOppk/Nlmd/FcCAIqXflCo3x3IIWFOfnfRhx1P44okBzJNIhLYwCXXq+muAA60M5bXJXWXFbjGEkVbZSJtgEiWhU0nZHEN0eh93Le3zANocx1J+CrvbO4WnxCCnVz7TR4u9gdkZE2xD3wh0y4125VIaMIxv47lfRMuJysQxI3/PHOHMLIYnUe7AfcN/F4E7Fg6yYyhIJ1yI0FPHr3YhNgr5pRedxc+yV20X7P65gk1uV1Amvcfkas7imbYu3R8AMaoK8DHKQko679GrlWWk2gJp1O4HmmuBNSE1EAmYvYI3C9+P7k4+nzTN4ZvRBLcGgjatgPEjo0LoCmOj+XI6Jhs+plKTE/uaTtYFNhqMZ3BNp/aNIeoDXqkuTEEe09CD8qLxyzcGBj+qam2rZRgfMD1Lqfhdqa6DB4rLwSvVtnxvCvZbbRFDSFaVQc=
+  app: codemore
+  on:
+    repo: yeoldecodemore/CodeMore

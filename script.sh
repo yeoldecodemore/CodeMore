@@ -1,2 +1,2 @@
 echo $CODE > temp.js
-node temp.js
+mocha --reporter json temp.js

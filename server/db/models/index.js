@@ -1,5 +1,6 @@
 const User = require('./user')
 const Problem = require('./problem')
+const Test = require('./test')
 const Codewars = require('./codewars')
 const CodewarsLanguages = require('./codewarslanguages')
 const CodewarsQuestions = require('./codewarsquestions')
@@ -37,6 +38,8 @@ HackerNoon.belongsTo(User)
 
 User.hasOne(Medium)
 Medium.belongsTo(User)
+Problem.hasMany(Test)
+Test.belongsTo(Problem)
 
 module.exports = {
   User,
@@ -51,5 +54,7 @@ module.exports = {
   StackoverflowTopTags,
   StackoverflowBadgeNetwork,
   StackoverflowPrivileges,
-  StackoverflowDailyRepChange
+  StackoverflowDailyRepChange,
+  Test
+
 }
