@@ -25,6 +25,7 @@ export default withRouter(
         return isLoggedIn ? (
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/home" />} />
+            <Route exact path="/form" component={LandingPage} />
             <Route path="/home" component={UserHome} />
             <Route exact path="/problems" component={ProblemMap} />
             <Route exact path="/problems/:problemName" component={Problem} />
