@@ -1,8 +1,6 @@
 const router = require('express').Router()
-const {exec} = require('child_process')
 const {Test} = require('../db/models')
-var Docker = require('dockerode')
-var docker = new Docker()
+const axios = require('axios')
 
 module.exports = router
 
@@ -27,13 +25,11 @@ router.post('/:problem', async (req, res, next) => {
 
     if (allTests.length) {
       const script = concatCode(allTests, code)
-      exec(
-        `heroku dh:docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
-        (err, stdout, stderr) => {
-          console.log('*****', stdout, '&&&&&&', stderr, '@@@@@@@', err)
-          res.send(stdout || stderr || err)
-        }
+      const {data} = await axios.post(
+        'https://codemore-docker.herokuapp.com/testing',
+        {code: `${script}`}
       )
+      res.send(data)
     } else {
       throw new Error('that problem does not exist')
     }
