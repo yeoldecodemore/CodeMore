@@ -64,11 +64,8 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           slug: problemSlug,
           code: code
         }
-        let {data} = await axios.post(
-          `/api/dockerTest/${problemSlug}`,
-          userProblem
-        )
 
+        let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
         if (data.stderr) {
           let error = data.stderr.split('\n')
           let errorMessage = error[4]
