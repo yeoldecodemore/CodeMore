@@ -22,11 +22,9 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
 
     async componentDidMount() {
       const probName = this.props.match.params.problemName
-
       await this.props.fetchSingleProblem(probName)
-
+      await this.props.updateUserStats()
       const {problemSlug, problemTemplate} = this.props.singleProblem
-
       if (ls.get(`${problemSlug}`) === null) {
         ls.set(`${problemSlug}`, `${problemTemplate}`)
       }
@@ -59,7 +57,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           slug: problemSlug,
           code: code //this.state.usersCode
         }
-        let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
+        let {data} = await axios.post(`/api/dockerrodetwo/test`, userProblem)
         console.log(data)
         let results = []
         results.push(data.split(' ').filter(item => item))
