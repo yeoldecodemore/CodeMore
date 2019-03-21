@@ -7,7 +7,7 @@ router.use('/problems', require('./problems'))
 router.use('/codewars', require('./codewars'))
 router.use('/hackernoon', require('./hackernoon'))
 router.use('/dockerode', require('./dockerode'))
-router.use('/dockerodetwo', require('./dockerodetwo')
+router.use('/dockerodetwo', require('./dockerodetwo'))
 router.use('/medium', require('./medium'))
 router.use('/stackoverflow', require('./stackoverflow'))
 
