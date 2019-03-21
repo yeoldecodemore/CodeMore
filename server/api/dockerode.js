@@ -1,6 +1,7 @@
 const router = require('express').Router()
-var Dockerode = require('dockerode')
+const Dockerode = require('dockerode')
 let dockerode = new Dockerode()
+const stream = require('stream')
 
 module.exports = router
 
@@ -26,10 +27,6 @@ router.post('/test', async (req, res, next) => {
   try {
     const {code} = req.body
     const createOptions = {
-      AttachStdin: false,
-      AttachStdout: true,
-      AttachStderr: true,
-      Tty: true,
       Env: [`CODE=${code}`],
       StopTimeout: 3
     }
@@ -39,19 +36,27 @@ router.post('/test', async (req, res, next) => {
       process.stdout,
       createOptions,
       function(err, data, container) {
+        if (err) console.log(err)
+        const logStream = new stream.PassThrough()
+        logStream.on('data', function(chunk) {
+          res.send(chunk)
+        })
         container.logs(
           {
             follow: true,
             stdout: true,
             stderr: true
           },
-          function() {
-            console.log(err)
-            res.send(process.stdout)
+          function(err, stream) {
+            if (err) {
+              console.error(err.message)
+            }
+            container.modem.demuxStream(stream, logStream, logStream)
+            setTimeout(function() {
+              stream.destroy()
+            }, 2000)
           }
         )
-
-        container.remove()
       }
     )
   } catch (err) {
