@@ -31,7 +31,12 @@ router.post('/:problem', async (req, res, next) => {
         `docker run --name ${id} -d --stop-timeout 5 --rm -e CODE="${script}" rootdocker && docker logs -f ${id}`,
         (err, stdout, stderr) => {
           console.log('*****', stdout, '&&&&&&', stderr, '@@@@@@@', err)
-          res.send(stdout || stderr || err)
+          const resInfo = {
+            err,
+            stdout,
+            stderr
+          }
+          res.send(resInfo)
         }
       )
     } else {

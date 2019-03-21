@@ -17,7 +17,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
   class Editor extends Component {
     state = {
       usersCode: '',
-      testResults: {}
+      results: {}
     }
 
     async componentDidMount() {
@@ -38,6 +38,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       })
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
+
     getLineWarnings = () =>
       [...document.getElementsByClassName('ace_info')].map(
         item => +item.innerHTML - 1
@@ -54,10 +55,9 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
     runCode = async e => {
       try {
         let code = this.sanitize(e.target.value)
-        console.log(code)
+        console.log('THISIS CODE', code)
 
         const {id, problemSlug} = this.props.singleProblem
-
         const userProblem = {
           id: `${problemSlug}_${id}`,
           problemId: id,
@@ -68,61 +68,79 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           `/api/dockerTest/${problemSlug}`,
           userProblem
         )
-        data = this.getTestResults(data)
-        this.setState({testResults: data})
+
+        if (data.stderr) {
+          let error = data.stderr.split('\n')
+          let errorMessage = error[4]
+          console.log('ERROR MESAGE ', errorMessage)
+          this.setState({results: {error: errorMessage}})
+        } else {
+          data = this.getTestResults(data.stdout)
+          console.log('#####', data)
+          this.setState({results: data, error: null})
+        }
+        console.log('STATE RESULTS', this.state.results)
       } catch (error) {
         console.log(error)
       }
     }
 
     getTestResults(data) {
+      //Fix this to handle console.logs!!! always before the data
       var lines = data.split('\n')
       lines.splice(0, 1)
       var newtext = lines.join('\n') + '}'
       let results = JSON.parse(newtext)
+      console.log('RRRR', results)
       return results
     }
 
     render() {
       return (
-        <div>
-          <div>{this.props.singleProblem.problemDescription}</div>
-          <AceEditor
-            mode="javascript"
-            theme="monokai"
-            onChange={this.onChange}
-            name="editor"
-            className="editor"
-            value={this.state.usersCode}
-            fontSize={16}
-            editorProps={{$blockScrolling: Infinity}}
-            style={{width: '40em', height: '25em'}}
-          />
-
-          <div>
-            {this.state.testResults.tests ? (
-              <div>
-                {this.state.testResults.tests.map(test => {
-                  return (
-                    <div key={test.title}>
-                      {`${test.title} ${
-                        test.err.message ? 'failed' : 'passed'
-                      }`}
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <p>Run Code To See Results</p>
-            )}
+        <div className="problemsPage">
+          <div className="problemList">Problems</div>
+          <div className="container">
+            <div className="problemDesc">
+              {this.props.singleProblem.problemDescription}
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={this.runCode}
+                value={this.state.usersCode}
+                className="runCodeBtn"
+              >
+                Run Code
+              </button>
+            </div>
+            <br />
+            <div />
+            <AceEditor
+              mode="javascript"
+              theme="monokai"
+              onChange={this.onChange}
+              name="editor"
+              className="editor"
+              value={this.state.usersCode}
+              fontSize={16}
+              editorProps={{$blockScrolling: Infinity}}
+              style={{width: '100%', height: '25em'}}
+            />
           </div>
-          <button
-            type="button"
-            onClick={this.runCode}
-            value={this.state.usersCode}
-          >
-            Run Code
-          </button>
+          <div className="container tests">
+            <div className="resultBlock">
+              Results!
+              <div>
+                {this.state.results.error ? (
+                  <p style={{backgroundColor: 'red'}}>
+                    {this.state.results.tests}
+                  </p>
+                ) : (
+                  'Test'
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       )
     }
