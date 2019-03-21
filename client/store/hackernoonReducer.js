@@ -2,15 +2,19 @@
 import axios from 'axios'
 
 const initialState = {
-  generalCodewars: {},
-  codewarsLanguages: [],
-  codewarsQuestions: []
+  hackernoonPosts: []
 }
 
 const GET_HACKERNOON = 'GET_HACKERNOON'
-const getHackernoon = hackernoonData => ({type: GET_HACKERNOON, hackernoonData})
+const getHackernoon = hackernoonPosts => ({
+  type: GET_HACKERNOON,
+  hackernoonPosts
+})
 
-export const fetchInitialCodewar = (userId, hackernoon) => async dispatch => {
+export const fetchInitialHackernoon = (
+  userId,
+  hackernoon
+) => async dispatch => {
   console.log('inside thunk')
   const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
   return dispatch(getHackernoon(data))
@@ -20,9 +24,7 @@ export default (state = initialState, action) => {
     case GET_HACKERNOON:
       return {
         ...state,
-        generalCodewars,
-        codewarsLanguages,
-        codewarsQuestions
+        hackernoonPosts: action.hackernoonPosts
       }
 
     default:

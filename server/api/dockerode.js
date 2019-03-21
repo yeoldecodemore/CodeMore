@@ -22,46 +22,38 @@ const buildDockerImg = async () => {
 }
 buildDockerImg()
 
-function runExec(container) {
-  var options = {
-    Env: [`CODE="console.log('hello')"`],
-    AttachStdout: true,
-    AttachStderr: true
-  }
-
-  container.exec(options, function(err, exec) {
-    console.log('in')
-    console.log('err', err)
-    if (err) return
-    exec.start(function(err, stream) {
-      if (err) return
-
-      container.modem.demuxStream(stream, process.stdout, process.stderr)
-
-      console.log(process.stdout)
-
-      exec.inspect(function(err, data) {
-        console.log('info from inspect:', data)
-        if (err) return
-      })
-    })
-  })
-}
-
 router.post('/test', async (req, res, next) => {
   try {
-    dockerode.createContainer(
-      {
-        Image: 'rootdocker',
-        Tty: true
+    const {code} = req.body
+    const createOptions = {
+      AttachStdin: false,
+      AttachStdout: true,
+      AttachStderr: true,
+      Tty: true,
+      Env: [`CODE=${code}`],
+      StopTimeout: 3
+    }
+    dockerode.run(
+      'rootdocker',
+      ['sh', 'script.sh'],
+      process.stdout,
+      createOptions,
+      function(err, data, container) {
+        container.logs(
+          {
+            follow: true,
+            stdout: true,
+            stderr: true
+          },
+          function() {
+            console.log(err)
+            res.send(process.stdout)
+          }
+        )
+
+        container.remove()
       }
-      // function(err, container) {
-      //   container.start({}, function(err, data) {
-      //     runExec(container)
-      //   })
-      // }
     )
-    res.send('******')
   } catch (err) {
     console.error(err)
   }

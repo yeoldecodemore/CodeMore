@@ -48,6 +48,7 @@
     "focus-trap-react": "^6.0.0",
     "history": "^4.6.3",
     "local-storage": "^1.4.2",
+    "medium-json-feed": "0.0.3",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
