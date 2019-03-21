@@ -12,9 +12,11 @@ const StackoverflowTopTags = require('./stackoverflowtoptags')
 const StackoverflowBadgeNetwork = require('./stackoverflowbadgenetwork')
 const StackoverflowPrivileges = require('./stackoverflowprivileges')
 const StackoverflowDailyRepChange = require('./stackoverflowdailyrep')
+const GithubRepos = require('./githubrepos')
+const GithubCommits = require('./githubcommits')
 
 User.hasOne(Codewars)
-Codewars.belongsTo(User)
+//Codewars.belongsTo(User)
 Codewars.hasMany(CodewarsLanguages)
 CodewarsLanguages.belongsTo(Codewars)
 Codewars.hasMany(CodewarsQuestions)
@@ -38,6 +40,12 @@ HackerNoon.belongsTo(User)
 
 User.hasOne(Medium)
 Medium.belongsTo(User)
+
+User.hasMany(GithubRepos)
+GithubRepos.belongsTo(User)
+User.hasMany(GithubCommits)
+GithubCommits.belongsTo(User)
+
 Problem.hasMany(Test)
 Test.belongsTo(Problem)
 
@@ -49,6 +57,8 @@ module.exports = {
   HackerNoon,
   Medium,
   Problem,
+  GithubRepos,
+  GithubCommits,
   Stackoverflow,
   StackoverflowBadges,
   StackoverflowTopTags,
@@ -56,5 +66,4 @@ module.exports = {
   StackoverflowPrivileges,
   StackoverflowDailyRepChange,
   Test
-
 }

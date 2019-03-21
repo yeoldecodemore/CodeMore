@@ -11,7 +11,6 @@ const removeUser = () => ({type: REMOVE_USER})
 
 export const updateUser = (userId, newUserData) => async dispatch => {
   const {data} = await axios.put(`/api/users/${userId}`, newUserData)
-  console.log('reducer', data)
   dispatch(getUser(data))
 }
 

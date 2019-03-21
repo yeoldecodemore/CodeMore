@@ -13,12 +13,13 @@ import {
   addStackoverflow,
   fetchInitialCodewars,
   fetchInitialHackernoon,
-  fetchInitialMedium
+  fetchInitialMedium,
+  fetchInitialStackoverflow
 } from '../../store'
 
 const mapStateToProps = ({signupReducer, userReducer}) => ({
   userId: userReducer.id,
-  username: userReducer.username,
+  gitUsername: userReducer.username,
   codewars: signupReducer.codewars,
   email: signupReducer.email,
   hackernoon: signupReducer.hackernoon,
@@ -39,14 +40,16 @@ const mapDispatchToProps = dispatch => ({
   fetchInitialHackernoon: (userId, hackernoon) =>
     dispatch(fetchInitialHackernoon(userId, hackernoon)),
   fetchInitialMedium: (userId, medium) =>
-    dispatch(fetchInitialMedium(userId, medium))
+    dispatch(fetchInitialMedium(userId, medium)),
+  fetchInitialStackoverflow: (userId, medium) =>
+    dispatch(fetchInitialStackoverflow(userId, medium))
 })
 //! add a toast here
 export default connect(mapStateToProps, mapDispatchToProps)(
   class Modal extends Component {
     handleChange = evt => this.props[`add${evt.target.name}`](evt.target.value)
 
-    handleSubmit = async evt => {
+    handleSubmit = evt => {
       evt.preventDefault()
       const {
         userId,
@@ -59,25 +62,27 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         fetchInitialCodewars,
         fetchInitialHackernoon,
         fetchInitialMedium,
+        fetchInitialStackoverflow,
         closeModal
       } = this.props
 
       const truthyData = _filterTruthyData({
         codewars,
         email,
-        hackernoon,
         stackoverflow,
-        medium
+        medium,
+        hackernoon
       })
       closeModal()
-      updateUser(userId, truthyData) //only update user with truthy data (not empty strings)
-      await fetchInitialMedium(userId, medium)
-      await fetchInitialCodewars(userId, codewars)
-      await fetchInitialHackernoon(userId, hackernoon)
-      //resetting the form data on store
-      _sentenceCase(Object.keys(truthyData)).forEach(val =>
-        this.props[`add${val}`]('')
-      )
+
+      updateUser(userId, truthyData)
+      Object.keys(truthyData).forEach(async val => {
+        await this.props[`fetchInitial${_sentenceCase(val)}`](
+          userId,
+          truthyData[val]
+        )
+        this.props[`add${_sentenceCase(val)}`]('')
+      })
     }
     render() {
       const {

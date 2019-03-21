@@ -8,14 +8,17 @@ import signupReducer from './signupReducer'
 import codewarReducer from './codewarReducer'
 import hackernoonReducer from './hackernoonReducer'
 import mediumReducer from './mediumReducer'
-
+import stackoverflowReducer from './stackoverflowReducer'
+import githubReducer from './githubReducer'
 const reducer = combineReducers({
   userReducer,
   problemReducer,
   signupReducer,
   codewarReducer,
   hackernoonReducer,
-  mediumReducer
+  mediumReducer,
+  stackoverflowReducer,
+  githubReducer
 })
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
@@ -29,3 +32,5 @@ export * from './problemReducer'
 export * from './hackernoonReducer'
 export * from './codewarReducer'
 export * from './mediumReducer'
+export * from './stackoverflowReducer'
+export * from './githubReducer'
