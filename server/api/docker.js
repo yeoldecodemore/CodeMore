@@ -1,6 +1,8 @@
 const router = require('express').Router()
 const {exec} = require('child_process')
 const {Test} = require('../db/models')
+var Docker = require('dockerode')
+var docker = new Docker()
 
 module.exports = router
 
