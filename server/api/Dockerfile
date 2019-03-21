@@ -2,7 +2,7 @@ FROM node:11-slim
 
 COPY script.sh .
 
-COPY package.json .
+RUN npm init -y
 RUN npm install --save-dev chai
 RUN npm install -g mocha
 
