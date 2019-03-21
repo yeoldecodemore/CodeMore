@@ -3,6 +3,7 @@ module.exports = router
 
 router.use('/users', require('./users'))
 router.use('/docker', require('./docker'))
+router.use('/dockerTest', require('./dockerTest'))
 router.use('/problems', require('./problems'))
 router.use('/codewars', require('./codewars'))
 router.use('/hackernoon', require('./hackernoon'))

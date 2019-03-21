@@ -23,7 +23,6 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
     async componentDidMount() {
       const probName = this.props.match.params.problemName
       await this.props.fetchSingleProblem(probName)
-      await this.props.updateUserStats()
       const {problemSlug, problemTemplate} = this.props.singleProblem
       if (ls.get(`${problemSlug}`) === null) {
         ls.set(`${problemSlug}`, `${problemTemplate}`)
@@ -55,6 +54,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
     runCode = async e => {
       try {
         let code = this.sanitize(e.target.value)
+        console.log(code)
 
         const {id, problemSlug} = this.props.singleProblem
 
@@ -64,7 +64,10 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           slug: problemSlug,
           code: code
         }
-        let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
+        let {data} = await axios.post(
+          `/api/dockerTest/${problemSlug}`,
+          userProblem
+        )
         data = this.getTestResults(data)
         this.setState({testResults: data})
       } catch (error) {
