@@ -57,7 +57,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           id: `${problemSlug}_${id}`,
           problemId: id,
           slug: problemSlug,
-          code: code //this.state.usersCode
+          code: code
         }
         let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
         console.log(data)
