@@ -17,7 +17,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
   class Editor extends Component {
     state = {
       usersCode: '',
-      testResults: []
+      testResults: {}
     }
 
     async componentDidMount() {
@@ -39,11 +39,18 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       })
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
-
-    sanitize = newValue => {
-      if (!newValue.endsWith(';')) newValue += ';'
-      return newValue
-    }
+    getLineWarnings = () =>
+      [...document.getElementsByClassName('ace_info')].map(
+        item => +item.innerHTML - 1
+      )
+    sanitize = newValue =>
+      newValue
+        .split('\n')
+        .map(
+          (line, index) =>
+            this.getLineWarnings().includes(index) ? line.concat(';') : line
+        )
+        .join('')
 
     runCode = async e => {
       try {
@@ -55,24 +62,28 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           id: `${problemSlug}_${id}`,
           problemId: id,
           slug: problemSlug,
-          code: code //this.state.usersCode
+          code: code
         }
         let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
-        console.log(data)
-        let results = []
-        results.push(data.split(' ').filter(item => item))
-        console.log(results)
+        data = this.getTestResults(data)
         this.setState({testResults: data})
       } catch (error) {
         console.log(error)
       }
     }
 
+    getTestResults(data) {
+      var lines = data.split('\n')
+      lines.splice(0, 1)
+      var newtext = lines.join('\n') + '}'
+      let results = JSON.parse(newtext)
+      return results
+    }
+
     render() {
       return (
         <div>
           <div>{this.props.singleProblem.problemDescription}</div>
-
           <AceEditor
             mode="javascript"
             theme="monokai"
@@ -82,10 +93,26 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
             value={this.state.usersCode}
             fontSize={16}
             editorProps={{$blockScrolling: Infinity}}
-            style={{width: '50vw', height: '50vh'}}
+            style={{width: '40em', height: '25em'}}
           />
-          <p>{this.state.testResults}</p>
 
+          <div>
+            {this.state.testResults.tests ? (
+              <div>
+                {this.state.testResults.tests.map(test => {
+                  return (
+                    <div key={test.title}>
+                      {`${test.title} ${
+                        test.err.message ? 'failed' : 'passed'
+                      }`}
+                    </div>
+                  )
+                })}
+              </div>
+            ) : (
+              <p>Run Code To See Results</p>
+            )}
+          </div>
           <button
             type="button"
             onClick={this.runCode}
