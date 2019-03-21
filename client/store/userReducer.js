@@ -15,6 +15,10 @@ export const updateUser = (userId, newUserData) => async dispatch => {
   dispatch(getUser(data))
 }
 
+export const updateUserStats = () => async dispatch => {
+  dispatch()
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
