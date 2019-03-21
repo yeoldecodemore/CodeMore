@@ -46,6 +46,7 @@
     "express": "^4.16.3",
     "express-session": "^1.15.1",
     "focus-trap-react": "^6.0.0",
+    "fs": "0.0.1-security",
     "history": "^4.6.3",
     "local-storage": "^1.4.2",
     "medium-json-feed": "0.0.3",
