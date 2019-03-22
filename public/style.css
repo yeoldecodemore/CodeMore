@@ -3,17 +3,6 @@ body {
   margin: 0px;
 }
 
-/* body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  box-sizing: border-box;
-} */
-
 *,
 *:before,
 *:after {
@@ -145,21 +134,64 @@ nav a {
   margin: 1em;
 }
 
-.navbar h1 {
+.navbar {
   color: #000;
   text-align: center;
   margin-top: 0px;
   margin-bottom: 0px;
   font-family: cursive;
+  display: flex;
+  justify-content: space-between;
+}
+
+.problemBtn {
+  width: 20vw;
+  background-color: white;
+  color: blue;
+  z-index: 10;
+  border: 0;
+  text-align: center;
+}
+.navBtn {
+  width: 20vw;
+
+  font-size: 2em;
+  /* background-color: tan; */
+  color: black;
+  font-family: cursive;
 }
 
 .loggedinNavhead {
   font-size: 4em;
+  display: inline-block;
+  margin: 0px;
 }
 .loggedoutNavhead {
-  font-size: 6em;
+  font-size: 4em;
+  margin: 0px;
 }
+
+.problemDesc {
+  background-color: rgb(44, 42, 42);
+  color: white;
+  width: 100%;
+  padding: 8px;
+}
+
 .LandingPage {
+  background-image: url(images/medievallandscape.png);
+  background-size: cover;
+  width: 100vw;
+  height: 90vh;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10vh;
+}
+
+.LoggedPage {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
   width: 100vw;
@@ -174,4 +206,43 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.resultBlock {
+  height: 50%;
+  background-color: rgb(44, 42, 42);
+  color: white;
+}
+
+.runCodeBtn {
+  background-color: green;
+  color: white;
+  font-size: 20px;
+}
+
+.problemsPage {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.problemList {
+  flex: 1;
+  color: white;
+}
+.containerProblem {
+  flex: 3;
+}
+.containerResults {
+  flex: 2;
+}
+
+.tests {
+  /* background-color: rgb(44, 42, 42); */
+  background-color: darkgreen;
+  color: white;
+}
+
+.profileWelcome {
+  color: white;
 }
