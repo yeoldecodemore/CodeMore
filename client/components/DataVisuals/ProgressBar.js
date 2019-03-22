@@ -1,29 +1,24 @@
 import React, {Component} from 'react'
 import {VictoryPie, VictoryAnimation, VictoryLabel} from 'victory'
 
-class Animation extends Component {
+export default class ProgressBar extends Component {
   constructor() {
     super()
     this.state = {
-      percent: 25,
-      data: this.getData(0)
+      num: 0
     }
   }
 
   componentDidMount() {
-    let rank = 25
+    let num = 25
 
     this.setState({
-      percent,
-      data: this.getData(percent)
+      num
     })
   }
 
-  getData(percent) {
-    return [{x: 1, y: percent}, {x: 2, y: 100 - percent}]
-  }
-
   render() {
+    const {num} = this.props.state || 0
     return (
       <div>
         <svg viewBox="0 0 400 400" width="100%" height="100%">
@@ -46,23 +41,17 @@ class Animation extends Component {
             }}
           />
           <VictoryAnimation duration={1000} data={this.state}>
-            {newProps => {
-              return (
-                <VictoryLabel
-                  textAnchor="middle"
-                  verticalAnchor="middle"
-                  x={200}
-                  y={200}
-                  text={`${newProps.percent}%`}
-                  style={{fontSize: 45}}
-                />
-              )
-            }}
+            <VictoryLabel
+              textAnchor="middle"
+              verticalAnchor="middle"
+              x={200}
+              y={200}
+              text={`${num}`}
+              style={{fontSize: 45}}
+            />
           </VictoryAnimation>
         </svg>
       </div>
     )
   }
 }
-
-module.exports = Animation

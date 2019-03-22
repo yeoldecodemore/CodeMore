@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {findCodewars} from '../store/'
+import ProgressBar from './DataVisuals/ProgressBar'
 import userReducer from '../store/userReducer'
 
 const mapStateToProps = ({codewarReducer, userReducer}) => ({
@@ -18,10 +19,9 @@ export const Codewars = connect(mapStateToProps, mapDispatchToProps)(
       this.props.findCodewars(this.props.userId)
     }
     render() {
-      const {clan} = this.props.codeWars.generalCodewars
       return (
         <div>
-          <h1 />
+          <ProgressBar />
         </div>
       )
     }
