@@ -3,14 +3,15 @@ import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
 import ls from 'local-storage'
 import axios from 'axios'
-
+import {AllProblems} from './AllProblems'
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 
 import {fetchSingleProblem} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
-  singleProblem: problemReducer.singleProblem
+  singleProblem: problemReducer.singleProblem,
+  allProblems: problemReducer.allProblems
 })
 
 export default connect(mapStateToProps, {fetchSingleProblem})(
@@ -99,20 +100,11 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       return (
         <div className="problemsPage">
           <div className="problemList">Problems</div>
-          <div className="container">
+          <div className="containerProblem">
             <div className="problemDesc">
               {this.props.singleProblem.problemDescription}
             </div>
-            <div>
-              <button
-                type="button"
-                onClick={this.runCode}
-                value={this.state.usersCode}
-                className="runCodeBtn"
-              >
-                Run Code
-              </button>
-            </div>
+
             <br />
             <div />
             <AceEditor
@@ -126,8 +118,18 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
               editorProps={{$blockScrolling: Infinity}}
               style={{width: '100%', height: '25em'}}
             />
+            <div>
+              <button
+                type="button"
+                onClick={this.runCode}
+                value={this.state.usersCode}
+                className="runCodeBtn"
+              >
+                Run Code
+              </button>
+            </div>
           </div>
-          <div className="container tests">
+          <div className="containerResults tests">
             <div className="resultBlock">
               Results<br />
               {this.state.error ? (

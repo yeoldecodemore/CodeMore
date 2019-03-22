@@ -850,6 +850,8 @@ var _localStorage = _interopRequireDefault(__webpack_require__(/*! local-storage
 
 var _axios = _interopRequireDefault(__webpack_require__(/*! axios */ "./node_modules/axios/index.js"));
 
+var _AllProblems = __webpack_require__(/*! ./AllProblems */ "./client/components/AllProblems.js");
+
 __webpack_require__(/*! brace/mode/javascript */ "./node_modules/brace/mode/javascript.js");
 
 __webpack_require__(/*! brace/theme/monokai */ "./node_modules/brace/theme/monokai.js");
@@ -895,7 +897,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var mapStateToProps = function mapStateToProps(_ref) {
   var problemReducer = _ref.problemReducer;
   return {
-    singleProblem: problemReducer.singleProblem
+    singleProblem: problemReducer.singleProblem,
+    allProblems: problemReducer.allProblems
   };
 };
 
@@ -1088,15 +1091,10 @@ function (_Component) {
       }, _react.default.createElement("div", {
         className: "problemList"
       }, "Problems"), _react.default.createElement("div", {
-        className: "container"
+        className: "containerProblem"
       }, _react.default.createElement("div", {
         className: "problemDesc"
-      }, this.props.singleProblem.problemDescription), _react.default.createElement("div", null, _react.default.createElement("button", {
-        type: "button",
-        onClick: this.runCode,
-        value: this.state.usersCode,
-        className: "runCodeBtn"
-      }, "Run Code")), _react.default.createElement("br", null), _react.default.createElement("div", null), _react.default.createElement(_reactAce.default, {
+      }, this.props.singleProblem.problemDescription), _react.default.createElement("br", null), _react.default.createElement("div", null), _react.default.createElement(_reactAce.default, {
         mode: "javascript",
         theme: "monokai",
         onChange: this.onChange,
@@ -1111,8 +1109,13 @@ function (_Component) {
           width: '100%',
           height: '25em'
         }
-      })), _react.default.createElement("div", {
-        className: "container tests"
+      }), _react.default.createElement("div", null, _react.default.createElement("button", {
+        type: "button",
+        onClick: this.runCode,
+        value: this.state.usersCode,
+        className: "runCodeBtn"
+      }, "Run Code"))), _react.default.createElement("div", {
+        className: "containerResults tests"
       }, _react.default.createElement("div", {
         className: "resultBlock"
       }, "Results", _react.default.createElement("br", null), this.state.error ? _react.default.createElement("p", {
@@ -1238,14 +1241,17 @@ var mapDispatch = function mapDispatch(dispatch) {
   };
 };
 
-var _default = (0, _reactRedux.connect)(mapState, mapDispatch)(function (_ref2) {
+var _default = (0, _reactRouterDom.withRouter)((0, _reactRedux.connect)(mapState, mapDispatch)(function (_ref2) {
   var handleClick = _ref2.handleClick,
       isLoggedIn = _ref2.isLoggedIn;
   return _react.default.createElement("div", {
     className: "navbar"
-  }, _react.default.createElement("h1", {
-    className: isLoggedIn ? 'loggedinNavhead' : 'loggedoutNavhead'
-  }, "Codemore"), isLoggedIn ? _react.default.createElement("nav", null, _react.default.createElement(_reactRouterDom.Link, {
+  }, !isLoggedIn && _react.default.createElement("h1", {
+    className: "loggedoutNavhead"
+  }, "Codemore"), isLoggedIn ? _react.default.createElement("nav", null, console.log(window.location.href.split('/').splice(-1).includes('home')), window.location.href.split('/').splice(-1).includes('home') ? _react.default.createElement(_reactRouterDom.Link, {
+    to: "/problems",
+    className: "navBtn"
+  }, "Problems") : _react.default.createElement(_reactRouterDom.Link, {
     to: {
       pathname: '/home',
       state: {
@@ -1253,15 +1259,14 @@ var _default = (0, _reactRedux.connect)(mapState, mapDispatch)(function (_ref2) 
       }
     },
     className: "navBtn"
-  }, "Profile"), _react.default.createElement(_reactRouterDom.Link, {
-    to: "/problems",
-    className: "navBtn"
-  }, "Problems"), _react.default.createElement("a", {
+  }, "Profile"), _react.default.createElement("h1", {
+    className: "loggedinNavhead"
+  }, "Codemore"), _react.default.createElement("a", {
     href: "#",
     onClick: handleClick,
     className: "navBtn"
   }, "Logout")) : null);
-});
+}));
 
 exports.default = _default;
 
@@ -1305,7 +1310,9 @@ var _default = (0, _reactRedux.connect)(mapState)(function (_ref2) {
   var githubId = _ref2.githubId,
       formdata = _ref2.formdata,
       state = _ref2.location.state;
-  return _react.default.createElement("div", null, (0, _helperfuncs._isDataMissing)(formdata) ? null : state && state.prevPath && state.prevPath !== '/problems' ? null : _react.default.createElement(_container.default, null));
+  return _react.default.createElement("div", null, _react.default.createElement("h1", {
+    className: "profileWelcome"
+  }, "Welcome to the profile"), (0, _helperfuncs._isDataMissing)(formdata) ? null : state && state.prevPath && state.prevPath !== '/problems' ? null : _react.default.createElement(_container.default, null));
 });
 
 exports.default = _default;

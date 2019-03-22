@@ -18,6 +18,7 @@ const mapState = ({userReducer}) => ({
 export default connect(mapState)(({githubId, formdata, location: {state}}) => {
   return (
     <div>
+      <h1 className="profileWelcome">Welcome to the profile</h1>
       {_isDataMissing(formdata) ? null : state &&
       state.prevPath &&
       state.prevPath !== '/problems' ? null : (
