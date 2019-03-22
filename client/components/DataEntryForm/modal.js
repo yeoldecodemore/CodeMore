@@ -11,14 +11,15 @@ import {
   addHackernoon,
   addMedium,
   addStackoverflow,
-  fetchInitialCodewars,
-  fetchInitialHackernoon,
-  fetchInitialMedium
+  fetchCodewars,
+  fetchHackernoon,
+  fetchMedium,
+  fetchStackoverflow
 } from '../../store'
 
 const mapStateToProps = ({signupReducer, userReducer}) => ({
   userId: userReducer.id,
-  username: userReducer.username,
+  gitUsername: userReducer.username,
   codewars: signupReducer.codewars,
   email: signupReducer.email,
   hackernoon: signupReducer.hackernoon,
@@ -34,19 +35,20 @@ const mapDispatchToProps = dispatch => ({
   addHackernoon: hackernoon => dispatch(addHackernoon(hackernoon)),
   addMedium: medium => dispatch(addMedium(medium)),
   addStackoverflow: stackoverflow => dispatch(addStackoverflow(stackoverflow)),
-  fetchInitialCodewars: (userId, codewars) =>
-    dispatch(fetchInitialCodewars(userId, codewars)),
-  fetchInitialHackernoon: (userId, hackernoon) =>
-    dispatch(fetchInitialHackernoon(userId, hackernoon)),
-  fetchInitialMedium: (userId, medium) =>
-    dispatch(fetchInitialMedium(userId, medium))
+  fetchCodewars: (userId, codewars) =>
+    dispatch(fetchCodewars(userId, codewars)),
+  fetchHackernoon: (userId, hackernoon) =>
+    dispatch(fetchHackernoon(userId, hackernoon)),
+  fetchMedium: (userId, medium) => dispatch(fetchMedium(userId, medium)),
+  fetchStackoverflow: (userId, medium) =>
+    dispatch(fetchStackoverflow(userId, medium))
 })
 //! add a toast here
 export default connect(mapStateToProps, mapDispatchToProps)(
   class Modal extends Component {
     handleChange = evt => this.props[`add${evt.target.name}`](evt.target.value)
 
-    handleSubmit = async evt => {
+    handleSubmit = evt => {
       evt.preventDefault()
       const {
         userId,
@@ -56,28 +58,28 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         stackoverflow,
         medium,
         updateUser,
-        fetchInitialCodewars,
-        fetchInitialHackernoon,
-        fetchInitialMedium,
         closeModal
       } = this.props
 
       const truthyData = _filterTruthyData({
         codewars,
         email,
-        hackernoon,
         stackoverflow,
-        medium
+        medium,
+        hackernoon
       })
+
+      updateUser(userId, truthyData)
+
+      Object.keys(truthyData).forEach(async category => {
+        await this.props[`fetch${_sentenceCase(category)}`](
+          userId,
+          truthyData[category]
+        )
+        this.props[`add${_sentenceCase(category)}`]('')
+      })
+      //!show waiting
       closeModal()
-      updateUser(userId, truthyData) //only update user with truthy data (not empty strings)
-      await fetchInitialMedium(userId, medium)
-      await fetchInitialCodewars(userId, codewars)
-      await fetchInitialHackernoon(userId, hackernoon)
-      //resetting the form data on store
-      _sentenceCase(Object.keys(truthyData)).forEach(val =>
-        this.props[`add${val}`]('')
-      )
     }
     render() {
       const {

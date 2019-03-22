@@ -1,5 +1,5 @@
-const _dateWithoutTime = require('./dateWithoutTime')
-const _codeWarsQuestionsReducer = (questions, codewarId) =>
+const _dateWithoutTime = require('../../dateWithoutTime')
+const _codeWarsQuestionReducer = (questions, codewarId) =>
   questions.map(curr => ({
     questionId: curr.id,
     questionName: curr.name,
@@ -9,4 +9,4 @@ const _codeWarsQuestionsReducer = (questions, codewarId) =>
     codewarId
   }))
 
-module.exports = _codeWarsQuestionsReducer
+module.exports = _codeWarsQuestionReducer
