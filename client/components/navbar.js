@@ -18,14 +18,18 @@ export default connect(mapState, mapDispatch)(({handleClick, isLoggedIn}) => (
     </h1>
     {isLoggedIn ? (
       <nav>
-        <Link to={{pathname: '/home', state: {prevPath: location.pathname}}}>
-          Home
+        <Link
+          to={{pathname: '/home', state: {prevPath: location.pathname}}}
+          className="navBtn"
+        >
+          Profile
         </Link>
-        <Link to="/problems">Problems</Link>
-        <a href="#" onClick={handleClick}>
+        <Link to="/problems" className="navBtn">
+          Problems
+        </Link>
+        <a href="#" onClick={handleClick} className="navBtn">
           Logout
         </a>
-        <hr />
       </nav>
     ) : null}
   </div>

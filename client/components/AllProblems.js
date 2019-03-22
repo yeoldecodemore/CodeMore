@@ -20,10 +20,11 @@ export const ProblemMap = connect(mapStateToProps, mapDispatchToProps)(
     }
     render() {
       return (
-        <div>
+        <div className="allProblems">
           {this.props.allProblems.map(problem => {
             return (
               <Link
+                className="problemBtn"
                 to={`problems/${problem.problemSlug}`}
                 key={`${problem.problemSlug}`}
               >

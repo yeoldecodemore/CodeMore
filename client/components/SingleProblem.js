@@ -83,7 +83,9 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
     render() {
       return (
         <div>
-          <div>{this.props.singleProblem.problemDescription}</div>
+          <div className="problemDesc">
+            {this.props.singleProblem.problemDescription}
+          </div>
           <AceEditor
             mode="javascript"
             theme="monokai"

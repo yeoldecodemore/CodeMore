@@ -153,13 +153,45 @@ nav a {
   font-family: cursive;
 }
 
+.problemBtn {
+  width: 20vw;
+  background-color: white;
+  color: blue;
+  z-index: 10;
+}
+.navBtn {
+  width: 20vw;
+  height: 20px;
+  background-color: tan;
+  color: red;
+}
+
 .loggedinNavhead {
   font-size: 4em;
 }
 .loggedoutNavhead {
   font-size: 6em;
 }
+
+.problemDesc {
+  width: 40vw;
+  background-color: white;
+}
+
 .LandingPage {
+  background-image: url(images/medievallandscape.png);
+  background-size: cover;
+  width: 100vw;
+  height: 90vh;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10vh;
+}
+
+.LoggedPage {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
   width: 100vw;
