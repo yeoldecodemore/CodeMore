@@ -11,12 +11,13 @@ const getHackernoon = hackernoonPosts => ({
   hackernoonPosts
 })
 
-export const fetchInitialHackernoon = (
-  userId,
-  hackernoon
-) => async dispatch => {
-  console.log('inside thunk')
-  const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
+export const fetchHackernoon = (userId, hackernoon) => async dispatch => {
+  const {data} = await axios.get(`/api/data/hackernoon/${userId}/${hackernoon}`)
+  return dispatch(getHackernoon(data))
+}
+
+export const findHackernoon = userId => async dispatch => {
+  const {data} = await axios.get(`/api/hackernoon/${userId}`)
   return dispatch(getHackernoon(data))
 }
 export default (state = initialState, action) => {

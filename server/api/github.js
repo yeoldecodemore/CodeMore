@@ -1,14 +1,18 @@
 const router = require('express').Router()
-const {Hackernoon} = require('../db/models')
+const {GithubCommits, GithubRepos} = require('../db/models')
 
 router.get('/:id', async (req, res, next) => {
   const userId = req.params.id
   try {
-    const HackernoonPosts = await Hackernoon.findAll({
+    const repos = await GithubRepos.findAll({
       where: {userId}
     })
 
-    res.json(HackernoonPosts)
+    const commits = await GithubCommits.findAll({
+      where: {userId}
+    })
+
+    res.json({repos, commits})
   } catch (err) {
     next(err)
   }
