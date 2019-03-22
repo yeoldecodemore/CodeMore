@@ -39,16 +39,3 @@ export default withRouter(
     }
   )
 )
-
-// !this.props.isLoggedIn
-// ? 'LandingPage'
-// : _isDataMissing(this.props.formdata)
-//   ? 'LandingPage'
-//   : 'LoggedPage'
-// if(logged in){
-//   if(data is missing){
-//   landingpage
-//   }
-//   loggedpage
-// }
-// landing page

@@ -21,7 +21,7 @@ export default withRouter(
             .split('/')
             .splice(-1)
             .includes('home') ? (
-            <Link to="/problems" className="navBtn">
+            <Link to="/problems/backwards_array" className="navBtn">
               Problems
             </Link>
           ) : (
