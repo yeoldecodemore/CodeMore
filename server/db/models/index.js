@@ -5,7 +5,7 @@ const Test = require('./test')
 const Codewars = require('./codewars')
 const CodewarsLanguages = require('./codewarslanguages')
 const CodewarsQuestions = require('./codewarsquestions')
-const HackerNoon = require('./hackernoon')
+const Hackernoon = require('./hackernoon')
 const Medium = require('./medium')
 const Stackoverflow = require('./stackoverflow')
 const StackoverflowBadges = require('./stackoverflowbadges')
@@ -36,10 +36,10 @@ StackoverflowPrivileges.belongsTo(Stackoverflow)
 Stackoverflow.hasMany(StackoverflowDailyRepChange)
 StackoverflowDailyRepChange.belongsTo(Stackoverflow)
 
-User.hasOne(HackerNoon)
-HackerNoon.belongsTo(User)
+User.hasMany(Hackernoon)
+Hackernoon.belongsTo(User)
 
-User.hasOne(Medium)
+User.hasMany(Medium)
 Medium.belongsTo(User)
 
 User.hasMany(GithubRepos)
@@ -59,7 +59,7 @@ module.exports = {
   Codewars,
   CodewarsLanguages,
   CodewarsQuestions,
-  HackerNoon,
+  Hackernoon,
   Medium,
   Problem,
   GithubRepos,

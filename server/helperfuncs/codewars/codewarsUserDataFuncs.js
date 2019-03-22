@@ -32,16 +32,15 @@ const _organizeCodeWarsUserFromAPI = async user => {
   ]
 }
 
-const _updateCodewarsUser = async (user, userId, languages, data) => {
+const _updateCodewarsUser = async (userId, languages, data) => {
   const [numRows, generalCodewars] = await Codewars.update(data, {
     where: {userId},
     returning: true
   })
-
-  return [languages, ...generalCodewars]
+  return [languages, generalCodewars[0]]
 }
 
-const _createCodewarsUser = async (user, userId, languages, data) => {
+const _createCodewarsUser = async (userId, languages, data) => {
   const generalCodewars = await Codewars.create({...data, userId})
   return [languages, generalCodewars]
 }
@@ -50,8 +49,8 @@ const _getCodewarsUser = async (user, userId) => {
   const [languages, data] = await _organizeCodeWarsUserFromAPI(user)
 
   return result
-    ? _updateCodewarsUser(user, userId, languages, data)
-    : _createCodewarsUser(user, userId, languages, data)
+    ? _updateCodewarsUser(userId, languages, data)
+    : _createCodewarsUser(userId, languages, data)
 }
 
 module.exports = _getCodewarsUser

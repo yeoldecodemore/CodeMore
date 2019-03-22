@@ -16,14 +16,15 @@ const getStackoverflow = stackoverflowData => ({
   stackoverflowData
 })
 
-export const fetchInitialStackoverflow = (
-  userId,
-  stackoverflow
-) => async dispatch => {
-  console.log('inside thunk')
+export const fetchStackoverflow = (userId, stackoverflow) => async dispatch => {
   const {data} = await axios.get(
     `/api/data/stackoverflow/${userId}/${stackoverflow}`
   )
+  return dispatch(getStackoverflow(data))
+}
+
+export const findStackoverflow = userId => async dispatch => {
+  const {data} = await axios.get(`/api/stackoverflow/${userId}`)
   return dispatch(getStackoverflow(data))
 }
 export default (state = initialState, action) => {

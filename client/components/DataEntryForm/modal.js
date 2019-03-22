@@ -11,10 +11,10 @@ import {
   addHackernoon,
   addMedium,
   addStackoverflow,
-  fetchInitialCodewars,
-  fetchInitialHackernoon,
-  fetchInitialMedium,
-  fetchInitialStackoverflow
+  fetchCodewars,
+  fetchHackernoon,
+  fetchMedium,
+  fetchStackoverflow
 } from '../../store'
 
 const mapStateToProps = ({signupReducer, userReducer}) => ({
@@ -35,14 +35,13 @@ const mapDispatchToProps = dispatch => ({
   addHackernoon: hackernoon => dispatch(addHackernoon(hackernoon)),
   addMedium: medium => dispatch(addMedium(medium)),
   addStackoverflow: stackoverflow => dispatch(addStackoverflow(stackoverflow)),
-  fetchInitialCodewars: (userId, codewars) =>
-    dispatch(fetchInitialCodewars(userId, codewars)),
-  fetchInitialHackernoon: (userId, hackernoon) =>
-    dispatch(fetchInitialHackernoon(userId, hackernoon)),
-  fetchInitialMedium: (userId, medium) =>
-    dispatch(fetchInitialMedium(userId, medium)),
-  fetchInitialStackoverflow: (userId, medium) =>
-    dispatch(fetchInitialStackoverflow(userId, medium))
+  fetchCodewars: (userId, codewars) =>
+    dispatch(fetchCodewars(userId, codewars)),
+  fetchHackernoon: (userId, hackernoon) =>
+    dispatch(fetchHackernoon(userId, hackernoon)),
+  fetchMedium: (userId, medium) => dispatch(fetchMedium(userId, medium)),
+  fetchStackoverflow: (userId, medium) =>
+    dispatch(fetchStackoverflow(userId, medium))
 })
 //! add a toast here
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -59,10 +58,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         stackoverflow,
         medium,
         updateUser,
-        fetchInitialCodewars,
-        fetchInitialHackernoon,
-        fetchInitialMedium,
-        fetchInitialStackoverflow,
         closeModal
       } = this.props
 
@@ -73,16 +68,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         medium,
         hackernoon
       })
-      closeModal()
 
       updateUser(userId, truthyData)
-      Object.keys(truthyData).forEach(async val => {
-        await this.props[`fetchInitial${_sentenceCase(val)}`](
+
+      Object.keys(truthyData).forEach(async category => {
+        await this.props[`fetch${_sentenceCase(category)}`](
           userId,
-          truthyData[val]
+          truthyData[category]
         )
-        this.props[`add${_sentenceCase(val)}`]('')
+        this.props[`add${_sentenceCase(category)}`]('')
       })
+      //!show waiting
+      closeModal()
     }
     render() {
       const {

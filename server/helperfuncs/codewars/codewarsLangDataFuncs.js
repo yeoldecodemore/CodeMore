@@ -1,13 +1,11 @@
 const {CodewarsLanguages} = require('../../db/models')
-const {_codeWarsLanguageReducer} = require('../')
-const _bulkUpdateorCreate = require('../generic')
+const {_codeWarsLanguageReducer} = require('./helperfuncs/')
+const _bulkUpdateorCreate = require('../bulkUpdateorCreate')
 
 const _getCodewarsLanguages = async (languages, id) => {
   const codewarsLanguages = await _bulkUpdateorCreate(
-    languages,
-    id,
+    _codeWarsLanguageReducer(languages, id),
     ['codewarId', 'languageName'],
-    _codeWarsLanguageReducer,
     CodewarsLanguages
   )
 
