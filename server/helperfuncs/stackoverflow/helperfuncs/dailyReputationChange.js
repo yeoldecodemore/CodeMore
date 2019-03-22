@@ -1,4 +1,4 @@
-const _dateWithoutTime = require('./dateWithoutTime')
+const _dateWithoutTime = require('../../dateWithoutTime')
 
 const dataParser = (data, id) =>
   data.reduce((accum, curr) => {

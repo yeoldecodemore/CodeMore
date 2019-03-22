@@ -1,4 +1,4 @@
-const _dateWithoutTime = require('./dateWithoutTime')
+const _dateWithoutTime = require('../../dateWithoutTime')
 const _badgeNetworkFilter = (data, id) =>
   data
     .filter(val => val.activity_type.includes('badge_earned'))
