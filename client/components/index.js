@@ -6,6 +6,6 @@
 export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 
-export {ProblemMap} from './AllProblems'
+export {ProblemMap, AllProblems} from './AllProblems'
 export {default as Problem} from './SingleProblem'
 export {default as LandingPage} from './LandingPage'

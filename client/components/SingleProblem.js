@@ -3,18 +3,19 @@ import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
 import ls from 'local-storage'
 import axios from 'axios'
-import {AllProblems} from './AllProblems'
+import {ProblemMap, AllProblems} from './AllProblems'
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
+import {Link} from 'react-router-dom'
 
-import {fetchSingleProblem} from '../store/'
+import {fetchSingleProblem, fetchAllProblems} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
   singleProblem: problemReducer.singleProblem,
   allProblems: problemReducer.allProblems
 })
 
-export default connect(mapStateToProps, {fetchSingleProblem})(
+export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
   class Editor extends Component {
     state = {
       usersCode: '',
@@ -30,6 +31,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       if (ls.get(`${problemSlug}`) === null) {
         ls.set(`${problemSlug}`, `${problemTemplate}`)
       }
+      await this.props.fetchAllProblems()
       this.setState({
         usersCode: ls.get(`${problemSlug}`)
       })
@@ -40,6 +42,12 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
         usersCode: newValue
       })
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
+    }
+
+    changeProblem = async problem => {
+      const {problemSlug, problemTemplate} = problem
+      await this.props.fetchSingleProblem(problemSlug)
+      this.setState({usersCode: problemTemplate})
     }
 
     getLineWarnings = () =>
@@ -99,13 +107,28 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
     render() {
       return (
         <div className="problemsPage">
-          <div className="problemList">Problems</div>
+          <div className="problemList allProblems">
+            {this.props.allProblems.map(problem => {
+              return (
+                <Link
+                  className="problemBtn"
+                  value={`${problem.problemSlug}`}
+                  onClick={() => this.changeProblem(problem)}
+                  to={`${problem.problemSlug}`}
+                  key={`${problem.problemSlug}`}
+                >
+                  {`${problem.problemName}`}
+                  <br />
+                </Link>
+              )
+            })}
+          </div>
+
           <div className="containerProblem">
             <div className="problemDesc">
               {this.props.singleProblem.problemDescription}
             </div>
 
-            <br />
             <div />
             <AceEditor
               mode="javascript"

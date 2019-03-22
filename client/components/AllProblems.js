@@ -12,29 +12,35 @@ const mapDispatchToProps = dispatch => ({
   fetchAllProblems: () => dispatch(fetchAllProblems())
 })
 
-export const ProblemMap = connect(mapStateToProps, mapDispatchToProps)(
-  class AllProblems extends Component {
-    componentDidMount() {
-      this.props.fetchAllProblems()
-      history.push('/problems')
-    }
-    render() {
-      return (
-        <div className="allProblems">
-          {this.props.allProblems.map(problem => {
-            return (
-              <Link
-                className="problemBtn"
-                to={`problems/${problem.problemSlug}`}
-                key={`${problem.problemSlug}`}
-              >
-                {`${problem.problemName}`}
-                <br />
-              </Link>
-            )
-          })}
-        </div>
-      )
-    }
+export class AllProblems extends Component {
+  componentDidMount() {
+    // console.log(this.props)
+    this.props.fetchAllProblems()
+    history.push('/problems')
   }
+  render() {
+    if (!this.props.allProblems) {
+      return <div>Loading</div>
+    }
+    return (
+      <div className="allProblems">
+        {this.props.allProblems.map(problem => {
+          return (
+            <Link
+              className="problemBtn"
+              to={`problems/${problem.problemSlug}`}
+              key={`${problem.problemSlug}`}
+            >
+              {`${problem.problemName}`}
+              <br />
+            </Link>
+          )
+        })}
+      </div>
+    )
+  }
+}
+
+export const ProblemMap = connect(mapStateToProps, mapDispatchToProps)(
+  AllProblems
 )
