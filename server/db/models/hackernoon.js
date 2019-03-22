@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const HackerNoon = db.define('hackernoonmodel', {
+const Hackernoon = db.define('hackernoonmodel', {
   url: {
     type: Sequelize.STRING,
     validate: {
@@ -28,4 +28,4 @@ const HackerNoon = db.define('hackernoonmodel', {
   }
 })
 
-module.exports = HackerNoon
+module.exports = Hackernoon

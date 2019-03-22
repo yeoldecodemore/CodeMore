@@ -1,44 +1,52 @@
 const router = require('express').Router()
 const {
-  _callStackoverflowUserAPI,
-  _callStackoverflowTopTagsAPI,
-  _callStackoverflowBadgeAPI,
-  _callStackoverflowBadgeNetworkAPI,
-  _callStackoverflowPrivilegesAPI,
-  _callStackoverflowDailyRepAPI
-} = require('../helperfuncs/stackoverflowDataFuncs')
+  _getStackDailyRep,
+  _getStackBadges,
+  _getStackBadgeNetwork,
+  _getStackTopTags,
+  _getStackPrivileges,
+  _getStackUser
+} = require('../helperfuncs/stackoverflow/')
 
+const option = {
+  key: '1LHCjH34p7CHUvnyfz0jNQ((',
+  site: 'stackoverflow',
+  rank: 'rank',
+  reputation: 'reputation',
+  activity: 'activity',
+  popular: 'popular'
+}
 router.get('/:id/:username', async (req, res, next) => {
   try {
-    const stackUser = await _callStackoverflowUserAPI(
+    const stackUser = await _getStackUser(
       req.params.username,
-      req.params.id
+      req.params.id,
+      option
     )
     const {id} = stackUser.get({plain: true})
-    const stackBadges = await _callStackoverflowBadgeAPI(
+    console.log('*****', id)
+
+    const stackBadges = await _getStackBadges(req.params.username, id, option)
+    const stackTopTags = await _getStackTopTags(req.params.username, id, option)
+    const stackBadgenetwork = await _getStackBadgeNetwork(
       req.params.username,
-      id
+      id,
+      option
     )
-    const stackTags = await _callStackoverflowTopTagsAPI(
+    const stackPrivileges = await _getStackPrivileges(
       req.params.username,
-      id
+      id,
+      option
     )
-    const stackBadgenetwork = await _callStackoverflowBadgeNetworkAPI(
+    const stackDailyRep = await _getStackDailyRep(
       req.params.username,
-      id
-    )
-    const stackPrivileges = await _callStackoverflowPrivilegesAPI(
-      req.params.username,
-      id
-    )
-    const stackDailyRep = await _callStackoverflowDailyRepAPI(
-      req.params.username,
-      id
+      id,
+      option
     )
     res.json({
       stackUser,
       stackBadges,
-      stackTags,
+      stackTopTags,
       stackBadgenetwork,
       stackPrivileges,
       stackDailyRep
