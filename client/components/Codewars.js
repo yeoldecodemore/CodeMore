@@ -18,7 +18,7 @@ export const Codewars = connect(mapStateToProps, mapDispatchToProps)(
       this.props.findCodewars(this.props.userId)
     }
     render() {
-      console.log(this.props.codeWars)
+      const {clan} = this.props.codeWars.generalCodewars
       return (
         <div>
           <h1 />
