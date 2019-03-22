@@ -1,27 +1,29 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {findCodewars, getUserId} from '../store/'
+import {findCodewars} from '../store/'
 import userReducer from '../store/userReducer'
 
-const mapStateToProps = ({codewarReducer}) => ({
+const mapStateToProps = ({codewarReducer, userReducer}) => ({
   userId: userReducer.id,
   codeWars: codewarReducer
 })
 
 const mapDispatchToProps = dispatch => ({
-  getUserId: () => dispatch(getUserId()),
-  findCodeWars: id => dispatch(findCodeWars())
+  findCodewars: id => dispatch(findCodewars(id))
 })
 
 export const Codewars = connect(mapStateToProps, mapDispatchToProps)(
   class Codewars extends Component {
     componentDidMount() {
-      const id = this.props.getUserId()
-      this.props.findCodeWars(id)
+      this.props.findCodewars(this.props.userId)
     }
     render() {
-      return <div>{`${this.props.codeWars}`}</div>
+      console.log(this.props.codeWars)
+      return (
+        <div>
+          <h1 />
+        </div>
+      )
     }
   }
 )

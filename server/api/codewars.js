@@ -9,13 +9,13 @@ router.get('/:id', async (req, res, next) => {
       where: {userId}
     })
 
-    const {id} = generalCodewars.get({plain: true})
+    const id = generalCodewars.getDataValue('id')
 
-    const codewarsLanguages = CodewarsLanguages.findAll({
+    const codewarsLanguages = await CodewarsLanguages.findAll({
       where: {codewarId: id}
     })
 
-    const codewarsQuestions = CodewarsQuestions.findAll({
+    const codewarsQuestions = await CodewarsQuestions.findAll({
       where: {codewarId: id}
     })
     res.json({generalCodewars, codewarsLanguages, codewarsQuestions})

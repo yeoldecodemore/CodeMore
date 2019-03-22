@@ -3,6 +3,7 @@ import React from 'react'
 import Container from './DataEntryForm/container'
 import {connect} from 'react-redux'
 import {_isDataMissing} from '../helperfuncs'
+import {Codewars} from './Codewars'
 
 const mapState = ({userReducer}) => ({
   githubId: userReducer.githubId,
@@ -24,6 +25,10 @@ export default connect(mapState)(({githubId, formdata, location: {state}}) => {
       state.prevPath !== '/problems' ? null : (
         <Container />
       )}
+
+      <div className="codewars">
+        <Codewars />
+      </div>
     </div>
   )
 })
