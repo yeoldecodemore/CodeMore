@@ -1,7 +1,7 @@
 const rp = require('request-promise')
 const $ = require('cheerio')
 
-const hackerNoonSpecificPost = function(
+const hackernoonSpecificPost = function(
   url,
   claps,
   time,
@@ -31,4 +31,4 @@ const hackerNoonSpecificPost = function(
     })
 }
 
-module.exports = hackerNoonSpecificPost
+module.exports = hackernoonSpecificPost

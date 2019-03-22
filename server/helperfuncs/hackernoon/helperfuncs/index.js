@@ -1,4 +1,4 @@
 const _hackernoonReducer = require('./hackernoonReducer')
-const _getHackerNoonData = require('./hackernoonScraper')
+const _getHackernoonData = require('./hackernoonScraper')
 
-module.exports = {_getHackerNoonData, _hackernoonReducer}
+module.exports = {_getHackernoonData, _hackernoonReducer}

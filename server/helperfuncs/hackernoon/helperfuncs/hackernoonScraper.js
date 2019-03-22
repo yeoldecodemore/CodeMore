@@ -2,9 +2,9 @@
 /* eslint-disable no-loop-func */
 const rp = require('request-promise')
 const $ = require('cheerio')
-const hackerNoonSpecificPost = require('./hackerNoonSpecificPost')
+const hackernoonSpecificPost = require('./hackernoonSpecificPost')
 
-const _getHackerNoonData = username => {
+const _getHackernoonData = username => {
   console.log(username)
   return rp(`https://hackernoon.com/@${username}`)
     .then(function(html) {
@@ -83,7 +83,7 @@ const _getHackerNoonData = username => {
       })
       return Promise.all(
         links.map(function(url, index) {
-          return hackerNoonSpecificPost(
+          return hackernoonSpecificPost(
             url,
             claps[index],
             times[index],
@@ -102,4 +102,4 @@ const _getHackerNoonData = username => {
     })
 }
 
-module.exports = _getHackerNoonData
+module.exports = _getHackernoonData
