@@ -45,9 +45,9 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
     }
 
     changeProblem = async problem => {
-      const {problemSlug, problemTemplate} = problem
+      const {problemSlug} = problem
       await this.props.fetchSingleProblem(problemSlug)
-      this.setState({usersCode: problemTemplate})
+      this.setState({usersCode: ls.get(`${problemSlug}`)})
     }
 
     getLineWarnings = () =>
@@ -82,13 +82,14 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
         }
         let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
         const {tests, result} = data
-        this.setState({tests})
+        console.log(typeof result, result)
+        // this.setState({tests})
         if (typeof result === 'string') {
           let error = result.split('\n')
-          this.setState({results: error[4], error: true})
+          this.setState({results: error[4], error: true, tests})
         } else {
           const results = this.formatResults(result)
-          this.setState({results, error: false})
+          this.setState({results, error: false, tests})
         }
       } catch (error) {
         console.log(error)
@@ -96,10 +97,10 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
     }
 
     getTestResults(data) {
-      //Fix this to handle console.logs!!! always before the data
+      //!Fix this to handle console.logs!!! always before the data
       var lines = data.split('\n')
       lines.splice(0, 1)
-      var newtext = lines.join('\n') + '}'
+      var newtext = lines.join('\n')
       let results = JSON.parse(newtext)
       return results
     }

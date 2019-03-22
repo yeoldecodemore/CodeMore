@@ -40,7 +40,11 @@ export default function(state = initialState, action) {
     case GET_SINGLE_PROBLEM:
       return {...state, singleProblem: action.payload}
     case GET_ALL_PROBLEMS:
-      return {...state, allProblems: [...action.payload]}
+      return {
+        ...state,
+        allProblems: [...action.payload],
+        singleProblem: [...action.payload][0]
+      }
     //took out singleproblem
     default:
       return state
