@@ -182,8 +182,8 @@ form div {
 }
 
 .resultBlock {
-  height: 20vh;
-  background-color: rgb(20, 155, 20);
+  height: 50%;
+  background-color: black;
   color: white;
 }
 

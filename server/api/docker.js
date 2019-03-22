@@ -29,7 +29,11 @@ router.post('/:problem', async (req, res, next) => {
         'https://codemore-docker.herokuapp.com/testing',
         {code: `${script}`}
       )
-      res.send(data)
+      const resInfo = {
+        result: data,
+        tests: allTests
+      }
+      res.send(resInfo)
     } else {
       throw new Error('that problem does not exist')
     }

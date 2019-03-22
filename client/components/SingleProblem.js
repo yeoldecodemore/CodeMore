@@ -17,7 +17,9 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
   class Editor extends Component {
     state = {
       usersCode: '',
-      results: {}
+      error: false,
+      results: [],
+      tests: []
     }
 
     async componentDidMount() {
@@ -52,31 +54,33 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
         )
         .join('')
 
+    formatResults = resultObj => {
+      let {failures, passes} = resultObj
+      let fStat = failures.map(item => item.title + ' failed')
+      let pStat = passes.map(item => item.title + ' passed')
+      return [...fStat, ...pStat].sort()
+    }
+
     runCode = async e => {
       try {
         let code = this.sanitize(e.target.value)
-        console.log('THISIS CODE', code)
-
         const {id, problemSlug} = this.props.singleProblem
         const userProblem = {
           id: `${problemSlug}_${id}`,
           problemId: id,
           slug: problemSlug,
-          code: code
+          code
         }
-
         let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
-        if (data.stderr) {
-          let error = data.stderr.split('\n')
-          let errorMessage = error[4]
-          console.log('ERROR MESAGE ', errorMessage)
-          this.setState({results: {error: errorMessage}})
+        const {tests, result} = data
+        this.setState({tests})
+        if (typeof result === 'string') {
+          let error = result.split('\n')
+          this.setState({results: error[4], error: true})
         } else {
-          data = this.getTestResults(data.stdout)
-          console.log('#####', data)
-          this.setState({results: data, error: null})
+          const results = this.formatResults(result)
+          this.setState({results, error: false})
         }
-        console.log('STATE RESULTS', this.state.results)
       } catch (error) {
         console.log(error)
       }
@@ -88,7 +92,6 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       lines.splice(0, 1)
       var newtext = lines.join('\n') + '}'
       let results = JSON.parse(newtext)
-      console.log('RRRR', results)
       return results
     }
 
@@ -126,16 +129,22 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
           </div>
           <div className="container tests">
             <div className="resultBlock">
-              Results!
-              <div>
-                {this.state.results.error ? (
-                  <p style={{backgroundColor: 'red'}}>
-                    {this.state.results.tests}
-                  </p>
-                ) : (
-                  'Test'
-                )}
-              </div>
+              Results<br />
+              {this.state.error ? (
+                <p style={{backgroundColor: 'red'}}>{this.state.results}</p>
+              ) : (
+                <div>
+                  {this.state.results.map((item, idx) => (
+                    <p key={idx}>{item}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="testBlock">
+              <p>Tests</p>
+              {this.state.tests.map(item => (
+                <p key={item.id}>{item.testTemplate}</p>
+              ))}
             </div>
           </div>
         </div>
