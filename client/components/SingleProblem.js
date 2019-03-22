@@ -17,7 +17,9 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
   class Editor extends Component {
     state = {
       usersCode: '',
-      testResults: {}
+      error: false,
+      results: [],
+      tests: []
     }
 
     async componentDidMount() {
@@ -38,6 +40,7 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
       })
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
+
     getLineWarnings = () =>
       [...document.getElementsByClassName('ace_info')].map(
         item => +item.innerHTML - 1
@@ -51,28 +54,40 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
         )
         .join('')
 
+    formatResults = resultObj => {
+      let {failures, passes} = resultObj
+      let fStat = failures.map(item => item.title + ' failed')
+      let pStat = passes.map(item => item.title + ' passed')
+      return [...fStat, ...pStat].sort()
+    }
+
     runCode = async e => {
       try {
         let code = this.sanitize(e.target.value)
-        console.log(code)
-
         const {id, problemSlug} = this.props.singleProblem
-
         const userProblem = {
           id: `${problemSlug}_${id}`,
           problemId: id,
           slug: problemSlug,
-          code: code
+          code
         }
         let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
-        data = this.getTestResults(data)
-        this.setState({testResults: data})
+        const {tests, result} = data
+        this.setState({tests})
+        if (typeof result === 'string') {
+          let error = result.split('\n')
+          this.setState({results: error[4], error: true})
+        } else {
+          const results = this.formatResults(result)
+          this.setState({results, error: false})
+        }
       } catch (error) {
         console.log(error)
       }
     }
 
     getTestResults(data) {
+      //Fix this to handle console.logs!!! always before the data
       var lines = data.split('\n')
       lines.splice(0, 1)
       var newtext = lines.join('\n') + '}'
@@ -82,46 +97,56 @@ export default connect(mapStateToProps, {fetchSingleProblem})(
 
     render() {
       return (
-        <div>
-          <div className="problemDesc">
-            {this.props.singleProblem.problemDescription}
+        <div className="problemsPage">
+          <div className="problemList">Problems</div>
+          <div className="container">
+            <div className="problemDesc">
+              {this.props.singleProblem.problemDescription}
+            </div>
+            <div>
+              <button
+                type="button"
+                onClick={this.runCode}
+                value={this.state.usersCode}
+                className="runCodeBtn"
+              >
+                Run Code
+              </button>
+            </div>
+            <br />
+            <div />
+            <AceEditor
+              mode="javascript"
+              theme="monokai"
+              onChange={this.onChange}
+              name="editor"
+              className="editor"
+              value={this.state.usersCode}
+              fontSize={16}
+              editorProps={{$blockScrolling: Infinity}}
+              style={{width: '100%', height: '25em'}}
+            />
           </div>
-          <AceEditor
-            mode="javascript"
-            theme="monokai"
-            onChange={this.onChange}
-            name="editor"
-            className="editor"
-            value={this.state.usersCode}
-            fontSize={16}
-            editorProps={{$blockScrolling: Infinity}}
-            style={{width: '40em', height: '25em'}}
-          />
-
-          <div>
-            {this.state.testResults.tests ? (
-              <div>
-                {this.state.testResults.tests.map(test => {
-                  return (
-                    <div key={test.title}>
-                      {`${test.title} ${
-                        test.err.message ? 'failed' : 'passed'
-                      }`}
-                    </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <p>Run Code To See Results</p>
-            )}
+          <div className="container tests">
+            <div className="resultBlock">
+              Results<br />
+              {this.state.error ? (
+                <p style={{backgroundColor: 'red'}}>{this.state.results}</p>
+              ) : (
+                <div>
+                  {this.state.results.map((item, idx) => (
+                    <p key={idx}>{item}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="testBlock">
+              <p>Tests</p>
+              {this.state.tests.map(item => (
+                <p key={item.id}>{item.testTemplate}</p>
+              ))}
+            </div>
           </div>
-          <button
-            type="button"
-            onClick={this.runCode}
-            value={this.state.usersCode}
-          >
-            Run Code
-          </button>
         </div>
       )
     }

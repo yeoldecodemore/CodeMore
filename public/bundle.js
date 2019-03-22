@@ -921,7 +921,9 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "state", {
       usersCode: '',
-      testResults: {}
+      error: false,
+      results: [],
+      tests: []
     });
 
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChange", function (newValue) {
@@ -944,13 +946,25 @@ function (_Component) {
       }).join('');
     });
 
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "formatResults", function (resultObj) {
+      var failures = resultObj.failures,
+          passes = resultObj.passes;
+      var fStat = failures.map(function (item) {
+        return item.title + ' failed';
+      });
+      var pStat = passes.map(function (item) {
+        return item.title + ' passed';
+      });
+      return _toConsumableArray(fStat).concat(_toConsumableArray(pStat)).sort();
+    });
+
     _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "runCode",
     /*#__PURE__*/
     function () {
       var _ref2 = _asyncToGenerator(
       /*#__PURE__*/
       regeneratorRuntime.mark(function _callee(e) {
-        var code, _this$props$singlePro, id, problemSlug, userProblem, _ref3, data;
+        var code, _this$props$singlePro, id, problemSlug, userProblem, _ref3, data, tests, result, error, results;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
@@ -958,7 +972,6 @@ function (_Component) {
               case 0:
                 _context.prev = 0;
                 code = _this.sanitize(e.target.value);
-                console.log(code);
                 _this$props$singlePro = _this.props.singleProblem, id = _this$props$singlePro.id, problemSlug = _this$props$singlePro.problemSlug;
                 userProblem = {
                   id: "".concat(problemSlug, "_").concat(id),
@@ -966,17 +979,33 @@ function (_Component) {
                   slug: problemSlug,
                   code: code
                 };
-                _context.next = 7;
+                _context.next = 6;
                 return _axios.default.post("/api/docker/".concat(problemSlug), userProblem);
 
-              case 7:
+              case 6:
                 _ref3 = _context.sent;
                 data = _ref3.data;
-                data = _this.getTestResults(data);
+                tests = data.tests, result = data.result;
 
                 _this.setState({
-                  testResults: data
+                  tests: tests
                 });
+
+                if (typeof result === 'string') {
+                  error = result.split('\n');
+
+                  _this.setState({
+                    results: error[4],
+                    error: true
+                  });
+                } else {
+                  results = _this.formatResults(result);
+
+                  _this.setState({
+                    results: results,
+                    error: false
+                  });
+                }
 
                 _context.next = 16;
                 break;
@@ -1044,6 +1073,7 @@ function (_Component) {
   }, {
     key: "getTestResults",
     value: function getTestResults(data) {
+      //Fix this to handle console.logs!!! always before the data
       var lines = data.split('\n');
       lines.splice(0, 1);
       var newtext = lines.join('\n') + '}';
@@ -1053,9 +1083,20 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("div", {
+      return _react.default.createElement("div", {
+        className: "problemsPage"
+      }, _react.default.createElement("div", {
+        className: "problemList"
+      }, "Problems"), _react.default.createElement("div", {
+        className: "container"
+      }, _react.default.createElement("div", {
         className: "problemDesc"
-      }, this.props.singleProblem.problemDescription), _react.default.createElement(_reactAce.default, {
+      }, this.props.singleProblem.problemDescription), _react.default.createElement("div", null, _react.default.createElement("button", {
+        type: "button",
+        onClick: this.runCode,
+        value: this.state.usersCode,
+        className: "runCodeBtn"
+      }, "Run Code")), _react.default.createElement("br", null), _react.default.createElement("div", null), _react.default.createElement(_reactAce.default, {
         mode: "javascript",
         theme: "monokai",
         onChange: this.onChange,
@@ -1067,18 +1108,28 @@ function (_Component) {
           $blockScrolling: Infinity
         },
         style: {
-          width: '40em',
+          width: '100%',
           height: '25em'
         }
-      }), _react.default.createElement("div", null, this.state.testResults.tests ? _react.default.createElement("div", null, this.state.testResults.tests.map(function (test) {
-        return _react.default.createElement("div", {
-          key: test.title
-        }, "".concat(test.title, " ").concat(test.err.message ? 'failed' : 'passed'));
-      })) : _react.default.createElement("p", null, "Run Code To See Results")), _react.default.createElement("button", {
-        type: "button",
-        onClick: this.runCode,
-        value: this.state.usersCode
-      }, "Run Code"));
+      })), _react.default.createElement("div", {
+        className: "container tests"
+      }, _react.default.createElement("div", {
+        className: "resultBlock"
+      }, "Results", _react.default.createElement("br", null), this.state.error ? _react.default.createElement("p", {
+        style: {
+          backgroundColor: 'red'
+        }
+      }, this.state.results) : _react.default.createElement("div", null, this.state.results.map(function (item, idx) {
+        return _react.default.createElement("p", {
+          key: idx
+        }, item);
+      }))), _react.default.createElement("div", {
+        className: "testBlock"
+      }, _react.default.createElement("p", null, "Tests"), this.state.tests.map(function (item) {
+        return _react.default.createElement("p", {
+          key: item.id
+        }, item.testTemplate);
+      }))));
     }
   }]);
 

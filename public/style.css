@@ -207,3 +207,36 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.problemDesc {
+  background-color: darkblue;
+  color: white;
+}
+
+.resultBlock {
+  height: 50%;
+  background-color: black;
+  color: white;
+}
+
+.runCodeBtn {
+  background-color: green;
+  color: white;
+  font-size: 20px;
+}
+
+.problemsPage {
+  display: flex;
+  flex-direction: row;
+}
+
+.problemList {
+  flex: 1;
+}
+.container {
+  flex: 2;
+}
+
+.tests {
+  background-color: green;
+}
