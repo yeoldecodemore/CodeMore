@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {logout} from '../store'
 
 const mapState = ({userReducer}) => ({
@@ -11,22 +11,34 @@ const mapDispatch = dispatch => ({
   handleClick: () => dispatch(logout())
 })
 
-export default connect(mapState, mapDispatch)(({handleClick, isLoggedIn}) => (
-  <div className="navbar">
-    <h1 className={isLoggedIn ? 'loggedinNavhead' : 'loggedoutNavhead'}>
-      Codemore
-    </h1>
-    {isLoggedIn ? (
-      <nav>
-        <Link to={{pathname: '/home', state: {prevPath: location.pathname}}}>
-          Home
-        </Link>
-        <Link to="/problems">Problems</Link>
-        <a href="#" onClick={handleClick}>
-          Logout
-        </a>
-        <hr />
-      </nav>
-    ) : null}
-  </div>
-))
+export default withRouter(
+  connect(mapState, mapDispatch)(({handleClick, isLoggedIn}) => (
+    <div className="navbar">
+      {!isLoggedIn && <h1 className="loggedoutNavhead">Codemore</h1>}
+      {isLoggedIn ? (
+        <nav>
+          {window.location.href
+            .split('/')
+            .splice(-1)
+            .includes('home') ? (
+            <Link to="/problems" className="navBtn">
+              Problems
+            </Link>
+          ) : (
+            <Link
+              to={{pathname: '/home', state: {prevPath: location.pathname}}}
+              className="navBtn"
+            >
+              Profile
+            </Link>
+          )}
+
+          <h1 className="loggedinNavhead">Codemore</h1>
+          <a href="#" onClick={handleClick} className="navBtn">
+            Logout
+          </a>
+        </nav>
+      ) : null}
+    </div>
+  ))
+)
