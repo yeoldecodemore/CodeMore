@@ -16,7 +16,7 @@ export const fetchInitialHackernoon = (
   hackernoon
 ) => async dispatch => {
   console.log('inside thunk')
-  const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
+  const {data} = await axios.get(`/api/data/hackernoon/${userId}/${hackernoon}`)
   return dispatch(getHackernoon(data))
 }
 export default (state = initialState, action) => {
