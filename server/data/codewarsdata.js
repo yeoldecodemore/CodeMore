@@ -13,7 +13,6 @@ router.get('/:id/:username', async (req, res, next) => {
     )
 
     const {id} = generalCodewars.get({plain: true})
-
     const codewarsLanguages = await _getCodewarsLanguages(languages, id)
 
     const codewarsQuestions = await _getCodewarsQuestions(

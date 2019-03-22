@@ -1,4 +1,5 @@
 const User = require('./user')
+const UserStats = require('./userstats')
 const Problem = require('./problem')
 const Test = require('./test')
 const Codewars = require('./codewars')
@@ -49,8 +50,12 @@ GithubCommits.belongsTo(User)
 Problem.hasMany(Test)
 Test.belongsTo(Problem)
 
+User.belongsToMany(Problem, {through: UserStats})
+Problem.belongsToMany(User, {through: UserStats})
+
 module.exports = {
   User,
+  UserStats,
   Codewars,
   CodewarsLanguages,
   CodewarsQuestions,
