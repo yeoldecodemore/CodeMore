@@ -1,3 +1,8 @@
+/* font-family: 'Almendra SC', serif;
+font-family: 'IM Fell DW Pica', serif;
+font-family: 'IM Fell English SC', serif;
+font-family: 'IM Fell Great Primer SC', serif; */
+
 body {
   font-family: sans-serif;
   margin: 0px;
@@ -146,11 +151,14 @@ nav a {
 
 .problemBtn {
   width: 20vw;
-  background-color: white;
-  color: blue;
+  color: white;
   z-index: 10;
   border: 0;
   text-align: center;
+  font-family: 'Almendra SC', serif;
+  font-family: 'IM Fell English SC', serif;
+  font-size: 1.2em;
+  line-height: 1.6em;
 }
 .navBtn {
   width: 20vw;
@@ -172,10 +180,13 @@ nav a {
 }
 
 .problemDesc {
-  background-color: rgb(44, 42, 42);
+  background-color: #2f3129;
   color: white;
   width: 100%;
-  padding: 8px;
+  /* padding: 8px; */
+  font-family: 'IM Fell DW Pica', serif;
+  font-size: 1.3em;
+  padding: 3% 1.5%;
 }
 
 .LandingPage {
@@ -209,40 +220,76 @@ form div {
 }
 
 .resultBlock {
-  height: 50%;
+  height: 35%;
   background-color: rgb(44, 42, 42);
+  background-image: url(./images/parchment-background.jpg);
   color: white;
+  padding: 3% 3%;
 }
 
 .runCodeBtn {
-  background-color: green;
+  background-color: rgb(0, 48, 18, 0.85);
   color: white;
   font-size: 20px;
+  font-family: 'IM Fell Great Primer SC', serif;
+  padding: 5px 15px;
+  width: 96%;
+  border-color: black;
 }
 
 .problemsPage {
   display: flex;
   flex-direction: row;
   width: 100%;
+  background-image: url('./images/parchment-background.jpg');
+  /* opacity: 0.5; */
 }
-
+.problemsPage:not(.containerProblem) {
+  opacity: 0.95;
+}
 .problemList {
   flex: 1;
-  color: white;
+  color: black;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  background-image: url('./images/parchment-background.jpg');
 }
+.problemList a {
+  color: black;
+}
+
 .containerProblem {
   flex: 3;
 }
 .containerResults {
   flex: 2;
+  height: 100%;
+  background-image: url('./images/parchment-background.jpg');
+  font-family: 'Gentium Basic', serif;
+  font-size: 1em;
 }
 
-.tests {
+.testBlock {
   /* background-color: rgb(44, 42, 42); */
-  background-color: darkgreen;
+  background-color: rgb(0, 48, 18, 0.8);
   color: white;
+  /* font-family: 'IM Fell DW Pica', serif; */
+  /* font-style: italic; */
+  /* font-size: 1.3em; */
+  text-emphasis: none;
+  height: 50%;
+}
+.testBlock p {
+  padding-top: 2%;
 }
 
 .profileWelcome {
   color: white;
 }
+.testBlock {
+  padding: 0% 3%;
+}
+
+/* #editor {
+  background-image: url('./images/parchment-background.jpg')
+} */
