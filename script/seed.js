@@ -154,7 +154,7 @@ async function seed() {
     Test.create({
       testCaseNumber: 1,
       testTemplate:
-        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5)",
+        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5)};",
       problemId: 2
     }),
     Test.create({
