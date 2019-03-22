@@ -17,12 +17,6 @@ export default withRouter(
       {!isLoggedIn && <h1 className="loggedoutNavhead">Codemore</h1>}
       {isLoggedIn ? (
         <nav>
-          {console.log(
-            window.location.href
-              .split('/')
-              .splice(-1)
-              .includes('home')
-          )}
           {window.location.href
             .split('/')
             .splice(-1)
