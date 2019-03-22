@@ -1,7 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
-import {LandingPage, UserHome, ProblemMap, Problem} from './components'
+import {
+  LandingPage,
+  UserHome,
+  ProblemMap,
+  Problem,
+  Codewars
+} from './components'
 import {me} from './store'
 
 const mapState = ({userReducer}) => ({
@@ -28,6 +34,7 @@ export default withRouter(
             <Route exact path="/form" component={LandingPage} />
             <Route path="/home" component={UserHome} />
             <Route exact path="/problems" component={ProblemMap} />
+            <Route exact path="/codewars" component={Codewars} />
             <Route exact path="/problems/:problemName" component={Problem} />
           </Switch>
         ) : (

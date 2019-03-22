@@ -22,6 +22,7 @@ export default connect(mapState, mapDispatch)(({handleClick, isLoggedIn}) => (
           Home
         </Link>
         <Link to="/problems">Problems</Link>
+        <Link to="/codewars">Profile</Link>
         <a href="#" onClick={handleClick}>
           Logout
         </a>
