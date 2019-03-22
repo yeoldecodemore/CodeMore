@@ -129,7 +129,6 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
               {this.props.singleProblem.problemDescription}
             </div>
 
-            <br />
             <div />
             <AceEditor
               mode="javascript"
