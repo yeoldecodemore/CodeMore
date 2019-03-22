@@ -3,7 +3,7 @@ const {
   _getCodewarsUser,
   _getCodewarsLanguages,
   _getCodewarsQuestions
-} = require('../helperfuncs/codewarsDataFuncs/')
+} = require('../helperfuncs/codewars/')
 
 router.get('/:id/:username', async (req, res, next) => {
   try {
@@ -13,7 +13,7 @@ router.get('/:id/:username', async (req, res, next) => {
     )
 
     const {id} = generalCodewars.get({plain: true})
-    console.log(id)
+
     const codewarsLanguages = await _getCodewarsLanguages(languages, id)
 
     const codewarsQuestions = await _getCodewarsQuestions(

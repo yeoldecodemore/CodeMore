@@ -1,4 +1,4 @@
-const _dateWithoutTime = require('./dateWithoutTime')
+const _dateWithoutTime = require('../../dateWithoutTime')
 
 const _stackoverflowConverter = (item, userId) => ({
   bronzeBadge: item.badge_counts.bronze,

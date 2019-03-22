@@ -31,9 +31,6 @@ export const addStackoverflow = stackoverflow => ({
   type: ADD_NEW_STACKOVERFLOW,
   stackoverflow
 })
-//
-
-//thunks
 
 export default (state = initialState, action) => {
   switch (action.type) {

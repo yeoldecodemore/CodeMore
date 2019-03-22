@@ -1,4 +1,4 @@
-const _dateWithoutTime = require('./dateWithoutTime')
+const _dateWithoutTime = require('../../dateWithoutTime')
 
 const _mediumReducer = (response, userId) =>
   response.map(curr => ({

@@ -10,9 +10,13 @@ const initialState = {
 const GET_CODEWAR = 'GET_CODEWAR'
 const getCodewars = codewarData => ({type: GET_CODEWAR, codewarData})
 
-export const fetchInitialCodewars = (userId, codewars) => async dispatch => {
-  console.log('inside thunk')
+export const fetchCodewars = (userId, codewars) => async dispatch => {
   const {data} = await axios.get(`/api/data/codewars/${userId}/${codewars}`)
+  return dispatch(getCodewars(data))
+}
+
+export const findCodewars = userId => async dispatch => {
+  const {data} = await axios.get(`/api/codewars/${userId}`)
   return dispatch(getCodewars(data))
 }
 export default (state = initialState, action) => {

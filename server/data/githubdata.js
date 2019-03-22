@@ -1,21 +1,24 @@
 const router = require('express').Router()
-const {
-  _callGithubReposAPI,
-  _callGithubCommitsAPI
-} = require('../helperfuncs/githubDataFuncs')
+const {_getGithubCommits, _getGithubRepos} = require('../helperfuncs/github/')
 
+const client = {
+  id: process.env.GITHUB_CLIENT_ID,
+  secret: process.env.GITHUB_CLIENT_SECRET
+}
 router.get('/:id/:username', async (req, res, next) => {
   try {
-    const [gitArr, gitrepos] = await _callGithubReposAPI(
+    const [gitArr, gitrepos] = await _getGithubRepos(
       req.params.username,
-      req.params.id
+      req.params.id,
+      client
     )
 
-    const [repos, commits] = await _callGithubCommitsAPI(
+    const [repos, commits] = await _getGithubCommits(
       gitArr,
       gitrepos,
       req.params.username,
-      req.params.id
+      req.params.id,
+      client
     )
 
     res.json({repos, commits})

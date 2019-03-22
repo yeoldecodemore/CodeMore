@@ -12,9 +12,13 @@ const getGithub = githubData => ({
   githubData
 })
 
-export const fetchInitialGithub = (userId, github) => async dispatch => {
-  console.log('inside thunk')
-  const {data} = await axios.get(`/api/data/stackoverflow/${userId}/${github}`)
+export const fetchGithub = (userId, github) => async dispatch => {
+  const {data} = await axios.get(`/api/data/github/${userId}/${github}`)
+  return dispatch(getGithub(data))
+}
+
+export const findGithub = userId => async dispatch => {
+  const {data} = await axios.get(`/api/github/${userId}`)
   return dispatch(getGithub(data))
 }
 export default (state = initialState, action) => {

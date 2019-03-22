@@ -11,9 +11,13 @@ const getMedium = mediumPosts => ({
   mediumPosts
 })
 
-export const fetchInitialMedium = (userId, medium) => async dispatch => {
-  console.log('inside thunk')
+export const fetchMedium = (userId, medium) => async dispatch => {
   const {data} = await axios.get(`/api/data/medium/${userId}/${medium}`)
+  return dispatch(getMedium(data))
+}
+
+export const findMedium = userId => async dispatch => {
+  const {data} = await axios.get(`/api/medium/${userId}`)
   return dispatch(getMedium(data))
 }
 export default (state = initialState, action) => {
