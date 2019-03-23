@@ -147,7 +147,7 @@ nav a {
   font-family: cursive;
   display: flex;
   justify-content: space-between;
-  height: 18vh;
+  height: 14vh;
 }
 
 .problemBtn {
@@ -190,31 +190,18 @@ nav a {
   padding: 3% 1.5%;
 }
 
-.LandingPage {
-  background-image: url(images/medievallandscape.png);
-  background-size: cover;
-  width: 100vw;
-  height: 90vh;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 10vh;
-}
-
+.LandingPage,
 .LoggedPage {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding-bottom: 10vh;
 }
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -289,6 +276,70 @@ form div {
   padding-top: 2%;
 } */
 
-.profileWelcome {
-  color: white;
+.profile {
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+  height: 80vh;
+  width: 70vw;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  background-color: black;
+  margin: 10px;
+}
+
+.userImage {
+  flex: 2;
+  background-color: purple;
+}
+
+.greenies {
+  flex: 3;
+  background-color: pink;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  flex: 3;
+  background-color: yellow;
+  margin: 10px;
+}
+
+.dataOne {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: black;
+}
+
+.dataTwo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: white;
+}
+
+.codewars {
+  flex: 1;
+  background-color: pink;
+}
+
+.github {
+  flex: 1;
+  background-color: purple;
+}
+
+.medium {
+  flex: 1;
+  background-color: blue;
+}
+
+.stackoverflow {
+  flex: 1;
+  background-color: yellow;
 }
