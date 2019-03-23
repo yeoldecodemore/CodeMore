@@ -21,72 +21,114 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       usersCode: '',
       error: false,
       results: [],
-      tests: []
+      tests: [],
+      consoleData: ''
     }
 
     async componentDidMount() {
-      const probName = this.props.match.params.problemName
+      await this.props.fetchAllProblems()
+      this.setUpProblem()
+    }
+
+    setUpProblem = async problem => {
+      const probName = problem || this.props.match.params.problemName
       await this.props.fetchSingleProblem(probName)
       const {problemSlug, problemTemplate} = this.props.singleProblem
       if (ls.get(`${problemSlug}`) === null) {
         ls.set(`${problemSlug}`, `${problemTemplate}`)
       }
-      await this.props.fetchAllProblems()
       this.setState({
         usersCode: ls.get(`${problemSlug}`)
       })
     }
 
-    onChange = newValue => {
+    userUpdateCode = newValue => {
       this.setState({
         usersCode: newValue
       })
       ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
     }
 
-    changeProblem = async problem => {
-      const {problemSlug} = problem
-      await this.props.fetchSingleProblem(problemSlug)
-      this.setState({usersCode: ls.get(`${problemSlug}`)})
+    changeProblem = problem => {
+      this.setUpProblem(problem.problemSlug)
     }
 
     getLineWarnings = () =>
       [...document.getElementsByClassName('ace_info')].map(
         item => +item.innerHTML - 1
       )
-    sanitize = newValue =>
-      newValue
-        .split('\n')
-        .map(
-          (line, index) =>
-            this.getLineWarnings().includes(index) ? line.concat(';') : line
-        )
-        .join('')
 
-    formatResults = resultObj => {
-      let {failures, passes} = resultObj
-      let fStat = failures.map(item => item.title + ' failed')
-      let pStat = passes.map(item => item.title + ' passed')
-      return [...fStat, ...pStat].sort()
+    addSemiColons = code =>
+      code.map(
+        (line, index) =>
+          this.getLineWarnings().includes(index) ? line.concat(';') : line
+      )
+
+    convertComments = code =>
+      code.map(line => (line.includes('//') ? `/* ${line} */ ` : line))
+
+    sanitizeUserCode = newValue => {
+      newValue = newValue.split('\n')
+
+      newValue = this.addSemiColons(newValue)
+      newValue = this.convertComments(newValue)
+
+      return newValue.join('\n')
     }
 
-    runCode = async e => {
-      try {
-        let code = this.sanitize(e.target.value)
-        const {id, problemSlug} = this.props.singleProblem
-        const userProblem = {
-          id: `${problemSlug}_${id}`,
-          problemId: id,
-          slug: problemSlug,
-          code
+    toggleRunCodeBtn = (target, running) => {
+      target.innerHTML = running ? 'loading...' : 'Run Code'
+      target.disabled = running
+      target.style.backgroundColor = running ? 'grey' : '#003012d9'
+    }
+
+    executeCode = async code => {
+      const {id, problemSlug} = this.props.singleProblem
+      const userProblem = {
+        id: `${problemSlug}_${id}`,
+        problemId: id,
+        slug: problemSlug,
+        code
+      }
+      let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
+      return data
+    }
+
+    checkIfError = result => {
+      if (typeof result === 'object') {
+        return {
+          error: false,
+          errorMessage: ''
         }
-        let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
-        const {tests, result} = data
-        console.log(typeof result, result)
-        // this.setState({tests})
-        if (typeof result === 'string') {
-          let error = result.split('\n')
-          this.setState({results: error[4], error: true, tests})
+      }
+      result = result.split('\n')
+      let error = result[4].includes('SyntaxError' || 'TypeError')
+      return {
+        error,
+        errorMessage: result[4]
+      }
+    }
+
+    evaluateCode = async e => {
+      try {
+        const target = e.target
+        this.toggleRunCodeBtn(target, true)
+        let code = this.sanitizeUserCode(e.target.value)
+        const {tests, result} = await this.executeCode(code)
+        this.toggleRunCodeBtn(target, false)
+        const hasConsoleLogs =
+          typeof result === 'string' && result.charAt(0) !== '{'
+
+        const {error, errorMessage} = this.checkIfError(result)
+
+        if (error) {
+          this.setState({results: errorMessage, error: true, tests})
+        } else if (hasConsoleLogs) {
+          const consoleLogs = result.slice(0, result.indexOf('{\n'))
+          const resultsStr = '{' + result.slice(result.indexOf('"stats":'))
+          const resultsObj = JSON.parse(resultsStr)
+          const results = this.formatResults(resultsObj)
+          this.setState({results, error: false, tests})
         } else {
           const results = this.formatResults(result)
           this.setState({results, error: false, tests})
@@ -96,11 +138,18 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       }
     }
 
+    formatResults = resultObj => {
+      let {failures, passes} = resultObj
+      let fStat = failures.map(item => item.title + ' failed')
+      let pStat = passes.map(item => item.title + ' passed')
+      return [...fStat, ...pStat].sort()
+    }
+
     getTestResults(data) {
       //!Fix this to handle console.logs!!! always before the data
       var lines = data.split('\n')
       lines.splice(0, 1)
-      var newtext = lines.join('\n')
+      var newtext = lines.join('\n') + '}'
       let results = JSON.parse(newtext)
       return results
     }
@@ -134,7 +183,7 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
             <AceEditor
               mode="javascript"
               theme="monokai"
-              onChange={this.onChange}
+              onChange={this.userUpdateCode}
               name="editor"
               className="editor"
               value={this.state.usersCode}
@@ -145,7 +194,7 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
             <div>
               <button
                 type="button"
-                onClick={this.runCode}
+                onClick={this.evaluateCode}
                 value={this.state.usersCode}
                 className="runCodeBtn"
               >
