@@ -147,6 +147,7 @@ nav a {
   font-family: cursive;
   display: flex;
   justify-content: space-between;
+  height: 18vh;
 }
 
 .problemBtn {
@@ -219,14 +220,6 @@ form div {
   display: inline-block;
 }
 
-.resultBlock {
-  height: 35%;
-  background-color: rgb(44, 42, 42);
-  background-image: url(./images/parchment-background.jpg);
-  color: white;
-  padding: 3% 3%;
-}
-
 .runCodeBtn {
   background-color: rgb(0, 48, 18, 0.85);
   color: white;
@@ -242,7 +235,6 @@ form div {
   flex-direction: row;
   width: 100%;
   background-image: url('./images/parchment-background.jpg');
-  /* opacity: 0.5; */
 }
 .problemsPage:not(.containerProblem) {
   opacity: 0.95;
@@ -267,29 +259,36 @@ form div {
   background-image: url('./images/parchment-background.jpg');
   font-family: 'Gentium Basic', serif;
   font-size: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.consoleBlock {
+  flex: 1;
+  color: white;
+  padding: 0% 3%;
+}
+
+.resultBlock {
+  /* height: 35%; */
+  background-color: rgb(44, 42, 42);
+  background-image: url('./images/parchment-background.jpg');
+  color: white;
+  padding: 3% 3%;
+  flex: 1;
 }
 
 .testBlock {
-  /* background-color: rgb(44, 42, 42); */
+  flex: 1;
   background-color: rgb(0, 48, 18, 0.8);
   color: white;
-  /* font-family: 'IM Fell DW Pica', serif; */
-  /* font-style: italic; */
-  /* font-size: 1.3em; */
   text-emphasis: none;
-  height: 50%;
+  padding: 0% 3%;
 }
-.testBlock p {
+/* .testBlock p {
   padding-top: 2%;
-}
+} */
 
 .profileWelcome {
   color: white;
 }
-.testBlock {
-  padding: 0% 3%;
-}
-
-/* #editor {
-  background-image: url('./images/parchment-background.jpg')
-} */
