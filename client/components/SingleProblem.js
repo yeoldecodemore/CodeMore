@@ -22,7 +22,7 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       error: false,
       results: [],
       tests: [],
-      consoleData: ''
+      consoleLogs: ''
     }
 
     async componentDidMount() {
@@ -51,6 +51,12 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
 
     changeProblem = problem => {
       this.setUpProblem(problem.problemSlug)
+      this.setState({
+        error: false,
+        results: [],
+        tests: [],
+        consoleLogs: ''
+      })
     }
 
     getLineWarnings = () =>
@@ -94,26 +100,22 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       return data
     }
 
-    checkIfError = result => {
-      if (typeof result === 'object') {
-        return {
-          error: false,
-          errorMessage: ''
-        }
-      }
-      result = result.split('\n')
-      let error = result[4].includes('SyntaxError' || 'TypeError')
-      return {
-        error,
-        errorMessage: result[4]
-      }
-    }
+    checkIfError = result =>
+      typeof result === 'object'
+        ? {
+            error: false,
+            errorMessage: ''
+          }
+        : {
+            error: result.split('\n')[4].includes('SyntaxError' || 'TypeError'),
+            errorMessage: result.split('\n')[4]
+          }
 
     evaluateCode = async e => {
       try {
         const target = e.target
         this.toggleRunCodeBtn(target, true)
-        let code = this.sanitizeUserCode(e.target.value)
+        let code = this.sanitizeUserCode(target.value)
         const {tests, result} = await this.executeCode(code)
         this.toggleRunCodeBtn(target, false)
         const hasConsoleLogs =
@@ -128,10 +130,10 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
           const resultsStr = '{' + result.slice(result.indexOf('"stats":'))
           const resultsObj = JSON.parse(resultsStr)
           const results = this.formatResults(resultsObj)
-          this.setState({results, error: false, tests})
+          this.setState({results, error: false, tests, consoleLogs})
         } else {
           const results = this.formatResults(result)
-          this.setState({results, error: false, tests})
+          this.setState({results, error: false, tests, consoleLogs: ''})
         }
       } catch (error) {
         console.log(error)
@@ -140,20 +142,12 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
 
     formatResults = resultObj => {
       let {failures, passes} = resultObj
-      let fStat = failures.map(item => item.title + ' failed')
+      let fStat = failures.map(
+        item => item.title + ' failed - ' + item.err.message
+      )
       let pStat = passes.map(item => item.title + ' passed')
       return [...fStat, ...pStat].sort()
     }
-
-    getTestResults(data) {
-      //!Fix this to handle console.logs!!! always before the data
-      var lines = data.split('\n')
-      lines.splice(0, 1)
-      var newtext = lines.join('\n') + '}'
-      let results = JSON.parse(newtext)
-      return results
-    }
-
     render() {
       return (
         <div className="problemsPage">
@@ -203,6 +197,10 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
             </div>
           </div>
           <div className="containerResults tests">
+            <div className="consoleBlock">
+              <p>Console</p>
+              <p>{this.state.consoleLogs ? this.state.consoleLogs : ''}</p>
+            </div>
             <div className="resultBlock">
               Results<br />
               {this.state.error ? (
