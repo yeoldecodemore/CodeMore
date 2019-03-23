@@ -182,26 +182,26 @@ nav a {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10vh;
+  /* padding-bottom: 10vh; */
 }
 
 .LoggedPage {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 10vh;
+  /* padding-bottom: 10vh; */
 }
 form div {
   margin: 1em;
@@ -246,3 +246,44 @@ form div {
 .profileWelcome {
   color: white;
 }
+
+.codewarsDisplay {
+  display: flex;
+  background: black;
+  height: 25 vh;
+  width: 25 vh;
+}
+
+.languages {
+  background-image: url(https://thoughtfullyemily.files.wordpress.com/2018/06/codewars.png);
+  color: white;
+}
+
+/* dashboard */
+
+.profilePage {
+  display: flex;
+  /* height: 50vh; */
+  width: 100%;
+  flex-direction: column;
+  background: whitesmoke;
+}
+
+/* .dashboard {
+  display: flex; 
+
+width: 100%;
+  flex-direction: column;
+  background: whitesmoke
+}
+
+.personalInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: row
+}
+
+.statsInfo {
+  display: flex;
+  flex: 2
+} */

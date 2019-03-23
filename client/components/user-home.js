@@ -3,10 +3,11 @@ import React from 'react'
 import Container from './DataEntryForm/container'
 import {connect} from 'react-redux'
 import {_isDataMissing} from '../helperfuncs'
-import {Codewars} from './Codewars'
+import {Dashboard} from './Dashboard'
 
 const mapState = ({userReducer}) => ({
   githubId: userReducer.githubId,
+  user: userReducer,
   formdata: [
     userReducer.codewars,
     userReducer.email,
@@ -18,17 +19,14 @@ const mapState = ({userReducer}) => ({
 
 export default connect(mapState)(({githubId, formdata, location: {state}}) => {
   return (
-    <div>
-      <h1 className="profileWelcome">Welcome to the profile</h1>
+    <div className="profilePage">
+      {/* <h1 className="profileWelcome">Welcome to the profile</h1> */}
       {_isDataMissing(formdata) ? null : state &&
       state.prevPath &&
       state.prevPath !== '/problems' ? null : (
         <Container />
       )}
-
-      <div className="codewars">
-        <Codewars />
-      </div>
+      <Dashboard />
     </div>
   )
 })
