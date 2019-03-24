@@ -292,3 +292,18 @@ form div {
 .profileWelcome {
   color: white;
 }
+
+.problemBtn:hover {
+  background-color: white;
+}
+
+.selected {
+  background-color: lightblue;
+}
+
+.failed {
+  color: red;
+}
+.passed {
+  color: green;
+}

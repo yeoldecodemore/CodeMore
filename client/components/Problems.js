@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import AceEditor from 'react-ace'
 import ls from 'local-storage'
 import axios from 'axios'
-import {ProblemMap, AllProblems} from './AllProblems'
 import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 import {Link} from 'react-router-dom'
+import {_sanitizeCode} from '../helperfuncs'
 
 import {fetchSingleProblem, fetchAllProblems} from '../store/'
 
@@ -59,29 +59,6 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       })
     }
 
-    getLineWarnings = () =>
-      [...document.getElementsByClassName('ace_info')].map(
-        item => +item.innerHTML - 1
-      )
-
-    addSemiColons = code =>
-      code.map(
-        (line, index) =>
-          this.getLineWarnings().includes(index) ? line.concat(';') : line
-      )
-
-    convertComments = code =>
-      code.map(line => (line.includes('//') ? `/* ${line} */ ` : line))
-
-    sanitizeUserCode = newValue => {
-      newValue = newValue.split('\n')
-
-      newValue = this.addSemiColons(newValue)
-      newValue = this.convertComments(newValue)
-
-      return newValue.join('\n')
-    }
-
     toggleRunCodeBtn = (target, running) => {
       target.innerHTML = running ? 'loading...' : 'Run Code'
       target.disabled = running
@@ -115,16 +92,16 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       try {
         const target = e.target
         this.toggleRunCodeBtn(target, true)
-        let code = this.sanitizeUserCode(target.value)
+        let code = _sanitizeCode(target.value)
         const {tests, result} = await this.executeCode(code)
         this.toggleRunCodeBtn(target, false)
         const hasConsoleLogs =
           typeof result === 'string' && result.charAt(0) !== '{'
-
         const {error, errorMessage} = this.checkIfError(result)
-
         if (error) {
           this.setState({results: errorMessage, error: true, tests})
+        } else if (result.killed) {
+          this.setState({results: 'Timed Out', error: true, tests})
         } else if (hasConsoleLogs) {
           const consoleLogs = result.slice(0, result.indexOf('{\n'))
           const resultsStr = '{' + result.slice(result.indexOf('"stats":'))
@@ -155,7 +132,11 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
             {this.props.allProblems.map(problem => {
               return (
                 <Link
-                  className="problemBtn"
+                  className={`problemBtn + ${
+                    problem.problemSlug === this.props.singleProblem.problemSlug
+                      ? 'selected'
+                      : ''
+                  }`}
                   value={`${problem.problemSlug}`}
                   onClick={() => this.changeProblem(problem)}
                   to={`${problem.problemSlug}`}
@@ -207,8 +188,13 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
                 <p style={{backgroundColor: 'red'}}>{this.state.results}</p>
               ) : (
                 <div>
-                  {this.state.results.map((item, idx) => (
-                    <p key={idx}>{item}</p>
+                  {this.state.results.map(item => (
+                    <p
+                      key={item}
+                      className={item.includes('failed') ? 'failed' : 'passed'}
+                    >
+                      {item}
+                    </p>
                   ))}
                 </div>
               )}
