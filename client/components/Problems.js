@@ -22,7 +22,8 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
       error: false,
       results: [],
       tests: [],
-      consoleLogs: ''
+      consoleLogs: '',
+      resultsOrConsole: 'results'
     }
 
     async componentDidMount() {
@@ -128,28 +129,34 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
     render() {
       return (
         <div className="problemsPage">
-          <div className="problemList allProblems">
-            {this.props.allProblems.map(problem => {
-              return (
-                <Link
-                  className={`problemBtn + ${
-                    problem.problemSlug === this.props.singleProblem.problemSlug
-                      ? 'selected'
-                      : ''
-                  }`}
-                  value={`${problem.problemSlug}`}
-                  onClick={() => this.changeProblem(problem)}
-                  to={`${problem.problemSlug}`}
-                  key={`${problem.problemSlug}`}
-                >
-                  {`${problem.problemName}`}
-                  <br />
-                </Link>
-              )
-            })}
+          <div className="problemList">
+            <p className="problemTitle">Problems</p>
+            <div className="problems">
+              {this.props.allProblems.map(problem => {
+                return (
+                  <Link
+                    className={`problemBtn + ${
+                      problem.problemSlug ===
+                      this.props.singleProblem.problemSlug
+                        ? 'selected'
+                        : ''
+                    }`}
+                    value={`${problem.problemSlug}`}
+                    onClick={() => this.changeProblem(problem)}
+                    to={`${problem.problemSlug}`}
+                    key={`${problem.problemSlug}`}
+                  >
+                    {`${problem.problemName}`}
+                    <br />
+                  </Link>
+                )
+              })}
+            </div>
           </div>
 
           <div className="containerProblem">
+            <p className="problemTitle">Instructions</p>
+
             <div className="problemDesc">
               {this.props.singleProblem.problemDescription}
             </div>
@@ -166,39 +173,62 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
               editorProps={{$blockScrolling: Infinity}}
               style={{width: '100%', height: '25em'}}
             />
-            <div>
-              <button
-                type="button"
-                onClick={this.evaluateCode}
-                value={this.state.usersCode}
-                className="runCodeBtn"
-              >
-                Run Code
-              </button>
-            </div>
+
+            <button
+              type="button"
+              onClick={this.evaluateCode}
+              value={this.state.usersCode}
+              className="runCodeBtn"
+            >
+              Run Code
+            </button>
           </div>
           <div className="containerResults tests">
-            <div className="consoleBlock">
-              <p>Console</p>
-              <p>{this.state.consoleLogs ? this.state.consoleLogs : ''}</p>
+            <div className="responseButtons">
+              <button
+                type="button"
+                className="resultBtn"
+                onClick={() => this.setState({resultsOrConsole: 'results'})}
+              >
+                Results
+              </button>
+              <button
+                type="button"
+                className="resultBtn"
+                onClick={() => this.setState({resultsOrConsole: 'console'})}
+              >
+                Console
+              </button>
             </div>
-            <div className="resultBlock">
-              Results<br />
-              {this.state.error ? (
-                <p style={{backgroundColor: 'red'}}>{this.state.results}</p>
+            <div className="resultsBlock">
+              {this.state.resultsOrConsole === 'console' ? (
+                <div>
+                  <p className="resultTitle">Console</p>
+                  <p>{this.state.consoleLogs ? this.state.consoleLogs : ''}</p>
+                </div>
               ) : (
                 <div>
-                  {this.state.results.map(item => (
-                    <p
-                      key={item}
-                      className={item.includes('failed') ? 'failed' : 'passed'}
-                    >
-                      {item}
-                    </p>
-                  ))}
+                  <p className="resultTitle">Results</p>
+                  {this.state.error ? (
+                    <p style={{backgroundColor: 'red'}}>{this.state.results}</p>
+                  ) : (
+                    <div>
+                      {this.state.results.map(item => (
+                        <p
+                          key={item}
+                          className={
+                            item.includes('failed') ? 'failed' : 'passed'
+                          }
+                        >
+                          {item}
+                        </p>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
+
             <div className="testBlock">
               <p>Tests</p>
               {this.state.tests.map(item => (

@@ -180,16 +180,6 @@ nav a {
   margin: 0px;
 }
 
-.problemDesc {
-  background-color: #2f3129;
-  color: white;
-  width: 100%;
-  /* padding: 8px; */
-  font-family: 'IM Fell DW Pica', serif;
-  font-size: 1.3em;
-  padding: 3% 1.5%;
-}
-
 .LandingPage {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
@@ -220,39 +210,65 @@ form div {
   display: inline-block;
 }
 
-.runCodeBtn {
-  background-color: rgb(0, 48, 18, 0.85);
-  color: white;
-  font-size: 20px;
-  font-family: 'IM Fell Great Primer SC', serif;
-  padding: 5px 15px;
-  width: 96%;
-  border-color: black;
-}
-
 .problemsPage {
+  height: 70vh;
   display: flex;
   flex-direction: row;
   width: 100%;
-  background-image: url('./images/parchment-background.jpg');
 }
 .problemsPage:not(.containerProblem) {
   opacity: 0.95;
 }
+.problems {
+  padding: 10px;
+  flex: 13;
+  background-image: url('./images/parchment-background.jpg');
+  overflow-y: scroll;
+}
+
 .problemList {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   color: black;
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 20px;
-  background-image: url('./images/parchment-background.jpg');
 }
+
 .problemList a {
   color: black;
 }
 
 .containerProblem {
   flex: 3;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
+
+.problemDesc {
+  background-color: #2f3129;
+  color: white;
+  font-family: serif;
+  font-size: 1.3em;
+  padding: 10px;
+  flex: 2;
+  text-align: center;
+  border: 5px solid white;
+}
+
+.editor {
+  flex: 10;
+}
+.runCodeBtn {
+  background-color: rgb(0, 48, 18, 0.85);
+  color: white;
+  font-size: 20px;
+  font-family: 'IM Fell Great Primer SC', serif;
+  padding: 5px 15px;
+  border-color: black;
+  flex: 0 0 30px;
+}
+
 .containerResults {
   flex: 2;
   height: 100%;
@@ -263,31 +279,17 @@ form div {
   flex-direction: column;
 }
 
-.consoleBlock {
-  flex: 1;
-  color: white;
-  padding: 0% 3%;
-}
-
-.resultBlock {
-  /* height: 35%; */
-  background-color: rgb(44, 42, 42);
-  background-image: url('./images/parchment-background.jpg');
-  color: white;
-  padding: 3% 3%;
-  flex: 1;
+.resultsBlock {
+  flex: 6;
 }
 
 .testBlock {
-  flex: 1;
+  flex: 5;
   background-color: rgb(0, 48, 18, 0.8);
   color: white;
   text-emphasis: none;
   padding: 0% 3%;
 }
-/* .testBlock p {
-  padding-top: 2%;
-} */
 
 .profileWelcome {
   color: white;
@@ -306,4 +308,28 @@ form div {
 }
 .passed {
   color: green;
+}
+
+.responseButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.problemTitle {
+  border-bottom: 2px white solid;
+  flex: 1;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 20px;
+  color: white;
+  background-color: rgba(46, 42, 42, 0.95);
+  margin: 0;
+  padding-top: 10px;
+}
+.resultBtn {
+  flex: 1;
+  height: 20px;
+  background-color: rgba(46, 42, 42, 0.8);
+  color: white;
+  border: 1px black solid;
 }
