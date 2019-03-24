@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
-import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
+import {Codewars} from './Codewars'
+import userReducer from '../store/userReducer'
 
-const mapStateToProps = ({problemReducer}) => ({
-  allProblems: problemReducer.allProblems
+const mapStateToProps = () => ({
+  user: userReducer
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -22,11 +23,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           </div>
           <div className="stats">
             <div className="dataOne">
-              <div className="codewars">Codewars</div>
+              <Codewars />
               <div className="github">Github</div>
             </div>
             <div className="dataTwo">
-              <div className="medium">Medium</div>
+              <div className="medium">
+                <img
+                  className="mediumImage"
+                  src="http://chittagongit.com/images/medium-icon-png/medium-icon-png-26.jpg"
+                />
+              </div>
               <div className="stackoverflow">StackOverFlow</div>
             </div>
           </div>

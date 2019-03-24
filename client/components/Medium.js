@@ -8,12 +8,8 @@ const mapStateToProps = ({codewarReducer, userReducer}) => ({
   codeWars: codewarReducer
 })
 
-const mapDispatchToProps = dispatch => ({
-  findCodewars: id => dispatch(findCodewars(id))
-})
-
-export const Codewars = connect(mapStateToProps, mapDispatchToProps)(
-  class Codewars extends Component {
+export const Medium = connect(mapStateToProps)(
+  class Medium extends Component {
     constructor() {
       super()
     }

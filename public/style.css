@@ -279,7 +279,7 @@ form div {
 .profile {
   display: flex;
   flex-direction: column;
-  background-color: red;
+  background-color: rgba(0, 0, 0, 0.7);
   height: 80vh;
   width: 70vw;
 }
@@ -288,25 +288,21 @@ form div {
   display: flex;
   flex-direction: row;
   flex: 1;
-  background-color: black;
   margin: 10px;
 }
 
 .userImage {
   flex: 2;
-  background-color: purple;
 }
 
 .greenies {
   flex: 3;
-  background-color: pink;
 }
 
 .stats {
   display: flex;
   flex-direction: row;
   flex: 3;
-  background-color: yellow;
   margin: 10px;
 }
 
@@ -314,32 +310,56 @@ form div {
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: black;
 }
 
 .dataTwo {
   display: flex;
   flex-direction: column;
   flex: 1;
-  background-color: white;
 }
 
 .codewars {
+  display: flex;
+  flex-direction: col;
+  align-items: center;
   flex: 1;
-  background-color: pink;
+  text-align: center;
+  border: 5px solid;
+  border-color: rgb(130, 0, 0);
+  color: white;
 }
 
 .github {
-  flex: 1;
-  background-color: purple;
+  flex: 1 1;
+  border: 10px;
 }
 
 .medium {
+  display: flex;
   flex: 1;
-  background-color: blue;
+  align-items: center;
+  justify-content: center;
 }
 
 .stackoverflow {
   flex: 1;
-  background-color: yellow;
+}
+
+.codewarsInfo {
+  flex: 2;
+}
+
+.codewarsImage {
+  flex: 1;
+  height: auto;
+  width: auto;
+  max-width: 100px;
+  max-height: 100px;
+  padding-left: 10px;
+}
+
+.mediumImage {
+  background: white;
+  height: 60%;
+  width: 40%;
 }
