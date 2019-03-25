@@ -2,7 +2,6 @@ const _dateWithoutTime = require('../dateWithoutTime')
 
 const dataParser = (data, stackoverflowmodelId) =>
   data.reduce((accum, curr) => {
-    console.log(_dateWithoutTime(curr.creation_date * 1000))
     if (
       !accum[
         `${_dateWithoutTime(curr.creation_date * 1000)}-${

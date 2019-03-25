@@ -15,6 +15,7 @@ import {
   addHackernoon,
   addMedium,
   addStackoverflow,
+  fetchGithub,
   fetchCodewars,
   fetchHackernoon,
   fetchMedium,
@@ -24,6 +25,7 @@ import {ToastsStore} from 'react-toasts'
 
 const mapStateToProps = ({signupReducer, userReducer}) => ({
   userId: userReducer.id,
+  github: userReducer.username,
   codewars: signupReducer.codewars,
   email: signupReducer.email,
   hackernoon: signupReducer.hackernoon,
@@ -39,6 +41,7 @@ const mapDispatchToProps = dispatch => ({
   addHackernoon: hackernoon => dispatch(addHackernoon(hackernoon)),
   addMedium: medium => dispatch(addMedium(medium)),
   addStackoverflow: stackoverflow => dispatch(addStackoverflow(stackoverflow)),
+  fetchGithub: (userId, github) => dispatch(fetchGithub(userId, github)),
   fetchCodewars: (userId, codewars) =>
     dispatch(fetchCodewars(userId, codewars)),
   fetchHackernoon: (userId, hackernoon) =>
@@ -56,6 +59,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       evt.preventDefault()
       const {
         userId,
+        github,
         codewars,
         email,
         hackernoon,
@@ -72,18 +76,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         medium,
         hackernoon
       })
-
       updateUser(userId, truthyData)
-
       Object.keys(truthyData).forEach(async category => {
+        await this.props.fetchGithub(userId, github)
         await this.props[`fetch${_sentenceCase(category)}`](
           userId,
           truthyData[category]
         )
         this.props[`add${_sentenceCase(category)}`]('')
       })
-      //!show waiting
-      ToastsStore.info('what')
+
       ToastsStore.success(
         `Added usernames for ${Object.keys(truthyData).join(', ')}!`
       )
