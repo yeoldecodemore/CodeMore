@@ -23,6 +23,12 @@ p.lorem-text {
   text-align: justify;
 }
 
+.modal-body h3 {
+  text-align: center;
+}
+.modal-body h5 {
+  text-align: center;
+}
 input[disabled] {
   background-color: lightgray;
 }
@@ -86,6 +92,10 @@ input[disabled] {
   stroke-width: 2;
 }
 
+.form-error {
+  font-size: 0.75em;
+  color: red;
+}
 .modal-body {
   padding-top: 0.25em;
 }

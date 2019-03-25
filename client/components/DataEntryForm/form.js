@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 /* eslint-disable react/display-name */
 import React from 'react'
 import {connect} from 'react-redux'
@@ -28,7 +29,8 @@ export default connect(mapStateToProps)(
     userCodewars,
     userHackernoon,
     userMedium,
-    userEmail
+    userEmail,
+    valid
   }) => (
     <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -46,6 +48,9 @@ export default connect(mapStateToProps)(
       </div>
       <div className="form-group">
         <label htmlFor="stackoverflow">Stack Overflow</label>
+        {!stackoverflow || (stackoverflow && !isNaN(stackoverflow)) ? null : (
+          <div className="form-error">Expecting Numerical Stackoverflow Id</div>
+        )}
         <input
           type="text"
           className="form-control"
@@ -59,6 +64,9 @@ export default connect(mapStateToProps)(
       </div>
       <div className="form-group">
         <label htmlFor="medium">Medium</label>
+        {!medium || (medium && medium.includes('@')) ? null : (
+          <div className="form-error">Include @</div>
+        )}
         <input
           type="text"
           className="form-control"
@@ -72,6 +80,9 @@ export default connect(mapStateToProps)(
       </div>
       <div className="form-group">
         <label htmlFor="hackernoon">Hackernoon</label>
+        {!hackernoon || (hackernoon && hackernoon.includes('@')) ? null : (
+          <div className="form-error">Include @</div>
+        )}
         <input
           type="text"
           className="form-control"
@@ -83,21 +94,29 @@ export default connect(mapStateToProps)(
           placeholder={userHackernoon || '@...'}
         />
       </div>
+
       <div className="form-group">
         <label htmlFor="email">Email</label>
+        {!email || (email && email.includes('@')) ? null : (
+          <div className="form-error">Include @</div>
+        )}
         <input
-          type="email"
+          type="text"
           className="form-control"
           name="Email"
           id="email"
           // disabled={userEmail}
           value={email}
           onChange={handleChange}
-          placeholder={userEmail || '@...'}
+          placeholder={userEmail || '...@...'}
         />
       </div>
       <div className="form-group">
-        <button className="form-control btn btn-primary" type="submit">
+        <button
+          disabled={!valid}
+          className="form-control btn btn-primary"
+          type="submit"
+        >
           Submit
         </button>
       </div>
