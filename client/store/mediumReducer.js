@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios'
-
+import {ToastsStore} from 'react-toasts'
 const initialState = {
   mediumPosts: []
 }
@@ -12,8 +12,13 @@ const getMedium = mediumPosts => ({
 })
 
 export const fetchMedium = (userId, medium) => async dispatch => {
-  const {data} = await axios.get(`/api/data/medium/${userId}/${medium}`)
-  return dispatch(getMedium(data))
+  try {
+    ToastsStore.success(`Fetched data for Medium!`)
+    const {data} = await axios.get(`/api/medium/${userId}/${medium}`)
+    return dispatch(getMedium(data))
+  } catch (error) {
+    ToastsStore.error(`${error} while fetching Medium!`)
+  }
 }
 
 export const findMedium = userId => async dispatch => {
