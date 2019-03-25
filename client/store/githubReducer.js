@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios'
-
+import {ToastsStore} from 'react-toasts'
 const initialState = {
   repos: [],
   commits: []
@@ -13,8 +13,13 @@ const getGithub = githubData => ({
 })
 
 export const fetchGithub = (userId, github) => async dispatch => {
-  const {data} = await axios.get(`/api/data/github/${userId}/${github}`)
-  return dispatch(getGithub(data))
+  try {
+    ToastsStore.success(`Fetched data for Github!`)
+    const {data} = await axios.get(`/api/github/${userId}/${github}`)
+    return dispatch(getGithub(data))
+  } catch (error) {
+    ToastsStore.error(`${error} while fetching Github!`)
+  }
 }
 
 export const findGithub = userId => async dispatch => {
