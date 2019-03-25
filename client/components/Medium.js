@@ -22,12 +22,12 @@ export const Medium = connect(mapStateToProps, mapDispatchToProps)(
     }
 
     componentDidMount() {
-      this.props.findMedium(this.props.userId)
-      this.props.findHackernoon(this.props.userId)
+      // this.props.findMedium(this.props.userId)
+      // this.props.findHackernoon(this.props.userId)
     }
 
     render() {
-      const {medium, hackernoon} = this.props || ''
+      // const {medium, hackernoon} = this.props || ''
       return (
         <div className="medium">
           <img
