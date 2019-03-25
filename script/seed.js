@@ -154,19 +154,19 @@ async function seed() {
     Test.create({
       testCaseNumber: 1,
       testTemplate:
-        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5)",
+        "it('test1', function(){let value = countVowels('aeiou'); chai.expect(value).to.equal(5)});",
       problemId: 2
     }),
     Test.create({
       testCaseNumber: 2,
       testTemplate:
-        "it('test2', function(){let value = countVowels('what'); chai.expect(value).to.equal(1)};",
+        "it('test2', function(){let value = countVowels('what'); chai.expect(value).to.equal(1)});",
       problemId: 2
     }),
     Test.create({
       testCaseNumber: 3,
       testTemplate:
-        "it('test3', function(){let value = countVowels('hello'); chai.expect(value).to.equal(2)};",
+        "it('test3', function(){let value = countVowels('hello'); chai.expect(value).to.equal(2)});",
       problemId: 2
     })
   ])
@@ -208,7 +208,7 @@ async function seed() {
     Test.create({
       testCaseNumber: 3,
       testTemplate:
-        "it('test3', function(){let value = alphabetPosition('The narwhal bacons at midnight'); chai.expect(value).to.equal( '20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20'))})",
+        "it('test3', function(){let value = alphabetPosition('The narwhal bacons at midnight'); chai.expect(value).to.equal( '20 8 5 14 1 18 23 8 1 12 2 1 3 15 14 19 1 20 13 9 4 14 9 7 8 20')})",
       problemId: 4
     })
   ])

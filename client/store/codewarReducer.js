@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 import axios from 'axios'
 import {ToastsStore} from 'react-toasts'
 const initialState = {
