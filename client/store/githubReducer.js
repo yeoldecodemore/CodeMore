@@ -13,7 +13,7 @@ const getGithub = githubData => ({
 })
 
 export const fetchGithub = (userId, github) => async dispatch => {
-  const {data} = await axios.get(`/api/data/github/${userId}/${github}`)
+  const {data} = await axios.get(`/api/github/${userId}/${github}`)
   return dispatch(getGithub(data))
 }
 

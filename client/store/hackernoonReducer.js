@@ -12,7 +12,7 @@ const getHackernoon = hackernoonPosts => ({
 })
 
 export const fetchHackernoon = (userId, hackernoon) => async dispatch => {
-  const {data} = await axios.get(`/api/data/hackernoon/${userId}/${hackernoon}`)
+  const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
   return dispatch(getHackernoon(data))
 }
 

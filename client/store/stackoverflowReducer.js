@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const initialState = {
-  stackUser: {},
+  generalStack: {},
   stackBadges: [],
   stackTags: [],
   stackBadgenetwork: [],
@@ -18,7 +18,7 @@ const getStackoverflow = stackoverflowData => ({
 
 export const fetchStackoverflow = (userId, stackoverflow) => async dispatch => {
   const {data} = await axios.get(
-    `/api/data/stackoverflow/${userId}/${stackoverflow}`
+    `/api/stackoverflow/${userId}/${stackoverflow}`
   )
   return dispatch(getStackoverflow(data))
 }
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_STACKOVERFLOW:
       const {
-        stackUser,
+        generalStack,
         stackBadges,
         stackTags,
         stackBadgenetwork,
@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
       } = action.stackoverflowData
       return {
         ...state,
-        stackUser,
+        generalStack,
         stackBadges,
         stackTags,
         stackBadgenetwork,

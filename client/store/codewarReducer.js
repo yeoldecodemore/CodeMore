@@ -11,11 +11,12 @@ const GET_CODEWAR = 'GET_CODEWAR'
 const getCodewars = codewarData => ({type: GET_CODEWAR, codewarData})
 
 export const fetchCodewars = (userId, codewars) => async dispatch => {
-  const {data} = await axios.get(`/api/data/codewars/${userId}/${codewars}`)
+  const {data} = await axios.get(`/api/codewars/${userId}/${codewars}`)
   return dispatch(getCodewars(data))
 }
 
 export const findCodewars = userId => async dispatch => {
+  console.log('infindcodewars thunk')
   const {data} = await axios.get(`/api/codewars/${userId}`)
   return dispatch(getCodewars(data))
 }
