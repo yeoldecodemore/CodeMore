@@ -23,6 +23,12 @@ p.lorem-text {
   text-align: justify;
 }
 
+.modal-body h3 {
+  text-align: center;
+}
+.modal-body h5 {
+  text-align: center;
+}
 input[disabled] {
   background-color: lightgray;
 }
@@ -86,6 +92,10 @@ input[disabled] {
   stroke-width: 2;
 }
 
+.form-error {
+  font-size: 0.75em;
+  color: red;
+}
 .modal-body {
   padding-top: 0.25em;
 }
@@ -147,7 +157,7 @@ nav a {
   font-family: cursive;
   display: flex;
   justify-content: space-between;
-  height: 18vh;
+  height: 14vh;
 }
 
 .problemBtn {
@@ -193,18 +203,27 @@ nav a {
   padding-bottom: 10vh;
 }
 
+.problemDesc {
+  background-color: #2f3129;
+  color: white;
+  width: 100%;
+  /* padding: 8px; */
+  font-family: 'IM Fell DW Pica', serif;
+  font-size: 1.3em;
+  padding: 3% 1.5%;
+}
+
 .LoggedPage {
   background-image: url(images/medievallandscape.png);
   background-size: cover;
   width: 100vw;
-  height: 90vh;
+  height: 100vh;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding-bottom: 10vh;
 }
+
 form div {
   margin: 1em;
   display: inline-block;
@@ -293,8 +312,117 @@ form div {
   overflow-y: scroll;
 }
 
-.profileWelcome {
+.profile {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.7);
+  height: auto;
+  width: 90vw;
+}
+
+.profile div {
+  text-align: center;
   color: white;
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  margin: 10px;
+}
+
+.userImage {
+  flex: 2;
+}
+
+.greenies {
+  flex: 3;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  flex: 3;
+  margin: 10px;
+}
+
+.dataOne {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.dataOne > div {
+  border: 5px solid;
+  border-color: rgb(130, 0, 0);
+  color: white;
+  margin: 5px;
+}
+
+.dataTwo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.dataTwo > div {
+  border: 5px solid;
+  border-color: rgb(130, 0, 0);
+  color: white;
+  margin: 5px;
+}
+
+.codewars,
+.medium {
+  display: flex;
+  flex-direction: col;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+  margin: 5px;
+}
+
+.github {
+  flex: 1 1;
+  border: 10px;
+}
+
+.medium {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.stackoverflow {
+  flex: 1;
+}
+
+.codewarsInfo {
+  flex: 2;
+}
+
+.codewarsImage,
+.mediumImage {
+  flex: 1;
+  height: auto;
+  width: auto;
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.codewarsImage {
+  padding-left: 10px;
+}
+
+.mediumImage {
+  background: white;
+  padding: 0px;
+  margin-right: 50px;
 }
 
 .problemBtn:hover {

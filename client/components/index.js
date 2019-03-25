@@ -8,3 +8,8 @@ export {default as UserHome} from './user-home'
 
 export {default as Problem} from './Problems'
 export {default as LandingPage} from './LandingPage'
+export {default as Profile} from './Profile'
+export {default as Github} from './Github'
+export {default as Medium} from './Medium'
+export {default as StackOverFlow} from './StackOverFlow'
+export {default as Codewars} from './Codewars'

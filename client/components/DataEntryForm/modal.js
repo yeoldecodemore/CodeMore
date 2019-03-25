@@ -2,7 +2,11 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import Form from './form'
 import FocusTrap from 'focus-trap-react'
-import {_filterTruthyData, _sentenceCase} from '../../helperfuncs/'
+import {
+  _filterTruthyData,
+  _sentenceCase,
+  _dataValidation
+} from '../../helperfuncs/'
 import {connect} from 'react-redux'
 import {
   updateUser,
@@ -16,10 +20,10 @@ import {
   fetchMedium,
   fetchStackoverflow
 } from '../../store'
+import {ToastsStore} from 'react-toasts'
 
 const mapStateToProps = ({signupReducer, userReducer}) => ({
   userId: userReducer.id,
-  gitUsername: userReducer.username,
   codewars: signupReducer.codewars,
   email: signupReducer.email,
   hackernoon: signupReducer.hackernoon,
@@ -43,7 +47,7 @@ const mapDispatchToProps = dispatch => ({
   fetchStackoverflow: (userId, medium) =>
     dispatch(fetchStackoverflow(userId, medium))
 })
-//! add a toast here
+//! warning if you are going to change your account
 export default connect(mapStateToProps, mapDispatchToProps)(
   class Modal extends Component {
     handleChange = evt => this.props[`add${evt.target.name}`](evt.target.value)
@@ -79,6 +83,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.props[`add${_sentenceCase(category)}`]('')
       })
       //!show waiting
+      ToastsStore.info('what')
+      ToastsStore.success(
+        `Added usernames for ${Object.keys(truthyData).join(', ')}!`
+      )
       closeModal()
     }
     render() {
@@ -87,7 +95,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         onKeyDown,
         modalRef,
         buttonRef,
-        closeModal
+        closeModal,
+        codewars,
+        email,
+        hackernoon,
+        stackoverflow,
+        medium
       } = this.props
       return ReactDOM.createPortal(
         <FocusTrap>
@@ -120,9 +133,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   We want to give you the best experience. Please link your
                   other accounts by providing your username!
                 </h3>
+                <h5>
+                  Please note that changing your username will delete all
+                  previous account information.
+                </h5>
                 <Form
                   handleChange={this.handleChange}
                   handleSubmit={this.handleSubmit}
+                  valid={_dataValidation(
+                    _filterTruthyData({
+                      codewars,
+                      email,
+                      stackoverflow,
+                      medium,
+                      hackernoon
+                    })
+                  )}
                 />
               </div>
             </div>

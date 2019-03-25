@@ -1,8 +1,8 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios'
-
+import {ToastsStore} from 'react-toasts'
 const initialState = {
-  stackUser: {},
+  generalStack: {},
   stackBadges: [],
   stackTags: [],
   stackBadgenetwork: [],
@@ -17,10 +17,15 @@ const getStackoverflow = stackoverflowData => ({
 })
 
 export const fetchStackoverflow = (userId, stackoverflow) => async dispatch => {
-  const {data} = await axios.get(
-    `/api/data/stackoverflow/${userId}/${stackoverflow}`
-  )
-  return dispatch(getStackoverflow(data))
+  try {
+    ToastsStore.success(`Fetched data for Stackoverflow!`)
+    const {data} = await axios.get(
+      `/api/stackoverflow/${userId}/${stackoverflow}`
+    )
+    return dispatch(getStackoverflow(data))
+  } catch (error) {
+    ToastsStore.error(`${error} while fetching Stackoverflow!`)
+  }
 }
 
 export const findStackoverflow = userId => async dispatch => {
@@ -31,7 +36,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case GET_STACKOVERFLOW:
       const {
-        stackUser,
+        generalStack,
         stackBadges,
         stackTags,
         stackBadgenetwork,
@@ -40,7 +45,7 @@ export default (state = initialState, action) => {
       } = action.stackoverflowData
       return {
         ...state,
-        stackUser,
+        generalStack,
         stackBadges,
         stackTags,
         stackBadgenetwork,

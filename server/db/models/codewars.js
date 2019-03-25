@@ -6,12 +6,6 @@ const Codewars = db.define('codewars', {
     type: Sequelize.STRING,
     unique: true
   },
-  // firstName: {
-  //   type: Sequelize.STRING
-  // },
-  // lastName: {
-  //   type: Sequelize.STRING
-  // },
   honor: {
     type: Sequelize.INTEGER
   },
