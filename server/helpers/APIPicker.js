@@ -110,7 +110,7 @@ const APIPicker = {
         ),
       dataComb: data => data.data,
       reducer: (data, payload) => _gitRepoMapper(data, payload.userId),
-      whereVals: ['userId', 'repo_created_at'],
+      whereVals: ['userId', 'name'],
       model: GithubRepos,
       sqlFunc: (model, whereVals, data) =>
         bulkUpdateOrCreate(model, whereVals, data)

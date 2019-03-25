@@ -7,6 +7,7 @@ import Routes from './routes'
 import {_filterTruthyData, _sentenceCase} from './helperfuncs/'
 const CronJob = require('cron').CronJob
 
+import {ToastsContainer, ToastsStore} from 'react-toasts'
 import {
   me,
   fetchGithub,
@@ -48,7 +49,7 @@ export default withRouter(
           job: 0
         }
       }
-      jobCreator = callback => new CronJob(`*/1 0 * * *`, callback)
+      jobCreator = callback => new CronJob('0 */5 7-17 * * 1-5', callback)
 
       componentDidMount() {
         this.props.loadInitialData()
@@ -56,7 +57,6 @@ export default withRouter(
         const job = this.jobCreator(() => {
           const truthyData = _filterTruthyData(this.props.formdata)
           Object.keys(truthyData).forEach(val => {
-            console.log(this.props.userId, truthyData[val])
             this.props[`fetch${val}`](this.props.userId, truthyData[val])
           })
         })
@@ -64,13 +64,12 @@ export default withRouter(
         job.start()
       }
       render() {
-        console.log('render', this.props)
-        console.log(this.state.job)
         console.log('is job running? ', this.state.job.running)
         return (
           <div className={this.props.userId ? 'LoggedPage' : 'LandingPage'}>
             <Navbar />
             <Routes />
+            <ToastsContainer store={ToastsStore} />
           </div>
         )
       }

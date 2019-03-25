@@ -1,5 +1,6 @@
 const APIPicker = require('./APIPicker')
 
+//just another layer on model commands
 const APICommand = category => async (subcategory, command, payload) => {
   const {model} = APIPicker[category][subcategory]
 

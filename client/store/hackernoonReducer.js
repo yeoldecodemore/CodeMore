@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import axios from 'axios'
-
+import {ToastsStore} from 'react-toasts'
 const initialState = {
   hackernoonPosts: []
 }
@@ -12,8 +12,13 @@ const getHackernoon = hackernoonPosts => ({
 })
 
 export const fetchHackernoon = (userId, hackernoon) => async dispatch => {
-  const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
-  return dispatch(getHackernoon(data))
+  try {
+    ToastsStore.success(`Fetched data for Hackernoon!`)
+    const {data} = await axios.get(`/api/hackernoon/${userId}/${hackernoon}`)
+    return dispatch(getHackernoon(data))
+  } catch (error) {
+    ToastsStore.error(`${error} while fetching Hackernoon!`)
+  }
 }
 
 export const findHackernoon = userId => async dispatch => {
