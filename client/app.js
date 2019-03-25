@@ -29,29 +29,44 @@ const mapState = ({userReducer}) => ({
 
 const mapDispatch = dispatch => ({
   loadInitialData: () => dispatch(me()),
-  fetchGithub: userId => dispatch(fetchGithub(userId)),
-  fetchCodewars: userId => dispatch(fetchCodewars(userId)),
-  fetchMedium: userId => dispatch(fetchMedium(userId)),
-  fetchHackernoon: userId => dispatch(fetchHackernoon(userId)),
-  fetchStackoverflow: userId => dispatch(fetchStackoverflow(userId))
+  fetchGithub: (userId, username) => dispatch(fetchGithub(userId, username)),
+  fetchCodewars: (userId, username) =>
+    dispatch(fetchCodewars(userId, username)),
+  fetchMedium: (userId, username) => dispatch(fetchMedium(userId, username)),
+  fetchHackernoon: (userId, username) =>
+    dispatch(fetchHackernoon(userId, username)),
+  fetchStackoverflow: (userId, username) =>
+    dispatch(fetchStackoverflow(userId, username))
 })
 
 export default withRouter(
   connect(mapState, mapDispatch)(
     class App extends Component {
-      job = new CronJob(`0 */5 21 * * 6`, function() {
-        console.log('CRONJOB')
-        _filterTruthyData(Object.keys(this.props.formdata)).forEach(val =>
-          this.props[`fetch${val}`](this.props.userId)
-        )
-      })
+      constructor(props) {
+        super(props)
+        this.state = {
+          job: 0
+        }
+      }
+      jobCreator = callback => new CronJob(`*/1 0 * * *`, callback)
 
       componentDidMount() {
-        this.job.start()
         this.props.loadInitialData()
+
+        const job = this.jobCreator(() => {
+          const truthyData = _filterTruthyData(this.props.formdata)
+          Object.keys(truthyData).forEach(val => {
+            console.log(this.props.userId, truthyData[val])
+            this.props[`fetch${val}`](this.props.userId, truthyData[val])
+          })
+        })
+        this.setState({job})
+        job.start()
       }
       render() {
-        console.log('is job running? ', this.job.running)
+        console.log('render', this.props)
+        console.log(this.state.job)
+        console.log('is job running? ', this.state.job.running)
         return (
           <div className={this.props.userId ? 'LoggedPage' : 'LandingPage'}>
             <Navbar />

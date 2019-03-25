@@ -8,7 +8,6 @@ import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 
 import {fetchSingleProblem} from '../store/'
-
 const mapStateToProps = ({problemReducer}) => ({
   singleProblem: problemReducer.singleProblem
 })
