@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {Navbar} from './components'
 import Routes from './routes'
-import {_filterTruthyData, _sentenceCase} from './helperfuncs/'
+import {_filterTruthyData} from './helperfuncs/'
 const CronJob = require('cron').CronJob
 
 import {ToastsContainer, ToastsStore} from 'react-toasts'
@@ -43,30 +43,21 @@ const mapDispatch = dispatch => ({
 export default withRouter(
   connect(mapState, mapDispatch)(
     class App extends Component {
-      constructor(props) {
-        super(props)
-        this.state = {
-          job: 0
-        }
-      }
-      jobCreator = callback => new CronJob('0 */5 7-17 * * 1-5', callback)
+      jobCreator = callback => new CronJob('0 */60 9-17 * * 0-6', callback)
 
       componentDidMount() {
         this.props.loadInitialData()
-
         const job = this.jobCreator(() => {
           const truthyData = _filterTruthyData(this.props.formdata)
           Object.keys(truthyData).forEach(val => {
             this.props[`fetch${val}`](this.props.userId, truthyData[val])
           })
         })
-        this.setState({job})
         job.start()
       }
       render() {
-        console.log('is job running? ', this.state.job.running)
         return (
-          <div className={this.props.userId ? 'LoggedPage' : 'LandingPage'}>
+          <div className="LandingPage">
             <Navbar />
             <Routes />
             <ToastsContainer store={ToastsStore} />
