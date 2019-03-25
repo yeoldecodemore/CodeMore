@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {FaHands} from 'react-icons/fa'
 import hackernoonReducer, {findHackernoon} from '../store'
 import mediumReducer, {findMedium} from '../store'
 import userReducer from '../store/userReducer'
@@ -37,7 +36,6 @@ export const Medium = connect(mapStateToProps, mapDispatchToProps)(
           />
           <div>
             <h4>Most Recent Article Title: </h4>
-            <FaHands />
             <h4>Claps: </h4>
           </div>
         </div>
