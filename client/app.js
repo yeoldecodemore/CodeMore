@@ -43,6 +43,12 @@ const mapDispatch = dispatch => ({
 export default withRouter(
   connect(mapState, mapDispatch)(
     class App extends Component {
+      constructor(props) {
+        super(props)
+        this.state = {
+          job: 0
+        }
+      }
       jobCreator = callback => new CronJob('0 */60 9-17 * * 0-6', callback)
 
       componentDidMount() {
@@ -53,9 +59,11 @@ export default withRouter(
             this.props[`fetch${val}`](this.props.userId, truthyData[val])
           })
         })
+        this.setState({job})
         job.start()
       }
       render() {
+        console.log(this.state.job.running)
         return (
           <div className="LandingPage">
             <Navbar />
