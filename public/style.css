@@ -277,6 +277,7 @@ form div {
   font-size: 1em;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
 
 .resultsBlock {
@@ -289,6 +290,7 @@ form div {
   color: white;
   text-emphasis: none;
   padding: 0% 3%;
+  overflow-y: scroll;
 }
 
 .profileWelcome {
