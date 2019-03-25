@@ -8,14 +8,18 @@ import 'brace/theme/monokai'
 import {Link} from 'react-router-dom'
 import {_sanitizeCode} from '../helperfuncs'
 
-import {fetchSingleProblem, fetchAllProblems} from '../store/'
+import {fetchSingleProblem, fetchAllProblems, fetchAllTests} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
   singleProblem: problemReducer.singleProblem,
   allProblems: problemReducer.allProblems
 })
 
-export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
+export default connect(mapStateToProps, {
+  fetchSingleProblem,
+  fetchAllProblems,
+  fetchAllTests
+})(
   class Editor extends Component {
     state = {
       usersCode: '',
@@ -28,7 +32,9 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
 
     async componentDidMount() {
       await this.props.fetchAllProblems()
+      await this.props.fetchAllTests()
       this.setUpProblem()
+      // axios.post('https://codemore-docker.herokuapp.com/testing')
     }
 
     setUpProblem = async problem => {
@@ -230,10 +236,12 @@ export default connect(mapStateToProps, {fetchSingleProblem, fetchAllProblems})(
             </div>
 
             <div className="testBlock">
-              <p>Tests</p>
-              {this.state.tests.map(item => (
-                <p key={item.id}>{item.testTemplate}</p>
-              ))}
+              <p className="testsTitle">Tests</p>
+              {this.props.singleProblem.tests
+                ? this.props.singleProblem.tests.map(item => (
+                    <p key={item.id}>{item.testTemplate}</p>
+                  ))
+                : null}
             </div>
           </div>
         </div>
