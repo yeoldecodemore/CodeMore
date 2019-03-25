@@ -1,55 +1,44 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {findCodewars} from '../store/'
-import {FaQuestionCircle, FaCode} from 'react-icons/fa'
+import {FaHands} from 'react-icons/fa'
+import hackernoonReducer, {findHackernoon} from '../store'
+import mediumReducer, {findMedium} from '../store'
+import userReducer from '../store/userReducer'
 
-const mapStateToProps = ({codewarReducer, userReducer}) => ({
+const mapStateToProps = () => ({
   userId: userReducer.id,
-  codeWars: codewarReducer
+  medium: mediumReducer,
+  hackernoon: hackernoonReducer
 })
 
-export const Medium = connect(mapStateToProps)(
+const mapDispatchToProps = dispatch => ({
+  findMedium: id => dispatch(findMedium(id)),
+  findHackernoon: id => dispatch(findHackernoon(id))
+})
+
+export const Medium = connect(mapStateToProps, mapDispatchToProps)(
   class Medium extends Component {
     constructor() {
       super()
     }
+
     componentDidMount() {
-      this.props.findCodewars(this.props.userId)
+      this.props.findMedium(this.props.userId)
+      this.props.findHackernoon(this.props.userId)
     }
 
     render() {
-      const {codeWars} = this.props
-      const kyuLevel = codeWars.generalCodewars.overallRankName || ''
-
+      const {medium, hackernoon} = this.props || ''
       return (
-        <div>
-          <div className="codewars">
-            <img
-              className="codewarsImage"
-              src="https://int4fc.com/sites/default/files/articles/Abdul_CodeWars.png"
-            />
-
-            <div className="codewarsInfo">
-              <div>
-                <h4>
-                  Current Rank: <span>{`${kyuLevel}`}</span>
-                </h4>
-              </div>
-              <div className="languages">
-                <h4>Codewar Languages: </h4>
-                {codeWars.generalCodewars.skills
-                  ? codeWars.generalCodewars.skills.map((value, idx) => {
-                      return <span key={idx}>{`${value}`} | </span>
-                    })
-                  : ''}
-              </div>
-              <div className="languages" />
-              <div className="languages">
-                <h4>
-                  Codewars Completed: {`${codeWars.codewarsQuestions.length}`}
-                </h4>
-              </div>
-            </div>
+        <div className="medium">
+          <img
+            className="mediumImage"
+            src="http://chittagongit.com/images/medium-icon-png/medium-icon-png-26.jpg"
+          />
+          <div>
+            <h4>Most Recent Article Title: </h4>
+            <FaHands />
+            <h4>Claps: </h4>
           </div>
         </div>
       )

@@ -284,6 +284,11 @@ form div {
   width: 70vw;
 }
 
+.profile div {
+  text-align: center;
+  color: white;
+}
+
 .info {
   display: flex;
   flex-direction: row;
@@ -312,21 +317,34 @@ form div {
   flex: 1;
 }
 
+.dataOne > div {
+  border: 5px solid;
+  border-color: rgb(130, 0, 0);
+  color: white;
+  margin: 5px;
+}
+
 .dataTwo {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-.codewars {
+.dataTwo > div {
+  border: 5px solid;
+  border-color: rgb(130, 0, 0);
+  color: white;
+  margin: 5px;
+}
+
+.codewars,
+.medium {
   display: flex;
   flex-direction: col;
   align-items: center;
   flex: 1;
   text-align: center;
-  border: 5px solid;
-  border-color: rgb(130, 0, 0);
-  color: white;
+  margin: 5px;
 }
 
 .github {
@@ -337,8 +355,11 @@ form div {
 .medium {
   display: flex;
   flex: 1;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  margin-left: 10px;
 }
 
 .stackoverflow {
@@ -349,17 +370,21 @@ form div {
   flex: 2;
 }
 
-.codewarsImage {
+.codewarsImage,
+.mediumImage {
   flex: 1;
   height: auto;
   width: auto;
   max-width: 100px;
   max-height: 100px;
+}
+
+.codewarsImage {
   padding-left: 10px;
 }
 
 .mediumImage {
   background: white;
-  height: 60%;
-  width: 40%;
+  padding: 0px;
+  margin-right: 50px;
 }
