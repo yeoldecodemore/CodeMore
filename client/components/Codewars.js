@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {findCodewars} from '../store/'
-import {FaQuestionCircle, FaCode} from 'react-icons/fa'
 
 const mapStateToProps = ({codewarReducer, userReducer}) => ({
   userId: userReducer.id,
