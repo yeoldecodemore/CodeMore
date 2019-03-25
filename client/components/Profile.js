@@ -21,7 +21,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       return (
         <div className="profile">
           <div className="info">
-            <div className="userImage">I am an image!!!!!!!!!!!!!!!!</div>
+            <div className="userImage">I am an image!!!!!!!!</div>
             <div className="greenies">I am the greenies</div>
           </div>
           <div className="stats">

@@ -280,8 +280,8 @@ form div {
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.7);
-  height: 80vh;
-  width: 70vw;
+  height: auto;
+  width: 90vw;
 }
 
 .profile div {
@@ -387,4 +387,8 @@ form div {
   background: white;
   padding: 0px;
   margin-right: 50px;
+}
+
+.info {
+  height: 20vh;
 }
