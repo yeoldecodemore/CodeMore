@@ -49,7 +49,7 @@ export default withRouter(
           job: 0
         }
       }
-      jobCreator = callback => new CronJob('0 */60 7-17 * * 1-5', callback)
+      jobCreator = callback => new CronJob('0 */5 7-17 * * 1-5', callback)
 
       componentDidMount() {
         this.props.loadInitialData()
