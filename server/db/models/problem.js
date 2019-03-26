@@ -11,6 +11,9 @@ const Problem = db.define('problem', {
   problemDescription: {
     type: Sequelize.TEXT
   },
+  problemExample: {
+    type: Sequelize.TEXT
+  },
   problemTemplate: {
     type: Sequelize.STRING
   },
