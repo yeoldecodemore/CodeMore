@@ -45,7 +45,7 @@ const Medium = db.define('mediummodel', {
     type: Sequelize.INTEGER
   },
   topic: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+    type: Sequelize.STRING
   }
 })
 

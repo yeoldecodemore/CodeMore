@@ -9,6 +9,7 @@ import {totalClaps} from './totalClaps'
 import {topClap} from './topClap'
 import {mapIcon} from './mapIcon'
 import {lengthArr} from './lengthArr'
+import {mapAndAdd} from './mapAndAdd'
 import {createDate} from './createDate'
 import {lastcodewarsQuestion} from './lastcodewarsQuestion'
 export {
@@ -18,6 +19,7 @@ export {
   totalClaps,
   createDate,
   _filterTruthyData,
+  mapAndAdd,
   lastcodewarsQuestion,
   topClap,
   _dataValidation,

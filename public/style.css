@@ -359,25 +359,21 @@ form div {
   flex-direction: column;
 }
 .github {
-  height: 40%;
+  height: 60%;
   width: 100%;
-  background-color: red;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: lightblue;
 }
 
 .codewarsContainer {
-  background-color: #ffe6e6;
-  background-blend-mode: color;
-  background-image: url('./images/codewarstrans.png');
-  background-position: left center;
-  background-repeat: no-repeat;
-  background-size: 10vh;
   height: 40%;
   width: 100%;
   display: flex;
-  color: white;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 .codewarsTop {
   display: flex;
@@ -513,20 +509,12 @@ form div {
   background-color: yellow;
 }
 .medium {
-  background-color: #e6ecff;
-  background-blend-mode: color;
-  background-image: url('./images/mediumHacker2.png');
-  background-position: 48% 50%;
-  background-repeat: no-repeat;
-  background-size: 10vh;
   display: flex;
   height: 40%;
   width: 100%;
-  color: white;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  text-align: center;
   padding-bottom: 10px;
 }
 .mediumTable {
