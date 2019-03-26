@@ -2,7 +2,7 @@
 /* eslint-disable no-loop-func */
 const rp = require('request-promise')
 const $ = require('cheerio')
-const hackernoonSpecificPost = require('./hackernoonSpecificPost')
+const hackernoonSpecificPost = require('./hackernoon-SpecificPost')
 
 const _getHackernoonData = username => {
   return rp(`https://hackernoon.com/${username}`)
