@@ -301,6 +301,7 @@ form div {
   text-emphasis: none;
   padding: 0% 3%;
   overflow-y: scroll;
+  /* background: url('./images/pixeldragon.png'); */
 }
 
 .profile {
@@ -495,4 +496,15 @@ form div {
   margin-top: -0.312em;
   margin-left: -0.625em;
   z-index: 5;
+}
+.banner {
+  background: url('./images/banner2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0px 20px;
+  height: 330px;
+  width: 400px;
+}
+h1 .banner {
+  transform: translate(-50%, -50%);
 }
