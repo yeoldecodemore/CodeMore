@@ -43,11 +43,7 @@ export const Github = connect(mapStateToProps, mapDispatchToProps)(
           }
         ]
       }
-      return (
-        <div className="github">
-          <Line data={data} />
-        </div>
-      )
+      return <div className="github">hi</div>
     }
   }
 )

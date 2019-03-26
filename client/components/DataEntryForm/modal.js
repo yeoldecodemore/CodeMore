@@ -55,7 +55,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
   class Modal extends Component {
     handleChange = evt => this.props[`add${evt.target.name}`](evt.target.value)
 
-    handleSubmit = evt => {
+    handleSubmit = async evt => {
       evt.preventDefault()
       const {
         userId,
@@ -76,9 +76,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         medium,
         hackernoon
       })
+      console.log(truthyData)
       updateUser(userId, truthyData)
-      Object.keys(truthyData).forEach(async category => {
-        await this.props.fetchGithub(userId, github)
+
+      Object.keys(truthyData).forEach(async (category, index) => {
+        if (index === 0) {
+          await this.props.fetchGithub(userId, github)
+        }
         await this.props[`fetch${_sentenceCase(category)}`](
           userId,
           truthyData[category]

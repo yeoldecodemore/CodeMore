@@ -198,6 +198,7 @@ nav a {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  position: absolute;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 10vh;
@@ -305,8 +306,15 @@ form div {
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.7);
-  height: auto;
-  width: 90vw;
+  position: fixed;
+  margin: auto;
+  margin-bottom: 4vh;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 80%;
+  width: 90%;
 }
 
 .profile div {
@@ -315,58 +323,101 @@ form div {
 
 .info {
   display: flex;
+  height: 30%;
+  width: 100%;
   flex-direction: row;
-  flex: 1;
-  margin: 10px;
 }
 
 .userImage {
-  flex: 2;
+  background-color: purple;
+  height: 100%;
+  width: 40%;
 }
-
 .greenies {
-  flex: 3;
+  background-color: green;
+  height: 100%;
+  width: 60%;
 }
-
 .stats {
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: row;
-  flex: 3;
-  margin: 10px;
 }
 
 .dataOne {
   display: flex;
+  height: 100%;
+  width: 50%;
   flex-direction: column;
-  flex: 1;
-}
-
-.dataOne > div {
-  border: 5px solid;
-  border-color: rgb(130, 0, 0);
-  margin: 5px;
 }
 
 .dataTwo {
   display: flex;
+  height: 100%;
+  width: 50%;
   flex-direction: column;
-  flex: 1;
+}
+.github {
+  height: 40%;
+  width: 100%;
+  background-color: red;
 }
 
-.dataTwo > div {
-  border: 5px solid;
-  border-color: rgb(130, 0, 0);
-  margin: 5px;
-}
-
-.codewars {
+.codewarsContainer {
+  background-color: #ffe6e6;
+  background-blend-mode: color;
+  background-image: url('./images/codewarstrans.png');
+  background-position: left center;
+  background-repeat: no-repeat;
+  background-size: 10vh;
+  height: 40%;
+  width: 100%;
   display: flex;
   color: white;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  flex: 1;
   text-align: center;
-  margin: 5px;
+}
+.codewarsTop {
+  display: flex;
+  height: 90%;
+  width: 100%;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.codewarsBottom {
+  display: flex;
+  height: 10%;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.codewarsCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.codewarsColSize {
+  height: 100%;
+  width: 33%;
+}
+
+.codewarslanguages {
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 5vh;
+  display: flex;
+}
+.codewarSubtitle {
+  background-color: white;
+  color: black;
 }
 .clapArticle {
   display: flex;
@@ -374,7 +425,7 @@ form div {
   justify-content: space-between;
   background-color: white;
   color: black;
-  width: 30%;
+  width: 70%;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   height: 90%;
@@ -391,26 +442,35 @@ form div {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 70%;
+  height: 60%;
   border-bottom: 1px solid gray;
 }
 .clapTitle {
-  padding: 1em;
+  padding: 1.5em;
   color: black;
   font-weight: bold;
   font-size: 1em;
 }
 .clapInfo {
-  height: 30%;
+  height: 40%;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
-.clapImage {
+.clapOne,
+.clapTwo {
+  width: 50%;
+}
+.languageIcon {
   width: 20%;
-  height: 20%;
+  height: 100%;
+}
+
+.logo {
+  width: 30%;
+  height: 30%;
 }
 .clapClaps {
   font-size: 1.5m;
@@ -426,41 +486,118 @@ form div {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   transform: scale(1.04);
 }
-
-.github {
-  flex: 1 1;
-  border: 10px;
+#smaller {
+  font-size: 1em;
 }
-
-.medium {
-  display: flex;
-  flex: 1;
-  color: white;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  text-align: center;
-  margin-left: 10px;
+#testImage {
+  background-color: #800080;
+}
+.profileTitle {
+  margin-left: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 0px;
+  flex-wrap: wrap;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  color: #800080;
+  text-shadow: 1px 1px #000000;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 5px;
 }
 
 .stackoverflow {
-  flex: 1;
+  height: 60%;
+  width: 100%;
+  background-color: yellow;
+}
+.medium {
+  background-color: #e6ecff;
+  background-blend-mode: color;
+  background-image: url('./images/mediumHacker2.png');
+  background-position: 48% 50%;
+  background-repeat: no-repeat;
+  background-size: 10vh;
+  display: flex;
+  height: 40%;
+  width: 100%;
+  color: white;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.mediumTable {
+  background-color: white;
+  color: black;
+  width: 80%;
+  height: 40%;
+  border: 2px solid gray;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.codewarsInfo {
-  flex: 2;
+.mediumTable:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: scale(1.04);
+}
+.tableImage {
+  height: 5vh;
+  width: 5vh;
+}
+.mediumLeft {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.codewarsImage {
-  flex: 1;
+.mediumRight {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+td {
+  padding: 0px;
+  font-size: 1em;
+}
+.mediumCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mediumRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.codewarssubtitle {
+  width: 60%;
+  background-color: white;
+  color: black;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.codewarssubtitle:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: scale(1.13);
+}
+.codewarsLogo {
   height: auto;
-  width: auto;
-  max-width: 100px;
-  max-height: 100px;
-}
-
-.codewarsImage {
-  padding-left: 10px;
+  margin-left: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 0px;
+  max-width: 50%;
 }
 
 .mediumImage {

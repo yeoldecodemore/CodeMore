@@ -41,15 +41,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         codewarsLanguages,
         codewarsQuestions,
         generalCodewars,
+        medium,
         mediumPosts,
         hackernoonPosts
       } = this.props
       return (
         <div className="profile">
-          <div className="info">
+          {/* <div className="info">
             <div className="userImage" />
             <div className="greenies" />
-          </div>
+          </div> */}
           <div className="stats">
             <div className="dataOne">
               <Codewars
@@ -63,6 +64,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               <Medium
                 mediumPosts={mediumPosts || []}
                 hackernoonPosts={hackernoonPosts || []}
+                medium={medium}
               />
               <StackOverFlow />
             </div>

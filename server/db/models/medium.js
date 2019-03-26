@@ -14,6 +14,9 @@ const Medium = db.define('mediummodel', {
   updated: {
     type: Sequelize.DATE
   },
+  link: {
+    type: Sequelize.STRING
+  },
   firstPublish: {
     type: Sequelize.DATE
   },
