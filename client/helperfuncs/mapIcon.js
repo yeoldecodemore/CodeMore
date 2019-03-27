@@ -12,6 +12,9 @@ const iconMap = {
   calendar: ({className}) => (
     <img className={className} src="./images/calendar.png" />
   ),
+  codewars: ({className}) => (
+    <img className={className} src="./images/Codewars.png" />
+  ),
   clap: ({className}) => <img className={className} src="./images/clap.png" />,
   cpp: ({className}) => (
     <img className={className} src="./images/cplusplus.svg" />
