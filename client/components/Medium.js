@@ -35,40 +35,42 @@ export default ({hackernoonPosts, mediumPosts, medium}) => {
       </div>
       <div className="mediumRight">
         <h4 className="profileTitle">Statistics</h4>
-        <table className="mediumTable">
-          <tbody className="mediumBody">
-            <tr>
-              <th />
-              <th>
-                <MediumLogo className="headerLogo" />
-              </th>
-              <th>
-                <HackernoonLogo className="headerLogo" />
-              </th>
-            </tr>
-            <tr>
-              <td>
-                <PaperEdit className="paperLogo" />
-              </td>
-              <td>{lengthArr(mediumPosts)}</td>
-              <td>{lengthArr(hackernoonPosts)}</td>
-            </tr>
-            <tr>
-              <td>
-                <Clap className="clapLogo" />
-              </td>
-              <td>{totalClaps(mediumPosts)}</td>
-              <td>{totalClaps(hackernoonPosts)}</td>
-            </tr>
-            <tr>
-              <td>
-                <Calendar className="calendarLogo" />
-              </td>
-              <td>{createDate(mediumPosts, 'created')}</td>
-              <td>{createDate(hackernoonPosts, 'time')}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="mediumTableDiv">
+          <table>
+            <tbody>
+              <tr>
+                <th />
+                <th>
+                  <MediumLogo className="headerLogo" />
+                </th>
+                <th>
+                  <HackernoonLogo className="headerLogo" />
+                </th>
+              </tr>
+              <tr>
+                <td>
+                  <PaperEdit className="paperLogo" />
+                </td>
+                <td>{lengthArr(mediumPosts)}</td>
+                <td>{lengthArr(hackernoonPosts)}</td>
+              </tr>
+              <tr>
+                <td>
+                  <Clap className="clapLogo" />
+                </td>
+                <td>{totalClaps(mediumPosts)}</td>
+                <td>{totalClaps(hackernoonPosts)}</td>
+              </tr>
+              <tr>
+                <td>
+                  <Calendar className="calendarLogo" />
+                </td>
+                <td>{createDate(mediumPosts, 'created')}</td>
+                <td>{createDate(hackernoonPosts, 'time')}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

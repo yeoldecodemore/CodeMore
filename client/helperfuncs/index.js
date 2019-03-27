@@ -13,6 +13,9 @@ import {mapAndAdd} from './mapAndAdd'
 import {createDate} from './createDate'
 import {lastcodewarsQuestion} from './lastcodewarsQuestion'
 import {overallTopClaps} from './overallTopClaps'
+import {topStackBadges} from './topStackBadges'
+import {sanitizeDate} from './sanitizeDate'
+import {topStackAnswerTag} from './topStackAnswerTag'
 export {
   mapIcon,
   lengthArr,
@@ -20,6 +23,9 @@ export {
   totalClaps,
   overallTopClaps,
   createDate,
+  topStackBadges,
+  sanitizeDate,
+  topStackAnswerTag,
   _filterTruthyData,
   mapAndAdd,
   lastcodewarsQuestion,
