@@ -6,11 +6,11 @@ const stackoverflowCall = require('../helpers/APICall')('Stackoverflow')
 router.get('/:userId', async (req, res, next) => {
   const {userId} = req.params
   try {
-    const stackUser = await stackoverflowCommand('User', 'findOne', {
+    const generalStack = await stackoverflowCommand('User', 'findOne', {
       userId
     })
 
-    const stackoverflowmodelId = stackUser.get({plain: true}).id
+    const stackoverflowmodelId = generalStack.get({plain: true}).id
 
     const stackBadges = await stackoverflowCommand('Badges', 'findAll', {
       stackoverflowmodelId
@@ -38,7 +38,7 @@ router.get('/:userId', async (req, res, next) => {
     })
 
     res.json({
-      stackUser,
+      generalStack,
       stackBadges,
       stackTopTags,
       stackBadgeNetwork,

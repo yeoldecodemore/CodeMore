@@ -82,8 +82,8 @@ const APIPicker = {
     Posts: {
       api: payload => mediumJSONFeed(payload.username),
       dataComb: data => data.response,
-      reducer: (data, payload) => _mediumReducer(data, payload.id),
-      whereVals: ['userId', 'title'],
+      reducer: (data, payload) => _mediumReducer(data, payload.userId),
+      whereVals: ['userId'],
       model: Medium,
       sqlFunc: (model, whereVals, data) =>
         bulkUpdateOrCreate(model, whereVals, data)
@@ -94,7 +94,7 @@ const APIPicker = {
       api: payload => _getHackernoonData(payload.username),
       dataComb: data => data,
       reducer: (data, payload) => _hackernoonReducer(data, payload.userId),
-      whereVals: ['userId', 'title'],
+      whereVals: ['userId'],
       model: Hackernoon,
       sqlFunc: (model, whereVals, data) =>
         bulkUpdateOrCreate(model, whereVals, data)

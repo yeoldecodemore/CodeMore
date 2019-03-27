@@ -14,6 +14,9 @@ const Medium = db.define('mediummodel', {
   updated: {
     type: Sequelize.DATE
   },
+  link: {
+    type: Sequelize.STRING
+  },
   firstPublish: {
     type: Sequelize.DATE
   },
@@ -42,7 +45,7 @@ const Medium = db.define('mediummodel', {
     type: Sequelize.INTEGER
   },
   topic: {
-    type: Sequelize.ARRAY(Sequelize.STRING)
+    type: Sequelize.STRING
   }
 })
 

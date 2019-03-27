@@ -26,7 +26,6 @@ export default connect(mapStateToProps, {
       usersCode: '',
       error: false,
       results: [],
-      tests: [],
       consoleLogs: '',
       resultsOrConsole: 'results'
     }
@@ -35,12 +34,9 @@ export default connect(mapStateToProps, {
       await this.props.fetchAllProblems()
       await this.props.fetchAllTests()
       this.setUpProblem(this.props.allProblems[0])
-      // axios.post('https://codemore-docker.herokuapp.com/testing')
     }
 
     setUpProblem = problem => {
-      // const probSlug =
-      //   problem.problemSlug || this.props.match.params.problemName
       const {problemSlug, problemTemplate} = problem
         ? problem
         : {
@@ -48,7 +44,6 @@ export default connect(mapStateToProps, {
             problemTemplate: `const backwardsArray = (n) => {\n\n
       }`
           }
-      // const probSlug = problemSlug || this.props.match.params.problemName
 
       if (ls.get(`${problemSlug}`) === null) {
         ls.set(`${problemSlug}`, `${problemTemplate}`)
@@ -60,7 +55,11 @@ export default connect(mapStateToProps, {
           tests: this.props.allTests.filter(
             item => item.problemId === problem.id
           )
-        }
+        },
+        error: false,
+        results: [],
+        consoleLogs: '',
+        resultsOrConsole: 'results'
       })
     }
 
@@ -73,11 +72,6 @@ export default connect(mapStateToProps, {
 
     changeProblem = problem => {
       this.setUpProblem(problem)
-      // this.setState({
-      //   error: false,
-      //   results: [],
-      //   consoleLogs: ''
-      // })
     }
 
     toggleRunCodeBtn = (target, running) => {
@@ -94,7 +88,7 @@ export default connect(mapStateToProps, {
         slug: problemSlug,
         code
       }
-      let {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
+      const {data} = await axios.post(`/api/docker/${problemSlug}`, userProblem)
       return data
     }
 
@@ -113,7 +107,7 @@ export default connect(mapStateToProps, {
       try {
         const target = e.target
         this.toggleRunCodeBtn(target, true)
-        let code = _sanitizeCode(target.value)
+        const code = _sanitizeCode(target.value)
         const {tests, result} = await this.executeCode(code)
         this.toggleRunCodeBtn(target, false)
         const hasConsoleLogs =
@@ -144,11 +138,11 @@ export default connect(mapStateToProps, {
     }
 
     formatResults = resultObj => {
-      let {failures, passes} = resultObj
-      let fStat = failures.map(
+      const {failures, passes} = resultObj
+      const fStat = failures.map(
         item => item.title + ' failed - ' + item.err.message
       )
-      let pStat = passes.map(item => item.title + ' passed')
+      const pStat = passes.map(item => item.title + ' passed')
       return [...fStat, ...pStat].sort()
     }
     render() {
@@ -182,9 +176,20 @@ export default connect(mapStateToProps, {
             <p className="problemTitle">Instructions</p>
 
             <div className="problemDesc">
-              {this.state.singleProblem
-                ? this.state.singleProblem.problemDescription
-                : 'nothing'}
+              {this.state.singleProblem ? (
+                <p className="problemDescText">
+                  {this.state.singleProblem.problemDescription}
+                </p>
+              ) : (
+                ''
+              )}
+              {this.state.singleProblem ? (
+                <p className="problemDescText">
+                  {this.state.singleProblem.problemExample}
+                </p>
+              ) : (
+                ''
+              )}
             </div>
 
             <AceEditor

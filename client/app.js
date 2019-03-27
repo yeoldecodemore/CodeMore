@@ -5,6 +5,7 @@ import {withRouter} from 'react-router-dom'
 import {Navbar} from './components'
 import Routes from './routes'
 import {_filterTruthyData} from './helperfuncs/'
+import Mousetrap from 'mousetrap'
 const CronJob = require('cron').CronJob
 
 import {ToastsContainer, ToastsStore} from 'react-toasts'
@@ -43,17 +44,22 @@ const mapDispatch = dispatch => ({
 export default withRouter(
   connect(mapState, mapDispatch)(
     class App extends Component {
-      jobCreator = callback => new CronJob('0 */60 9-17 * * 0-6', callback)
+      constructor(props) {
+        super(props)
+        this.state = {
+          job: 0
+        }
+        Mousetrap.bind(['ctrl+shift+r'], this.fetchTruthyData)
+      }
 
+      fetchTruthyData = () => {
+        const truthyData = _filterTruthyData(this.props.formdata)
+        Object.keys(truthyData).forEach(val => {
+          this.props[`fetch${val}`](this.props.userId, truthyData[val])
+        })
+      }
       componentDidMount() {
         this.props.loadInitialData()
-        const job = this.jobCreator(() => {
-          const truthyData = _filterTruthyData(this.props.formdata)
-          Object.keys(truthyData).forEach(val => {
-            this.props[`fetch${val}`](this.props.userId, truthyData[val])
-          })
-        })
-        job.start()
       }
       render() {
         return (

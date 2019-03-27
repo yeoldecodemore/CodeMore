@@ -1,51 +1,83 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {findCodewars} from '../store/'
+/* eslint-disable react/display-name */
+import React from 'react'
+import {
+  topCodewarsLanguages,
+  topCodewarsLanguagesViz,
+  createDate,
+  lastcodewarsQuestion,
+  mapIcon
+} from '../helperfuncs/'
 
-const mapStateToProps = ({codewarReducer, userReducer}) => ({
-  userId: userReducer.id,
-  codeWars: codewarReducer
-})
-
-const mapDispatchToProps = dispatch => ({
-  findCodewars: id => dispatch(findCodewars(id))
-})
-
-export const Codewars = connect(mapStateToProps, mapDispatchToProps)(
-  class Codewars extends Component {
-    constructor() {
-      super()
-    }
-    componentDidMount() {
-      // this.props.findCodewars(this.props.userId);
-    }
-
-    render() {
-      return (
-        <div>
-          <div className="codewars">
-            <img
-              className="codewarsImage"
-              src="https://int4fc.com/sites/default/files/articles/Abdul_CodeWars.png"
-            />
-
-            <div className="codewarsInfo">
-              <div>
-                <h4>
-                  Current Rank: <span />
-                </h4>
-              </div>
-              <div className="languages">
-                <h4>Codewar Languages: </h4>
-              </div>
-              <div className="languages" />
-              <div className="languages">
-                <h4>Codewars Completed: </h4>
-              </div>
-            </div>
+export default ({
+  codewarsLanguages,
+  codewarsQuestions,
+  generalCodewars,
+  codewars
+}) => (
+  <div className="codewarsContainer">
+    <div className="codewarsTop">
+      <div className="codewarsCol codewarsColSize">
+        <div className="codewarsCol">
+          <h4 className="profileTitle" id="smaller">
+            Completed
+          </h4>
+          <div className="codewarssubtitle">
+            {generalCodewars.totalCompleted}
           </div>
         </div>
-      )
-    }
-  }
+        <div className="codewarsCol">
+          <h4 className="profileTitle" id="smaller">
+            Authored
+          </h4>
+          <div className="codewarssubtitle">
+            {generalCodewars.totalAuthored}
+          </div>
+        </div>
+      </div>
+      <div className="codewarsCol codewarsColSize">
+        <a
+          className="codewarsCol"
+          href={`https://www.codewars.com/users/${codewars}`}
+          target="_blank"
+        >
+          <div id="codewarsPic">
+            <img src="./images/codewars.png" className="codewarsLogo" />
+          </div>
+        </a>
+        <div className="codewarsCol">
+          <h4 className="profileTitle" id="smaller">
+            Most Recent Question
+          </h4>
+          <div className="codewarssubtitle">
+            {createDate(codewarsQuestions, 'questionCompletedAt')}
+          </div>
+        </div>
+      </div>
+      <div className="codewarsCol codewarsColSize">
+        <div className="codewarsCol">
+          <h4 className="profileTitle" id="smaller">
+            Leaderboard
+          </h4>
+          <div className="codewarssubtitle">
+            {generalCodewars.leaderboardPosition}
+          </div>
+        </div>
+        <div className="codewarsCol">
+          <h4 className="profileTitle" id="smaller">
+            Overall Rank
+          </h4>
+          <div className="codewarssubtitle">
+            {generalCodewars.overallRankName}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="codewarsBottom">
+      <div className="codewarslanguages">
+        {topCodewarsLanguagesViz(codewarsLanguages, 5).map((Logo, i) => (
+          <Logo key={i} />
+        ))}
+      </div>
+    </div>
+  </div>
 )

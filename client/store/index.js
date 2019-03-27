@@ -5,7 +5,7 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import userReducer from './userReducer'
 import problemReducer from './problemReducer'
 import signupReducer from './signupReducer'
-import codewarReducer from './codewarReducer'
+import codewarsReducer from './codewarsReducer'
 import hackernoonReducer from './hackernoonReducer'
 import mediumReducer from './mediumReducer'
 import stackoverflowReducer from './stackoverflowReducer'
@@ -14,7 +14,7 @@ const reducer = combineReducers({
   userReducer,
   problemReducer,
   signupReducer,
-  codewarReducer,
+  codewarsReducer,
   hackernoonReducer,
   mediumReducer,
   stackoverflowReducer,
@@ -30,7 +30,7 @@ export * from './userReducer'
 export * from './signupReducer'
 export * from './problemReducer'
 export * from './hackernoonReducer'
-export * from './codewarReducer'
+export * from './codewarsReducer'
 export * from './mediumReducer'
 export * from './stackoverflowReducer'
 export * from './githubReducer'
