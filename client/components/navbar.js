@@ -14,7 +14,7 @@ const mapDispatch = dispatch => ({
 export default withRouter(
   connect(mapState, mapDispatch)(({handleClick, isLoggedIn}) => (
     <div className="navbar">
-      {!isLoggedIn && <h1 className="loggedoutNavhead">Codemore</h1>}
+      {!isLoggedIn && <h1 className="loggedoutNavhead banner">Codemore</h1>}
       {isLoggedIn ? (
         <nav>
           {window.location.href
@@ -32,8 +32,7 @@ export default withRouter(
               Profile
             </Link>
           )}
-
-          <h1 className="loggedinNavhead">Codemore</h1>
+          <h1 className="loggedinNavhead banner">Codemore</h1>
           <a href="#" onClick={handleClick} className="navBtn">
             Logout
           </a>
