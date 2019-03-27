@@ -15,35 +15,6 @@ export const StackOverFlow = connect(mapStateToProps, mapDispatchToProps)(
     constructor() {
       super()
     }
-    render() {
-      const {stackoverflowData} = this.props
-      const privilegeslabels =
-        stackoverflowData
-          .sort((a, b) => (a.reputation > b.reputation ? -1 : 1))
-          .map(val => val.short_description)
-          .splice(0, 5) || []
-      const privilegesData =
-        stackoverflowData
-          .sort((a, b) => (a.reputation > b.reputation ? -1 : 1))
-          .map(val => val.reputation)
-          .splice(0, 5) || []
-
-      const data = {
-        labels: privilegeslabels,
-        datasets: [
-          {
-            label: 'Reputations',
-            data: privilegesData,
-            fill: false, // Don't fill area under the line
-            borderColor: 'purple' // Line color
-          }
-        ]
-      }
-      return (
-        <div className="stackoverflow">
-          <Line data={data} />
-        </div>
-      )
-    }
+    render() {}
   }
 )

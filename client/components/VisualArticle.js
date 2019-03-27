@@ -15,12 +15,12 @@ export default ({topClapArticle, medium}) => {
           <div className="clapTitle">{topClapArticle.title}</div>
         </div>
         <div className="clapInfo">
-          <div className="clapOne">
-            <Clap />
+          <div>
+            <Clap className="languageIcon" />
             <div className="clapClaps">{topClapArticle.claps}</div>
           </div>
           <div className="clapTwo">
-            <Topic />
+            <Topic className="languageIcon" />
           </div>
         </div>
       </div>

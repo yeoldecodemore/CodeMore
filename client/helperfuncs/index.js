@@ -12,11 +12,13 @@ import {lengthArr} from './lengthArr'
 import {mapAndAdd} from './mapAndAdd'
 import {createDate} from './createDate'
 import {lastcodewarsQuestion} from './lastcodewarsQuestion'
+import {overallTopClaps} from './overallTopClaps'
 export {
   mapIcon,
   lengthArr,
   _isDataMissing,
   totalClaps,
+  overallTopClaps,
   createDate,
   _filterTruthyData,
   mapAndAdd,

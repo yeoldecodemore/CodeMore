@@ -7,8 +7,8 @@ import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 import {Link} from 'react-router-dom'
 import {_sanitizeCode} from '../helperfuncs'
-
-import {fetchSingleProblem, fetchAllProblems, fetchAllTests} from '../store/'
+import Mousetrap from 'mousetrap'
+import {fetchSingleProblem, fetchAllProblems} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
   singleProblem: problemReducer.singleProblem,
@@ -21,13 +21,16 @@ export default connect(mapStateToProps, {
   fetchAllTests
 })(
   class Editor extends Component {
-    state = {
-      usersCode: '',
-      error: false,
-      results: [],
-      tests: [],
-      consoleLogs: '',
-      resultsOrConsole: 'results'
+    constructor() {
+      super()
+      this.state = {
+        usersCode: '',
+        error: false,
+        results: [],
+        tests: [],
+        consoleLogs: '',
+        resultsOrConsole: 'results'
+      }
     }
 
     async componentDidMount() {
