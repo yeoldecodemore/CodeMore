@@ -360,12 +360,46 @@ form div {
 }
 .github {
   height: 60%;
-  width: 100%;
+  width: 98%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: lightblue;
+  color: purple;
+  background-color: rgba(211, 211, 211, 0.8);
+}
+
+.githubLeft {
+  display: flex;
+  flex-direction: column;
+  height: 100;
+  width: 50%;
+}
+
+.githubRight {
+  height: 100;
+  width: 50%;
+}
+
+.githubTable {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  color: black;
+}
+
+.githubOuter {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  background-color: white;
+}
+
+.githubLogo {
+  justify-content: center;
+  max-height: 10%;
+  max-width: 10%;
 }
 
 .codewarsContainer {

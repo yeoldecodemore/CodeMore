@@ -4,13 +4,14 @@ import Codewars from './Codewars'
 import Medium from './Medium'
 import {Github} from './Github'
 import {StackOverFlow} from './StackOverFlow'
-import {findCodewars, findMedium, findHackernoon} from '../store/'
+import {findCodewars, findMedium, findHackernoon, findGithub} from '../store/'
 
 const mapStateToProps = ({
   userReducer,
   codewarsReducer,
   mediumReducer,
-  hackernoonReducer
+  hackernoonReducer,
+  githubReducer
 }) => ({
   userId: userReducer.id,
   codewars: userReducer.codewars, //username in usermodel
@@ -20,13 +21,16 @@ const mapStateToProps = ({
   medium: userReducer.medium, //username in usermodel
   mediumPosts: mediumReducer.mediumPosts,
   hackernoon: userReducer.hackernoon, //username in usermodel
-  hackernoonPosts: hackernoonReducer.hackernoonPosts
+  hackernoonPosts: hackernoonReducer.hackernoonPosts,
+  github: userReducer.github,
+  githubData: githubReducer
 })
 
 const mapDispatchToProps = dispatch => ({
   findCodewars: userId => dispatch(findCodewars(userId)),
   findMedium: userId => dispatch(findMedium(userId)),
-  findHackernoon: userId => dispatch(findHackernoon(userId))
+  findHackernoon: userId => dispatch(findHackernoon(userId)),
+  findGithub: userId => dispatch(findGithub(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -35,6 +39,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       if (this.props.codewars) this.props.findCodewars(this.props.userId)
       if (this.props.medium) this.props.findMedium(this.props.userId)
       if (this.props.hackernoon) this.props.findHackernoon(this.props.userId)
+      if (this.props.github) this.props.findGithub(this.props.userId)
     }
     render() {
       const {
@@ -44,7 +49,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         medium,
         codewars,
         mediumPosts,
-        hackernoonPosts
+        hackernoonPosts,
+        githubData
       } = this.props
 
       console.log('profile', mediumPosts, hackernoonPosts)
@@ -68,7 +74,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 }
                 codewars={codewars}
               />
-              <Github />
+              <Github githubData={githubData} />
             </div>
             <div className="dataTwo">
               <Medium

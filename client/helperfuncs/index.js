@@ -13,6 +13,8 @@ import {mapAndAdd} from './mapAndAdd'
 import {createDate} from './createDate'
 import {lastcodewarsQuestion} from './lastcodewarsQuestion'
 import {overallTopClaps} from './overallTopClaps'
+import {gitCommitFunc} from './commitFunc'
+import {sanitizeDate} from './sanitizeDate'
 export {
   mapIcon,
   lengthArr,
@@ -28,5 +30,7 @@ export {
   _sentenceCase,
   _sanitizeCode,
   topCodewarsLanguages,
-  topCodewarsLanguagesViz
+  topCodewarsLanguagesViz,
+  gitCommitFunc,
+  sanitizeDate
 }

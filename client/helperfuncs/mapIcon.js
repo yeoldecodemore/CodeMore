@@ -10,10 +10,12 @@ const iconMap = {
   cpp: ({className}) => (
     <img className={className} src="./images/cplusplus.svg" />
   ),
+  eyes: ({className}) => <img className={className} src="./images/eyes.png" />,
   csharp: ({className}) => (
     <img className={className} src="./images/csharp.svg" />
   ),
   css: ({className}) => <img className={className} src="./images/css3.svg" />,
+  fork: ({className}) => <img className={className} src="./images/fork.png" />,
   github: ({className}) => (
     <img className={className} src="./images/github.svg" />
   ),
@@ -41,6 +43,7 @@ const iconMap = {
   ),
   ruby: ({className}) => <img className={className} src="./images/ruby.svg" />,
   shell: ({className}) => <img className={className} src="./images/ssh.svg" />,
+  star: ({className}) => <img className={className} src="./images/star.png" />,
   sql: ({className}) => <img className={className} src="./images/sql.svg" />,
   swift: ({className}) => <img className={className} src="./images/swift.svg" />
 }

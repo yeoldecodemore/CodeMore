@@ -7,7 +7,7 @@ import 'brace/mode/javascript'
 import 'brace/theme/monokai'
 import {Link} from 'react-router-dom'
 import {_sanitizeCode} from '../helperfuncs'
-import Mousetrap from 'mousetrap'
+
 import {fetchSingleProblem, fetchAllProblems} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
