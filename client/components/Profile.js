@@ -1,36 +1,77 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Codewars} from './Codewars'
-import {Medium} from './Medium'
+import Codewars from './Codewars'
+import Medium from './Medium'
 import {Github} from './Github'
 import {StackOverFlow} from './StackOverFlow'
-import userReducer from '../store/userReducer'
+import {findCodewars, findMedium, findHackernoon, findGithub} from '../store/'
 
-const mapStateToProps = () => ({
-  user: userReducer
+const mapStateToProps = ({
+  userReducer,
+  codewarsReducer,
+  mediumReducer,
+  hackernoonReducer,
+  githubReducer
+}) => ({
+  userId: userReducer.id,
+  codewars: userReducer.codewars, //username in usermodel
+  codewarsLanguages: codewarsReducer.codewarsLanguages,
+  codewarsQuestions: codewarsReducer.codewarsQuestions,
+  generalCodewars: codewarsReducer.generalCodewars,
+  medium: userReducer.medium, //username in usermodel
+  mediumPosts: mediumReducer.mediumPosts,
+  hackernoon: userReducer.hackernoon, //username in usermodel
+  hackernoonPosts: hackernoonReducer.hackernoonPosts,
+  github: userReducer.github,
+  githubData: githubReducer
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchAllProblems: () => dispatch(fetchAllProblems())
+  findCodewars: userId => dispatch(findCodewars(userId)),
+  findMedium: userId => dispatch(findMedium(userId)),
+  findHackernoon: userId => dispatch(findHackernoon(userId)),
+  findGithub: userId => dispatch(findGithub(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   class Profile extends Component {
-    componentDidMount() {}
+    componentDidMount() {
+      if (this.props.codewars) this.props.findCodewars(this.props.userId)
+      if (this.props.medium) this.props.findMedium(this.props.userId)
+      if (this.props.hackernoon) this.props.findHackernoon(this.props.userId)
+      if (this.props.github) this.props.findGithub(this.props.userId)
+    }
     render() {
+      const {
+        codewarsLanguages,
+        codewarsQuestions,
+        generalCodewars,
+        medium,
+        mediumPosts,
+        hackernoonPosts,
+        githubData
+      } = this.props
       return (
         <div className="profile">
-          <div className="info">
+          {/* <div className="info">
             <div className="userImage" />
             <div className="greenies" />
-          </div>
+          </div> */}
           <div className="stats">
             <div className="dataOne">
-              <Codewars />
-              <Github />
+              <Codewars
+                codewarsLanguages={codewarsLanguages || []}
+                codewarsQuestions={codewarsQuestions || []}
+                generalCodewars={generalCodewars || {}}
+              />
+              <Github githubData={githubData} />
             </div>
             <div className="dataTwo">
-              <Medium />
+              <Medium
+                mediumPosts={mediumPosts || []}
+                hackernoonPosts={hackernoonPosts || []}
+                medium={medium}
+              />
               <StackOverFlow />
             </div>
           </div>

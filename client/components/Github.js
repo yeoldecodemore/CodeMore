@@ -45,7 +45,8 @@ export const Github = connect(mapStateToProps, mapDispatchToProps)(
       }
       return (
         <div className="github">
-          <Line data={data} />
+          <div>STATS</div>
+          <div>BUMPY</div>
         </div>
       )
     }

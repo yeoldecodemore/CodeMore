@@ -198,6 +198,7 @@ nav a {
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;
+  position: absolute;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 10vh;
@@ -309,107 +310,317 @@ form div {
   display: flex;
   flex-direction: column;
   background-color: rgba(0, 0, 0, 0.7);
-  height: auto;
-  width: 90vw;
+  position: fixed;
+  margin: auto;
+  margin-bottom: 4vh;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: 80%;
+  width: 90%;
 }
 
 .profile div {
   text-align: center;
-  color: white;
 }
 
 .info {
   display: flex;
+  height: 30%;
+  width: 100%;
   flex-direction: row;
-  flex: 1;
-  margin: 10px;
 }
 
 .userImage {
-  flex: 2;
+  background-color: purple;
+  height: 100%;
+  width: 40%;
 }
-
 .greenies {
-  flex: 3;
+  background-color: green;
+  height: 100%;
+  width: 60%;
 }
-
 .stats {
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: row;
-  flex: 3;
-  margin: 10px;
 }
 
 .dataOne {
   display: flex;
+  height: 100%;
+  width: 50%;
   flex-direction: column;
-  flex: 1;
-}
-
-.dataOne > div {
-  border: 5px solid;
-  border-color: rgb(130, 0, 0);
-  color: white;
-  margin: 5px;
 }
 
 .dataTwo {
   display: flex;
+  height: 100%;
+  width: 50%;
   flex-direction: column;
-  flex: 1;
 }
-
-.dataTwo > div {
-  border: 5px solid;
-  border-color: rgb(130, 0, 0);
-  color: white;
-  margin: 5px;
-}
-
-.codewars,
-.medium {
-  display: flex;
-  flex-direction: col;
-  align-items: center;
-  flex: 1;
-  text-align: center;
-  margin: 5px;
-}
-
 .github {
-  flex: 1 1;
-  border: 10px;
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  background-color: lightblue;
 }
 
+.codewarsContainer {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.codewarsTop {
+  display: flex;
+  height: 90%;
+  width: 100%;
+  justify-content: space-around;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.codewarsBottom {
+  display: flex;
+  height: 10%;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.codewarsCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.codewarsColSize {
+  height: 100%;
+  width: 33%;
+}
+
+.codewarslanguages {
+  justify-content: space-around;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 5vh;
+  display: flex;
+}
+.codewarSubtitle {
+  background-color: white;
+  color: black;
+}
+.clapArticle {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  width: 70%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 90%;
+}
+.clapInner {
+  margin: auto;
+  width: 90%;
+  height: 90%;
+  border: 2px solid gray;
+}
+.clapHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 60%;
+  border-bottom: 1px solid gray;
+}
+.clapTitle {
+  padding: 1.5em;
+  color: black;
+  font-weight: bold;
+  font-size: 1em;
+}
+.clapInfo {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.clapOne,
+.clapTwo {
+  width: 50%;
+}
+.languageIcon {
+  width: 20%;
+  height: 100%;
+}
+
+.logo {
+  width: 30%;
+  height: 30%;
+}
+.clapClaps {
+  font-size: 1.5m;
+  font-weight: bold;
+}
+.clapHands {
+  font-size: 2em;
+}
+.clapTopic {
+  font-size: 2.5em;
+}
+.clapArticle:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: scale(1.04);
+}
+#smaller {
+  font-size: 1em;
+}
+#testImage {
+  background-color: #800080;
+}
+.profileTitle {
+  margin-left: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 0px;
+  flex-wrap: wrap;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  color: #800080;
+  text-shadow: 1px 1px #000000;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 5px;
+}
+.mediumRow {
+  width: 100%;
+  height: 33%;
+}
+.mediumBody {
+  width: 100%;
+  height: 100%;
+}
+.mediumHeader {
+  width: 30%;
+  height: 20%;
+}
+.headerLogo {
+  justify-content: center;
+  height: 20%;
+  width: 50%;
+}
+.paperLogo {
+  justify-content: center;
+  height: 10%;
+  width: 30%;
+}
+.clapLogo {
+  justify-content: center;
+  height: 20%;
+  width: 30%;
+}
+.calendarLogo {
+  justify-content: center;
+  height: 10%;
+  width: 30%;
+}
+.stackoverflow {
+  height: 60%;
+  width: 100%;
+  background-color: yellow;
+}
 .medium {
   display: flex;
-  flex: 1;
+  height: 40%;
+  width: 100%;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+.mediumTable {
+  background-color: white;
+  color: black;
+  width: 80%;
+  height: 40%;
+  border: 2px solid gray;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.mediumTable:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: scale(1.04);
+}
+.tableImage {
+  height: 5vh;
+  width: 5vh;
+}
+.mediumLeft {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mediumRight {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+td {
+  padding: 0px;
+  font-size: 1em;
+}
+.mediumCol {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  text-align: center;
-  margin-left: 10px;
+}
+.mediumRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.stackoverflow {
-  flex: 1;
+.codewarssubtitle {
+  width: 60%;
+  background-color: white;
+  color: black;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-
-.codewarsInfo {
-  flex: 2;
+.codewarssubtitle:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transform: scale(1.13);
 }
-
-.codewarsImage,
-.mediumImage {
-  flex: 1;
+.codewarsLogo {
   height: auto;
-  width: auto;
-  max-width: 100px;
-  max-height: 100px;
-}
-
-.codewarsImage {
-  padding-left: 10px;
+  margin-left: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 0px;
+  max-width: 50%;
 }
 
 .mediumImage {
