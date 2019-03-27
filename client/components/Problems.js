@@ -8,7 +8,7 @@ import 'brace/theme/monokai'
 import {Link} from 'react-router-dom'
 import {_sanitizeCode} from '../helperfuncs'
 import Mousetrap from 'mousetrap'
-import {fetchSingleProblem, fetchAllProblems} from '../store/'
+import {fetchAllProblems, fetchAllTests, updateUserStats} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
   allProblems: problemReducer.allProblems,
@@ -263,7 +263,7 @@ export default connect(mapStateToProps, {
 
             <div className="testBlock">
               <p className="testsTitle">Tests</p>
-              {this.state.singleProblem.tests
+              {this.state.singleProblem
                 ? this.state.singleProblem.tests.map(item => (
                     <p key={item.id}>{item.testTemplate}</p>
                   ))
