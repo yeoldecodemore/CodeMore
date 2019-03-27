@@ -2,14 +2,11 @@
 import React from 'react'
 import {mapIcon} from '../helperfuncs/'
 
-export default ({topClapArticle, medium}) => {
-  const Topic = mapIcon(topClapArticle.topic, 'medium')
+export default ({topClapArticle, link, label}) => {
+  const Topic = mapIcon(topClapArticle.topic, label)
   const Clap = mapIcon('clap')
   return (
-    <a
-      className="clapArticle"
-      href={`https://www.medium.com/${medium}/${topClapArticle.medium_id}`}
-    >
+    <a className="clapArticle" href={link} target="_blank">
       <div className="clapInner">
         <div className="clapHeader">
           <div className="clapTitle">{topClapArticle.title}</div>

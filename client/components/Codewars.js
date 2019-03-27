@@ -8,7 +8,12 @@ import {
   mapIcon
 } from '../helperfuncs/'
 
-export default ({codewarsLanguages, codewarsQuestions, generalCodewars}) => (
+export default ({
+  codewarsLanguages,
+  codewarsQuestions,
+  generalCodewars,
+  codewars
+}) => (
   <div className="codewarsContainer">
     <div className="codewarsTop">
       <div className="codewarsCol codewarsColSize">
@@ -30,9 +35,13 @@ export default ({codewarsLanguages, codewarsQuestions, generalCodewars}) => (
         </div>
       </div>
       <div className="codewarsCol codewarsColSize">
-        <div className="codewarsCol">
+        <a
+          className="codewarsCol"
+          href={`https://www.codewars.com/users/${codewars}`}
+          target="_blank"
+        >
           <img src="./images/codewars.png" className="codewarsLogo" />
-        </div>
+        </a>
         <div className="codewarsCol">
           <h4 className="profileTitle" id="smaller">
             Most Recent Question

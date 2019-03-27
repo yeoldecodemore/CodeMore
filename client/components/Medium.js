@@ -9,11 +9,11 @@ import {
 } from '../helperfuncs/'
 import VisualArticle from './VisualArticle'
 export default ({hackernoonPosts, mediumPosts, medium}) => {
-  const [label, topClapArticle] =
-    overallTopClaps(
-      {label1: 'medium', arr1: mediumPosts},
-      {label2: 'hackernoon', arr2: hackernoonPosts}
-    ) || []
+  const [label, topClapArticle] = overallTopClaps(
+    {label1: 'medium', arr1: mediumPosts},
+    {label2: 'hackernoon', arr2: hackernoonPosts}
+  )
+
   const Clap = mapIcon('clap')
   const MediumLogo = mapIcon('medium')
   const HackernoonLogo = mapIcon('hackernoon')
@@ -23,7 +23,15 @@ export default ({hackernoonPosts, mediumPosts, medium}) => {
     <div className="medium">
       <div className="mediumLeft">
         <h4 className="profileTitle">Most Clapped Article</h4>
-        <VisualArticle topClapArticle={topClapArticle} medium={medium} />
+        <VisualArticle
+          topClapArticle={topClapArticle}
+          link={
+            label === 'medium'
+              ? `https://www.medium.com/${medium}/${topClapArticle.medium_id}`
+              : topClapArticle.url
+          }
+          label={label}
+        />
       </div>
       <div className="mediumRight">
         <h4 className="profileTitle">Statistics</h4>

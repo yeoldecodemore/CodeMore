@@ -42,9 +42,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         codewarsQuestions,
         generalCodewars,
         medium,
+        codewars,
         mediumPosts,
         hackernoonPosts
       } = this.props
+
+      console.log('profile', mediumPosts, hackernoonPosts)
       return (
         <div className="profile">
           {/* <div className="info">
@@ -54,16 +57,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           <div className="stats">
             <div className="dataOne">
               <Codewars
-                codewarsLanguages={codewarsLanguages || []}
-                codewarsQuestions={codewarsQuestions || []}
-                generalCodewars={generalCodewars || {}}
+                codewarsLanguages={
+                  codewarsLanguages.length ? codewarsLanguages : []
+                }
+                codewarsQuestions={
+                  codewarsQuestions.length ? codewarsQuestions : []
+                }
+                generalCodewars={
+                  Object.keys(generalCodewars).length ? generalCodewars : {}
+                }
+                codewars={codewars}
               />
               <Github />
             </div>
             <div className="dataTwo">
               <Medium
-                mediumPosts={mediumPosts || []}
-                hackernoonPosts={hackernoonPosts || []}
+                mediumPosts={mediumPosts.length ? mediumPosts : [{claps: 0}]}
+                hackernoonPosts={
+                  hackernoonPosts.length ? hackernoonPosts : [{claps: 0}]
+                }
                 medium={medium}
               />
               <StackOverFlow />
