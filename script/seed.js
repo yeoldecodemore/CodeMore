@@ -36,7 +36,8 @@ async function seed() {
       problemFunctionCall: 'backwardsArray(10)',
       problemTemplate: 'const backwardsArray = (n) => {\n\n}',
       expectedResult: '[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]',
-      solved: false
+      solved: false,
+      difficultyRank: 'Beginner'
     }),
     Problem.create({
       problemSlug: 'count_vowels',
@@ -47,7 +48,8 @@ async function seed() {
       problemFunctionCall: 'countVowels("This Is Quik Code")',
       problemTemplate: 'const countVowels = (str) => {\n\n}',
       expectedResult: '6',
-      solved: false
+      solved: false,
+      difficultyRank: 'Beginner'
     }),
     Problem.create({
       problemSlug: 'is_palindrome',
@@ -57,7 +59,8 @@ async function seed() {
       problemFunctionCall: 'isPalindrome("dad")',
       problemTemplate: 'const isPalindrome = (str) => {\n\n}',
       expectedResult: 'true',
-      solved: false
+      solved: false,
+      difficultyRank: 'Beginner'
     }),
     Problem.create({
       problemSlug: 'alphabet_position',
@@ -69,7 +72,8 @@ async function seed() {
       problemFunctionCall: 'alphabetPosition("The sunset sets at twelve")',
       problemTemplate: 'const alphabetPosition = (str) => {\n\n}',
       expectedResult: '20 8 5 19 21 14 19 5 20 19 5 20 19 1 20 20 23 5 12 22 5',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     }),
     Problem.create({
       problemSlug: 'two_number_sum',
@@ -80,7 +84,8 @@ async function seed() {
       problemFunctionCall: 'twoNumberSum([4,6],10)',
       problemTemplate: 'const twoNumberSum = (str) => {\n\n}',
       expectedResult: '[4,6]',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     }),
     Problem.create({
       problemSlug: 'max_subset_sum_no_adjacent',
@@ -91,7 +96,8 @@ async function seed() {
       problemFunctionCall: 'maxSubsetSumNoAdjacent([1,15,3])',
       problemTemplate: 'const maxSubsetSumNoAdjacent = (str) => {\n\n}',
       expectedResult: '15',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     }),
     Problem.create({
       problemSlug: 'min_number_of_jumps',
@@ -102,7 +108,8 @@ async function seed() {
       problemFunctionCall: 'minNumberOfJumps([2,1,2,2,1,1,1])',
       problemTemplate: 'const minNumberOfJumps = (str) => {\n\n}',
       expectedResult: '4',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     }),
     Problem.create({
       problemSlug: 'water_area',
@@ -114,7 +121,8 @@ async function seed() {
       problemFunctionCall: 'waterArea([0,8,0,0,5,0,0,10,0,0,1,1,0,3])',
       problemTemplate: 'const waterArea= (str) => {\n\n}',
       expectedResult: '48',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     }),
     Problem.create({
       problemSlug: 'nth_fibonacci',
@@ -125,7 +133,8 @@ async function seed() {
       problemFunctionCall: 'nthFib(6)',
       problemTemplate: 'const nthFib = (str) => {\n\n}',
       expectedResult: '5',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     }),
     Problem.create({
       problemSlug: 'heap_sort',
@@ -136,7 +145,8 @@ async function seed() {
       problemFunctionCall: 'heapSort([8,5,2,9,5,6,3])',
       problemTemplate: 'const heapSort = (str) => {\n\n}',
       expectedResult: '[2,3,5,5,6,8,9]',
-      solved: false
+      solved: false,
+      difficultyRank: 'Novice'
     })
   ])
 

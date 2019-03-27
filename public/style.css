@@ -509,3 +509,10 @@ form div {
 h1 .banner {
   transform: translate(-50%, -50%);
 }
+
+.profilePhoto img {
+  height: 20vh;
+}
+.clip-circle {
+  clip-path: circle(10vh at center);
+}

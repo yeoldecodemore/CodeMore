@@ -5,6 +5,7 @@ import {Medium} from './Medium'
 import {Github} from './Github'
 import {StackOverFlow} from './StackOverFlow'
 import userReducer from '../store/userReducer'
+import {ProfilePhoto} from './ProfilePhoto'
 
 const mapStateToProps = () => ({
   user: userReducer
@@ -18,10 +19,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
   class Profile extends Component {
     componentDidMount() {}
     render() {
+      console.log('profile props', this.props)
       return (
         <div className="profile">
           <div className="info">
-            <div className="userImage" />
+            <div className="userImage">
+              <ProfilePhoto />
+            </div>
             <div className="greenies" />
           </div>
           <div className="stats">
