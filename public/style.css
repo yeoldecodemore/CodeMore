@@ -117,7 +117,7 @@ input[disabled] {
 }
 
 .dragon {
-  top: 250px;
+  top: 200px;
   left: -30%;
   position: absolute;
   animation: move 11s linear 1s infinite;
@@ -301,6 +301,7 @@ form div {
   text-emphasis: none;
   padding: 0% 3%;
   overflow-y: scroll;
+  /* background: url('./images/pixeldragon.png'); */
 }
 
 .profile {
@@ -461,4 +462,49 @@ form div {
 .resultTitle {
   text-align: center;
   font-size: 1.3em;
+}
+
+.speech-bubble {
+  position: relative;
+  background: url(https://media.istockphoto.com/photos/blaze-fire-flame-background-picture-id178420160?k=6&m=178420160&s=612x612&w=0&h=zROA1KUfOOwmwt9ZYo01y5z7g9xnOrgO6ui9l0_SdjU=);
+  border-radius: 0.4em;
+  height: 60px;
+  /* bottom: -165px;
+  right: -360px; */
+  top: -330px;
+  right: -365px;
+  z-index: 5;
+  font-family: 'Almendra SC', serif;
+  font-size: 1.4em;
+  padding: 12% 12%;
+  text-align: center;
+  color: white;
+  text-shadow: 6px 4px 10px #000;
+}
+
+.speech-bubble:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border: 0.625em solid transparent;
+  border-right-color: #ff8400;
+  border-left: 0;
+  border-bottom: 0;
+  margin-top: -0.312em;
+  margin-left: -0.625em;
+  z-index: 5;
+}
+.banner {
+  background: url('./images/banner2.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0px 20px;
+  height: 330px;
+  width: 400px;
+}
+h1 .banner {
+  transform: translate(-50%, -50%);
 }
