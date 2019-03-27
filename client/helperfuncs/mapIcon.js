@@ -2,35 +2,47 @@
 import React from 'react'
 
 const iconMap = {
-  c: () => <img src="./images/c.svg" className="languageIcon" />,
-  calender: () => <img src="./images/calender.png" className="languageIcon" />,
-  clap: () => <img src="./images/clap.png" className="languageIcon" />,
-  cpp: () => <img src="./images/cplusplus.svg" className="languageIcon" />,
-  csharp: () => <img src="./images/csharp.svg" className="languageIcon" />,
-  css: () => <img src="./images/css3.svg" className="languageIcon" />,
-  github: () => <img src="./images/github.svg" className="languageIcon" />,
-  go: () => <img src="./images/go.svg" className="languageIcon" />,
-  hackernoon: () => (
-    <img src="./images/hackernoon.png" className="languageIcon" />
+  c: ({className}) => <img className={className} src="./images/c.svg" />,
+  calendar: ({className}) => (
+    <img className={className} src="./images/calendar.png" />
   ),
-  html: () => <img src="./images/html5.svg" className="languageIcon" />,
-  java: () => <img src="./images/java.svg" className="languageIcon" />,
-  javascript: () => (
-    <img src="./images/javascript.svg" className="languageIcon" />
+  clap: ({className}) => <img className={className} src="./images/clap.png" />,
+  cpp: ({className}) => (
+    <img className={className} src="./images/cplusplus.svg" />
   ),
-  medium: () => (
-    <img className="languageIcon" src="./images/mediumInverted.png" />
+  csharp: ({className}) => (
+    <img className={className} src="./images/csharp.svg" />
   ),
-  paperedit: () => (
-    <img className="languageIcon" src="./images/paperEdit.png" />
+  css: ({className}) => <img className={className} src="./images/css3.svg" />,
+  github: ({className}) => (
+    <img className={className} src="./images/github.svg" />
   ),
-  php: () => <img src="./images/php.svg" className="languageIcon" />,
-  python: () => <img src="./images/python.svg" className="languageIcon" />,
-  question: () => <img src="./images/question.png" className="languageIcon" />,
-  ruby: () => <img src="./images/ruby.svg" className="languageIcon" />,
-  shell: () => <img src="./images/ssh.svg" className="languageIcon" />,
-  sql: () => <img src="./images/sql.svg" className="languageIcon" />,
-  swift: () => <img src="./images/swift.svg" className="languageIcon" />
+  go: ({className}) => <img className={className} src="./images/go.svg" />,
+  hackernoon: ({className}) => (
+    <img className={className} src="./images/hackernoon.png" />
+  ),
+  html: ({className}) => <img className={className} src="./images/html5.svg" />,
+  java: ({className}) => <img className={className} src="./images/java.svg" />,
+  javascript: ({className}) => (
+    <img className={className} src="./images/javascript.svg" />
+  ),
+  medium: ({className}) => (
+    <img className={className} src="./images/mediumInverted.png" />
+  ),
+  paperedit: ({className}) => (
+    <img className={className} src="./images/paperEdit.png" />
+  ),
+  php: ({className}) => <img className={className} src="./images/php.svg" />,
+  python: ({className}) => (
+    <img className={className} src="./images/python.svg" />
+  ),
+  question: ({className}) => (
+    <img className={className} src="./images/question.png" />
+  ),
+  ruby: ({className}) => <img className={className} src="./images/ruby.svg" />,
+  shell: ({className}) => <img className={className} src="./images/ssh.svg" />,
+  sql: ({className}) => <img className={className} src="./images/sql.svg" />,
+  swift: ({className}) => <img className={className} src="./images/swift.svg" />
 }
 
 export const mapIcon = (val, placeholder) =>
