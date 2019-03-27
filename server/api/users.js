@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const updateOrCreate = require('../helpers/updateOrCreate')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -16,9 +17,16 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.put('/stats', (req, res, next) => {
+  updateOrCreate(User)
+  res.send()
+  // (req.body, {where: {id}, returning: true})
+  //   .then(([numRow, [user]]) => res.json(user))
+  //   .catch(next)
+})
+
 router.put('/:id', (req, res, next) => {
   const id = req.params.id
-  console.log('here')
   User.update(req.body, {where: {id}, returning: true})
     .then(([numRow, [user]]) => res.json(user))
     .catch(next)

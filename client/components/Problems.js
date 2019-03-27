@@ -8,20 +8,21 @@ import 'brace/theme/monokai'
 import {Link} from 'react-router-dom'
 import {_sanitizeCode} from '../helperfuncs'
 
-import {fetchSingleProblem, fetchAllProblems, fetchAllTests} from '../store/'
+import {fetchAllProblems, fetchAllTests, updateUserStats} from '../store/'
 
 const mapStateToProps = ({problemReducer}) => ({
-  singleProblem: problemReducer.singleProblem,
-  allProblems: problemReducer.allProblems
+  allProblems: problemReducer.allProblems,
+  allTests: problemReducer.allTests
 })
 
 export default connect(mapStateToProps, {
-  fetchSingleProblem,
   fetchAllProblems,
-  fetchAllTests
+  fetchAllTests,
+  updateUserStats
 })(
   class Editor extends Component {
     state = {
+      singleProblem: {},
       usersCode: '',
       error: false,
       results: [],
@@ -33,19 +34,33 @@ export default connect(mapStateToProps, {
     async componentDidMount() {
       await this.props.fetchAllProblems()
       await this.props.fetchAllTests()
-      this.setUpProblem()
+      this.setUpProblem(this.props.allProblems[0])
       // axios.post('https://codemore-docker.herokuapp.com/testing')
     }
 
-    setUpProblem = async problem => {
-      const probName = problem || this.props.match.params.problemName
-      await this.props.fetchSingleProblem(probName)
-      const {problemSlug, problemTemplate} = this.props.singleProblem
+    setUpProblem = problem => {
+      // const probSlug =
+      //   problem.problemSlug || this.props.match.params.problemName
+      const {problemSlug, problemTemplate} = problem
+        ? problem
+        : {
+            problemSlug: this.props.match.params.problemName,
+            problemTemplate: `const backwardsArray = (n) => {\n\n
+      }`
+          }
+      // const probSlug = problemSlug || this.props.match.params.problemName
+
       if (ls.get(`${problemSlug}`) === null) {
         ls.set(`${problemSlug}`, `${problemTemplate}`)
       }
       this.setState({
-        usersCode: ls.get(`${problemSlug}`)
+        usersCode: ls.get(`${problemSlug}`),
+        singleProblem: {
+          ...problem,
+          tests: this.props.allTests.filter(
+            item => item.problemId === problem.id
+          )
+        }
       })
     }
 
@@ -53,17 +68,16 @@ export default connect(mapStateToProps, {
       this.setState({
         usersCode: newValue
       })
-      ls.set(`${this.props.singleProblem.problemSlug}`, newValue)
+      ls.set(`${this.state.singleProblem.problemSlug}`, newValue)
     }
 
     changeProblem = problem => {
-      this.setUpProblem(problem.problemSlug)
-      this.setState({
-        error: false,
-        results: [],
-        tests: [],
-        consoleLogs: ''
-      })
+      this.setUpProblem(problem)
+      // this.setState({
+      //   error: false,
+      //   results: [],
+      //   consoleLogs: ''
+      // })
     }
 
     toggleRunCodeBtn = (target, running) => {
@@ -73,7 +87,7 @@ export default connect(mapStateToProps, {
     }
 
     executeCode = async code => {
-      const {id, problemSlug} = this.props.singleProblem
+      const {id, problemSlug} = this.state.singleProblem
       const userProblem = {
         id: `${problemSlug}_${id}`,
         problemId: id,
@@ -106,18 +120,23 @@ export default connect(mapStateToProps, {
           typeof result === 'string' && result.charAt(0) !== '{'
         const {error, errorMessage} = this.checkIfError(result)
         if (error) {
-          this.setState({results: errorMessage, error: true, tests})
-        } else if (result.killed) {
-          this.setState({results: 'Timed Out', error: true, tests})
-        } else if (hasConsoleLogs) {
-          const consoleLogs = result.slice(0, result.indexOf('{\n'))
-          const resultsStr = '{' + result.slice(result.indexOf('"stats":'))
-          const resultsObj = JSON.parse(resultsStr)
-          const results = this.formatResults(resultsObj)
-          this.setState({results, error: false, tests, consoleLogs})
+          this.setState({
+            results: errorMessage || 'Timed Out',
+            error: true,
+            tests
+          })
         } else {
-          const results = this.formatResults(result)
-          this.setState({results, error: false, tests, consoleLogs: ''})
+          const results =
+            typeof result === 'string'
+              ? this.formatResults(
+                  JSON.parse('{' + result.slice(result.indexOf('"stats":')))
+                )
+              : this.formatResults(result)
+
+          const consoleLogs =
+            hasConsoleLogs &&
+            result.slice(0, result.indexOf('{\n') - 1).split('\n')
+          this.setState({results, error: false, tests, consoleLogs})
         }
       } catch (error) {
         console.log(error)
@@ -142,8 +161,7 @@ export default connect(mapStateToProps, {
                 return (
                   <Link
                     className={`problemBtn + ${
-                      problem.problemSlug ===
-                      this.props.singleProblem.problemSlug
+                      problem.id === this.state.singleProblem.id
                         ? 'selected'
                         : ''
                     }`}
@@ -164,10 +182,11 @@ export default connect(mapStateToProps, {
             <p className="problemTitle">Instructions</p>
 
             <div className="problemDesc">
-              {this.props.singleProblem.problemDescription}
+              {this.state.singleProblem
+                ? this.state.singleProblem.problemDescription
+                : 'nothing'}
             </div>
 
-            <div />
             <AceEditor
               mode="javascript"
               theme="monokai"
@@ -210,7 +229,11 @@ export default connect(mapStateToProps, {
               {this.state.resultsOrConsole === 'console' ? (
                 <div>
                   <p className="resultTitle">Console</p>
-                  <p>{this.state.consoleLogs ? this.state.consoleLogs : ''}</p>
+                  {this.state.consoleLogs
+                    ? this.state.consoleLogs.map((el, idx) => (
+                        <p key={idx}>{el}</p>
+                      ))
+                    : ''}
                 </div>
               ) : (
                 <div>
@@ -237,8 +260,8 @@ export default connect(mapStateToProps, {
 
             <div className="testBlock">
               <p className="testsTitle">Tests</p>
-              {this.props.singleProblem.tests
-                ? this.props.singleProblem.tests.map(item => (
+              {this.state.singleProblem.tests
+                ? this.state.singleProblem.tests.map(item => (
                     <p key={item.id}>{item.testTemplate}</p>
                   ))
                 : null}

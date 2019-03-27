@@ -292,6 +292,7 @@ form div {
 .resultsBlock {
   flex: 5;
   padding: 0 5%;
+  overflow-y: scroll;
 }
 
 .testBlock {
