@@ -2,6 +2,12 @@
 import React from 'react'
 
 const iconMap = {
+  answer: ({className}) => (
+    <img className={className} src="./images/answer.png" />
+  ),
+  bronze: ({className}) => (
+    <img className={className} src="./images/bronzeMedal.png" />
+  ),
   c: ({className}) => <img className={className} src="./images/c.svg" />,
   calendar: ({className}) => (
     <img className={className} src="./images/calendar.png" />
@@ -16,10 +22,14 @@ const iconMap = {
   ),
   css: ({className}) => <img className={className} src="./images/css3.svg" />,
   fork: ({className}) => <img className={className} src="./images/fork.png" />,
+  day: ({className}) => <img className={className} src="./images/day.png" />,
   github: ({className}) => (
     <img className={className} src="./images/github.svg" />
   ),
   go: ({className}) => <img className={className} src="./images/go.svg" />,
+  gold: ({className}) => (
+    <img className={className} src="./images/goldMedal.png" />
+  ),
   hackernoon: ({className}) => (
     <img className={className} src="./images/hackernoon.png" />
   ),
@@ -31,6 +41,12 @@ const iconMap = {
   medium: ({className}) => (
     <img className={className} src="./images/mediumInverted.png" />
   ),
+  month: ({className}) => (
+    <img className={className} src="./images/month.png" />
+  ),
+  netvote: ({className}) => (
+    <img className={className} src="./images/netvote.png" />
+  ),
   paperedit: ({className}) => (
     <img className={className} src="./images/paperEdit.png" />
   ),
@@ -41,11 +57,23 @@ const iconMap = {
   question: ({className}) => (
     <img className={className} src="./images/question.png" />
   ),
+  questionmark: ({className}) => (
+    <img className={className} src="./images/questionMark.png" />
+  ),
   ruby: ({className}) => <img className={className} src="./images/ruby.svg" />,
   shell: ({className}) => <img className={className} src="./images/ssh.svg" />,
   star: ({className}) => <img className={className} src="./images/star.png" />,
+  silver: ({className}) => (
+    <img className={className} src="./images/silverMedal.png" />
+  ),
   sql: ({className}) => <img className={className} src="./images/sql.svg" />,
-  swift: ({className}) => <img className={className} src="./images/swift.svg" />
+  stackoverflow: ({className}) => (
+    <img className={className} src="./images/stackoverflow.png" />
+  ),
+  swift: ({className}) => (
+    <img className={className} src="./images/swift.svg" />
+  ),
+  week: ({className}) => <img className={className} src="./images/week.png" />
 }
 
 export const mapIcon = (val, placeholder) =>

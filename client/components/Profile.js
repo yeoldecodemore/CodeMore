@@ -1,17 +1,25 @@
+/* eslint-disable complexity */
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Codewars from './Codewars'
 import Medium from './Medium'
 import {Github} from './Github'
-import {StackOverFlow} from './StackOverFlow'
-import {findCodewars, findMedium, findHackernoon, findGithub} from '../store/'
+import StackOverflow from './StackOverFlow'
+import {
+  findCodewars,
+  findMedium,
+  findHackernoon,
+  findStackoverflow,
+  findGithub
+} from '../store/'
 
 const mapStateToProps = ({
   userReducer,
   codewarsReducer,
   mediumReducer,
   hackernoonReducer,
-  githubReducer
+  githubReducer,
+  stackoverflowReducer
 }) => ({
   userId: userReducer.id,
   codewars: userReducer.codewars, //username in usermodel
@@ -22,15 +30,23 @@ const mapStateToProps = ({
   mediumPosts: mediumReducer.mediumPosts,
   hackernoon: userReducer.hackernoon, //username in usermodel
   hackernoonPosts: hackernoonReducer.hackernoonPosts,
-  github: userReducer.github,
-  githubData: githubReducer
+  github: userReducer.github, //username in usermodel
+  githubData: githubReducer,
+  stackoverflow: userReducer.stackoverflow, //username in usermodel
+  generalStack: stackoverflowReducer.generalStack,
+  stackBadges: stackoverflowReducer.stackBadges,
+  stackTopTags: stackoverflowReducer.stackTopTags,
+  stackBadgeNetwork: stackoverflowReducer.stackBadgeNetwork,
+  stackPrivileges: stackoverflowReducer.stackPrivileges,
+  stackDailyRep: stackoverflowReducer.stackDailyRep
 })
 
 const mapDispatchToProps = dispatch => ({
   findCodewars: userId => dispatch(findCodewars(userId)),
   findMedium: userId => dispatch(findMedium(userId)),
   findHackernoon: userId => dispatch(findHackernoon(userId)),
-  findGithub: userId => dispatch(findGithub(userId))
+  findGithub: userId => dispatch(findGithub(userId)),
+  findStackoverflow: userId => dispatch(findStackoverflow(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -40,6 +56,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       if (this.props.medium) this.props.findMedium(this.props.userId)
       if (this.props.hackernoon) this.props.findHackernoon(this.props.userId)
       if (this.props.github) this.props.findGithub(this.props.userId)
+      if (this.props.stackoverflow)
+        this.props.findStackoverflow(this.props.userId)
     }
     render() {
       const {
@@ -50,16 +68,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         codewars,
         mediumPosts,
         hackernoonPosts,
-        githubData
+        githubData,
+        generalStack,
+        stackBadges,
+        stackTopTags,
+        stackBadgeNetwork,
+        stackPrivileges,
+        stackDailyRep
       } = this.props
-
-      console.log('profile', mediumPosts, hackernoonPosts)
       return (
         <div className="profile">
-          {/* <div className="info">
-            <div className="userImage" />
-            <div className="greenies" />
-          </div> */}
           <div className="stats">
             <div className="dataOne">
               <Codewars
@@ -84,7 +102,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 }
                 medium={medium}
               />
-              <StackOverFlow />
+              <StackOverflow
+                generalStack={
+                  Object.keys(generalStack).length ? generalStack : {}
+                }
+                stackBadges={stackBadges.length ? stackBadges : []}
+                stackTopTags={stackTopTags.length ? stackTopTags : []}
+                stackBadgeNetwork={
+                  stackBadgeNetwork.length ? stackBadgeNetwork : []
+                }
+                stackPrivileges={stackPrivileges.length ? stackPrivileges : []}
+                stackDailyRep={stackDailyRep.length ? stackDailyRep : []}
+              />
             </div>
           </div>
         </div>

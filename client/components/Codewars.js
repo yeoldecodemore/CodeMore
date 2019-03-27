@@ -40,7 +40,9 @@ export default ({
           href={`https://www.codewars.com/users/${codewars}`}
           target="_blank"
         >
-          <img src="./images/codewars.png" className="codewarsLogo" />
+          <div id="codewarsPic">
+            <img src="./images/codewars.png" className="codewarsLogo" />
+          </div>
         </a>
         <div className="codewarsCol">
           <h4 className="profileTitle" id="smaller">

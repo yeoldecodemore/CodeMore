@@ -4,8 +4,8 @@ import {ToastsStore} from 'react-toasts'
 const initialState = {
   generalStack: {},
   stackBadges: [],
-  stackTags: [],
-  stackBadgenetwork: [],
+  stackTopTags: [],
+  stackBadgeNetwork: [],
   stackPrivileges: [],
   stackDailyRep: []
 }
@@ -38,8 +38,8 @@ export default (state = initialState, action) => {
       const {
         generalStack,
         stackBadges,
-        stackTags,
-        stackBadgenetwork,
+        stackTopTags,
+        stackBadgeNetwork,
         stackPrivileges,
         stackDailyRep
       } = action.stackoverflowData
@@ -47,8 +47,8 @@ export default (state = initialState, action) => {
         ...state,
         generalStack,
         stackBadges,
-        stackTags,
-        stackBadgenetwork,
+        stackTopTags,
+        stackBadgeNetwork,
         stackPrivileges,
         stackDailyRep
       }
