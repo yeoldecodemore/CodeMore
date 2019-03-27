@@ -12,6 +12,7 @@ import {
   findStackoverflow,
   findGithub
 } from '../store/'
+import {ProfilePhoto} from './ProfilePhoto'
 
 const mapStateToProps = ({
   userReducer,
@@ -30,7 +31,7 @@ const mapStateToProps = ({
   mediumPosts: mediumReducer.mediumPosts,
   hackernoon: userReducer.hackernoon, //username in usermodel
   hackernoonPosts: hackernoonReducer.hackernoonPosts,
-  github: userReducer.github, //username in usermodel
+  github: userReducer.username, //username in usermodel
   githubData: githubReducer,
   stackoverflow: userReducer.stackoverflow, //username in usermodel
   generalStack: stackoverflowReducer.generalStack,
@@ -74,10 +75,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         stackTopTags,
         stackBadgeNetwork,
         stackPrivileges,
-        stackDailyRep
+        stackDailyRep,
+        github
       } = this.props
+      console.log(github)
       return (
         <div className="profile">
+          <ProfilePhoto />
           <div className="stats">
             <div className="dataOne">
               <Codewars
@@ -92,7 +96,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 }
                 codewars={codewars}
               />
-              <Github githubData={githubData} />
+              <Github githubData={githubData} userName={github} />
             </div>
             <div className="dataTwo">
               <Medium
