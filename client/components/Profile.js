@@ -4,13 +4,21 @@ import Codewars from './Codewars'
 import Medium from './Medium'
 import {Github} from './Github'
 import {StackOverFlow} from './StackOverFlow'
-import {findCodewars, findMedium, findHackernoon} from '../store/'
+import {
+  findCodewars,
+  findMedium,
+  findHackernoon,
+  findStackoverflow,
+  findGithub
+} from '../store/'
 
 const mapStateToProps = ({
   userReducer,
   codewarsReducer,
   mediumReducer,
-  hackernoonReducer
+  hackernoonReducer,
+  stackoverflowReducer,
+  githubReducer
 }) => ({
   userId: userReducer.id,
   codewars: userReducer.codewars, //username in usermodel
@@ -20,13 +28,18 @@ const mapStateToProps = ({
   medium: userReducer.medium, //username in usermodel
   mediumPosts: mediumReducer.mediumPosts,
   hackernoon: userReducer.hackernoon, //username in usermodel
-  hackernoonPosts: hackernoonReducer.hackernoonPosts
+  hackernoonPosts: hackernoonReducer.hackernoonPosts,
+  stackoverflow: userReducer.stackoverflow, //username in usermodel
+  stackoverflowData: stackoverflowReducer.stackPrivileges,
+  github: githubReducer
 })
 
 const mapDispatchToProps = dispatch => ({
   findCodewars: userId => dispatch(findCodewars(userId)),
   findMedium: userId => dispatch(findMedium(userId)),
-  findHackernoon: userId => dispatch(findHackernoon(userId))
+  findHackernoon: userId => dispatch(findHackernoon(userId)),
+  findStackoverflow: userId => dispatch(findStackoverflow(userId)),
+  findGithub: userId => dispatch(findGithub(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -35,6 +48,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       if (this.props.codewars) this.props.findCodewars(this.props.userId)
       if (this.props.medium) this.props.findMedium(this.props.userId)
       if (this.props.hackernoon) this.props.findHackernoon(this.props.userId)
+      if (this.props.stackoverflow)
+        this.props.findStackoverflow(this.props.userId)
     }
     render() {
       const {
@@ -43,14 +58,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         generalCodewars,
         medium,
         mediumPosts,
-        hackernoonPosts
+        hackernoonPosts,
+        stackoverflowData
       } = this.props
       return (
         <div className="profile">
-          {/* <div className="info">
-            <div className="userImage" />
-            <div className="greenies" />
-          </div> */}
           <div className="stats">
             <div className="dataOne">
               <Codewars
@@ -66,7 +78,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 hackernoonPosts={hackernoonPosts || []}
                 medium={medium}
               />
-              <StackOverFlow />
+              <StackOverFlow stackoverflowData={stackoverflowData || []} />
             </div>
           </div>
         </div>

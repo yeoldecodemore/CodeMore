@@ -367,7 +367,6 @@ form div {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: lightblue;
 }
 
 .codewarsContainer {
@@ -508,7 +507,6 @@ form div {
 .stackoverflow {
   height: 60%;
   width: 100%;
-  background-color: yellow;
 }
 .medium {
   display: flex;
