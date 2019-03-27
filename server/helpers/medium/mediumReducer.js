@@ -16,7 +16,7 @@ const _mediumReducer = (response, userId) => [
     responses: curr.virtuals.responsesCreatedCount,
     claps: curr.virtuals.totalClapCount,
     readingList: curr.virtuals.readingList,
-    topic: curr.virtuals.topics.map(val => val.name),
+    topic: curr.virtuals.topics.map(val => val.name)[0],
     userId
   }))
 ]

@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const GET_CODEWAR = 'GET_CODEWAR'
-const getCodewars = codewarData => ({type: GET_CODEWAR, codewarData})
+const getCodewars = codewarsData => ({type: GET_CODEWAR, codewarsData})
 
 export const fetchCodewars = (userId, codewars) => async dispatch => {
   try {
@@ -30,7 +30,7 @@ export default (state = initialState, action) => {
         generalCodewars,
         codewarsLanguages,
         codewarsQuestions
-      } = action.codewarData
+      } = action.codewarsData
       return {
         ...state,
         generalCodewars,
