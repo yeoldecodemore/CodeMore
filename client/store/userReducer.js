@@ -9,13 +9,21 @@ const getUser = user => ({type: GET_USER, user})
 const REMOVE_USER = 'REMOVE_USER'
 const removeUser = () => ({type: REMOVE_USER})
 
+const UPDATE_STATS = 'UPDATE_STATS'
+const updateStats = () => ({type: UPDATE_STATS})
+
 export const updateUser = (userId, newUserData) => async dispatch => {
   const {data} = await axios.put(`/api/users/${userId}`, newUserData)
   dispatch(getUser(data))
 }
 
-export const updateUserStats = () => async dispatch => {
-  dispatch()
+export const updateUserStats = stuff => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/users/stats`, {stuff})
+    dispatch(updateStats(data))
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export const me = () => async dispatch => {

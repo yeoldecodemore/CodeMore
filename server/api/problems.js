@@ -19,17 +19,3 @@ router.get('/allTests', async (req, res, next) => {
     next(err)
   }
 })
-
-router.get('/:problemName', async (req, res, next) => {
-  try {
-    const probSlug = req.params.problemName
-    const problem = await Problem.findOne({
-      where: {
-        problemSlug: probSlug
-      }
-    })
-    res.json(problem)
-  } catch (error) {
-    next(error)
-  }
-})
