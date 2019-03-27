@@ -84,7 +84,11 @@ export const Github = connect(mapStateToProps, mapDispatchToProps)(
       // const commitDate = commits.length > 1 ? gitCommitFunc(commits) : [];
 
       return (
-        <div className="github">
+        <a
+          className="github"
+          href={`http://www.github.com/${this.props.userName}`}
+          target="_blank"
+        >
           <div className="githubLeft">
             <div>
               <h4> Most Recent Repo</h4>
@@ -106,7 +110,7 @@ export const Github = connect(mapStateToProps, mapDispatchToProps)(
           <div className="githubRight">
             <Bar data={data} height={250} options={options} />
           </div>
-        </div>
+        </a>
       )
     }
   }
