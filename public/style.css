@@ -602,8 +602,7 @@ ul {
   flex-wrap: wrap;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
-  color: #800080;
-  text-shadow: 1px 1px #000000;
+  color: white;
   font-size: 1.3em;
   font-weight: bold;
   padding: 5px;
