@@ -375,8 +375,8 @@ form div {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  color: purple;
-  background-color: rgba(211, 211, 211, 0.8);
+  background-color: grey;
+  color: white;
 }
 
 .githubLeft {
@@ -476,7 +476,7 @@ form div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #a93526;
+  background-color: rgba(211, 211, 211, 0.8);
 }
 .codewarsTop {
   display: flex;
@@ -604,8 +604,7 @@ ul {
   flex-wrap: wrap;
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
     'Lucida Sans', Arial, sans-serif;
-  color: #800080;
-  text-shadow: 1px 1px #000000;
+  color: white;
   font-size: 1.3em;
   font-weight: bold;
   padding: 5px;
@@ -658,7 +657,7 @@ ul {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: #ff9900;
+  background-color: rgba(211, 211, 211, 0.8);
 }
 .medium {
   display: flex;
@@ -668,7 +667,7 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding-bottom: 10px;
-  background-color: #00ff01;
+  background-color: grey;
 }
 .mediumTableDiv {
   background-color: white;
