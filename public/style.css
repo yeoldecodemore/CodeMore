@@ -154,9 +154,9 @@ nav a {
   text-align: center;
   margin-top: 0px;
   margin-bottom: 0px;
-  font-family: cursive;
+  /* font-family: cursive; */
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 14vh;
 }
 
@@ -172,12 +172,9 @@ nav a {
   line-height: 1.6em;
 }
 .navBtn {
-  width: 20vw;
-
   font-size: 2em;
-  /* background-color: tan; */
   color: black;
-  font-family: cursive;
+  /* font-family: cursive; */
 }
 
 .loggedinNavhead {
@@ -192,6 +189,7 @@ nav a {
 
 .LandingPage {
   background-image: url(images/medievallandscape.png);
+  background-color: purple;
   background-size: cover;
   width: 100vw;
   height: 90vh;
@@ -375,8 +373,8 @@ form div {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  color: purple;
-  background-color: rgba(211, 211, 211, 0.8);
+  color: white;
+  background-color: grey;
 }
 
 .githubLeft {
@@ -396,7 +394,7 @@ form div {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  color: black;
+  color: whitesmoke;
 }
 
 .githubOuter {
@@ -476,7 +474,7 @@ form div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #a93526;
+  background-color: rgba(211, 211, 211, 0.8);
 }
 .codewarsTop {
   display: flex;
@@ -658,7 +656,7 @@ ul {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: #ff9900;
+  background-color: rgba(211, 211, 211, 0.8);
 }
 .medium {
   display: flex;
@@ -668,7 +666,7 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding-bottom: 10px;
-  background-color: #00ff01;
+  background-color: grey;
 }
 .mediumTableDiv {
   background-color: white;
@@ -833,6 +831,7 @@ td {
 }
 .banner {
   background: url('./images/banner2.png');
+  font-family: cursive;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: 0px 20px;

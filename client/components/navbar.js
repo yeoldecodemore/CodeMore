@@ -17,22 +17,18 @@ export default withRouter(
       {!isLoggedIn && <h1 className="loggedoutNavhead banner">Codemore</h1>}
       {isLoggedIn ? (
         <nav>
-          {window.location.href
-            .split('/')
-            .splice(-1)
-            .includes('home') ? (
-            <Link to="/problems/backwards_array" className="navBtn">
-              Problems
-            </Link>
-          ) : (
-            <Link
-              to={{pathname: '/home', state: {prevPath: location.pathname}}}
-              className="navBtn"
-            >
-              Profile
-            </Link>
-          )}
           <h1 className="loggedinNavhead banner">Codemore</h1>
+
+          <Link to="/problems/backwards_array" className="navBtn">
+            Problems
+          </Link>
+          <Link
+            to={{pathname: '/home', state: {prevPath: location.pathname}}}
+            className="navBtn"
+          >
+            Profile
+          </Link>
+
           <a href="#" onClick={handleClick} className="navBtn">
             Logout
           </a>
