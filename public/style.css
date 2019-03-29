@@ -375,7 +375,7 @@ form div {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: grey;
+  background-color: rgb(124, 127, 046);
   color: white;
 }
 
@@ -476,7 +476,7 @@ form div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(211, 211, 211, 0.8);
+  background-color: rgba(211, 248, 100, 0.8);
 }
 .codewarsTop {
   display: flex;
@@ -657,7 +657,7 @@ ul {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(211, 211, 211, 0.8);
+  background-color: rgba(211, 248, 100, 0.8);
 }
 .medium {
   display: flex;
@@ -667,7 +667,7 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding-bottom: 10px;
-  background-color: grey;
+  background-color: rgb(124, 127, 46);
 }
 .mediumTableDiv {
   background-color: white;
