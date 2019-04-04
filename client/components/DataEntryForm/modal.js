@@ -77,18 +77,38 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         hackernoon
       })
       console.log(truthyData)
-      updateUser(userId, truthyData)
-
-      Object.keys(truthyData).forEach(async (category, index) => {
-        if (index === 0) {
-          await this.props.fetchGithub(userId, github)
-        }
-        await this.props[`fetch${_sentenceCase(category)}`](
-          userId,
-          truthyData[category]
-        )
-        this.props[`add${_sentenceCase(category)}`]('')
-      })
+      await updateUser(userId, truthyData)
+      await this.props.fetchGithub(userId, github)
+      if (codewars) {
+        console.log('codewars')
+        await this.props.fetchCodewars(userId, codewars)
+        await this.props.addCodewars('')
+      }
+      if (stackoverflow) {
+        console.log('so')
+        await this.props.fetchStackoverflow(userId, codewars)
+        await this.props.addStackoverflow('')
+      }
+      if (medium) {
+        console.log('medium')
+        await this.props.fetchMedium(userId, codewars)
+        await this.props.addMedium('')
+      }
+      if (hackernoon) {
+        console.log('hackernoon')
+        await this.props.fetchHackernoon(userId, codewars)
+        await this.props.addHackernoon('')
+      }
+      // Object.keys(truthyData).forEach(async (category, index) => {
+      //   if (index === 0) {
+      //     await this.props.fetchGithub(userId, github)
+      //   }
+      //   await this.props[`fetch${_sentenceCase(category)}`](
+      //     userId,
+      //     truthyData[category]
+      //   )
+      //   this.props[`add${_sentenceCase(category)}`]('')
+      // })
 
       ToastsStore.success(
         `Added usernames for ${Object.keys(truthyData).join(', ')}!`
