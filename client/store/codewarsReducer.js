@@ -12,6 +12,7 @@ const getCodewars = codewarsData => ({type: GET_CODEWAR, codewarsData})
 export const fetchCodewars = (userId, codewars) => async dispatch => {
   try {
     ToastsStore.success(`Fetched data for Codewars!`)
+    console.log('fetchcodewars')
     const {data} = await axios.get(`/api/codewars/${userId}/${codewars}`)
     return dispatch(getCodewars(data))
   } catch (error) {
