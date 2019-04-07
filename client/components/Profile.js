@@ -13,6 +13,7 @@ import {
   findGithub
 } from '../store/'
 import {ProfilePhoto} from './ProfilePhoto'
+import {mapIcon} from '../helperfuncs/mapIcon'
 
 const mapStateToProps = ({
   userReducer,
@@ -61,6 +62,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.props.findStackoverflow(this.props.userId)
     }
     render() {
+      const CodewarsLogo = mapIcon('codewars')
+      const MediumLogo = mapIcon('medium')
+      const Stackoverflow = mapIcon('stackoverflow')
+
       const {
         codewarsLanguages,
         codewarsQuestions,
@@ -76,6 +81,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         stackBadgeNetwork,
         stackPrivileges,
         stackDailyRep,
+        stackoverflow,
         github
       } = this.props
       console.log(github)
@@ -84,40 +90,60 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           <ProfilePhoto />
           <div className="stats">
             <div className="dataOne">
-              <Codewars
-                codewarsLanguages={
-                  codewarsLanguages.length ? codewarsLanguages : []
-                }
-                codewarsQuestions={
-                  codewarsQuestions.length ? codewarsQuestions : []
-                }
-                generalCodewars={
-                  Object.keys(generalCodewars).length ? generalCodewars : {}
-                }
-                codewars={codewars}
-              />
+              {codewars ? (
+                <Codewars
+                  codewarsLanguages={
+                    codewarsLanguages.length ? codewarsLanguages : []
+                  }
+                  codewarsQuestions={
+                    codewarsQuestions.length ? codewarsQuestions : []
+                  }
+                  generalCodewars={
+                    Object.keys(generalCodewars).length ? generalCodewars : {}
+                  }
+                  codewars={codewars}
+                />
+              ) : (
+                <div className="codewarsContainer">
+                  <CodewarsLogo className="codewarsLogo" />
+                </div>
+              )}
               <Github githubData={githubData} userName={github} />
             </div>
             <div className="dataTwo">
-              <Medium
-                mediumPosts={mediumPosts.length ? mediumPosts : [{claps: 0}]}
-                hackernoonPosts={
-                  hackernoonPosts.length ? hackernoonPosts : [{claps: 0}]
-                }
-                medium={medium}
-              />
-              <StackOverflow
-                generalStack={
-                  Object.keys(generalStack).length ? generalStack : {}
-                }
-                stackBadges={stackBadges.length ? stackBadges : []}
-                stackTopTags={stackTopTags.length ? stackTopTags : []}
-                stackBadgeNetwork={
-                  stackBadgeNetwork.length ? stackBadgeNetwork : []
-                }
-                stackPrivileges={stackPrivileges.length ? stackPrivileges : []}
-                stackDailyRep={stackDailyRep.length ? stackDailyRep : []}
-              />
+              {medium ? (
+                <Medium
+                  mediumPosts={mediumPosts.length ? mediumPosts : [{claps: 0}]}
+                  hackernoonPosts={
+                    hackernoonPosts.length ? hackernoonPosts : [{claps: 0}]
+                  }
+                  medium={medium}
+                />
+              ) : (
+                <div className="mediumDefault">
+                  <MediumLogo className="stLogo" />
+                </div>
+              )}
+              {stackoverflow ? (
+                <StackOverflow
+                  generalStack={
+                    Object.keys(generalStack).length ? generalStack : {}
+                  }
+                  stackBadges={stackBadges.length ? stackBadges : []}
+                  stackTopTags={stackTopTags.length ? stackTopTags : []}
+                  stackBadgeNetwork={
+                    stackBadgeNetwork.length ? stackBadgeNetwork : []
+                  }
+                  stackPrivileges={
+                    stackPrivileges.length ? stackPrivileges : []
+                  }
+                  stackDailyRep={stackDailyRep.length ? stackDailyRep : []}
+                />
+              ) : (
+                <div className="stackoverflow">
+                  <Stackoverflow className="stackLogo" />
+                </div>
+              )}
             </div>
           </div>
         </div>

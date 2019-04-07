@@ -859,3 +859,18 @@ h1 .banner {
 .stackImage {
   justify-content: flex-end;
 }
+
+.mediumDefault {
+  display: flex;
+  height: 40%;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+  background-color: rgb(124, 127, 46);
+}
+
+.stlogo {
+  display: flex;
+}
