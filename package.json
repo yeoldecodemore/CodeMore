@@ -75,7 +75,7 @@
     "request-promise": "^4.2.4",
     "semantic-ui-react": "^0.86.0",
     "sequelize": "^4.38.0",
-    "socket.io": "^2.1.1",
+    "socket.io": "^2.4.0",
     "vm2": "^3.6.10"
   },
   "devDependencies": {
